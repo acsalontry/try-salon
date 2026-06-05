@@ -36,8 +36,8 @@ nav{position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid
 .cta-box p{font-size:14px;opacity:.8;margin-bottom:20px;color:white}
 .cta-btn{display:inline-flex;align-items:center;gap:8px;background:#06c755;color:white;font-size:15px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none}
 .toc{background:var(--bg-gray);border-radius:4px;padding:24px;margin-bottom:36px;border:1px solid var(--border)}
-.toc-title{font-size:13px;font-weight:700;color:var(--main);letter-spacing:.1em;margin-bottom:16px}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.toc-title{font-size:13px;font-weight:700;color:var(--main);letter-spacing:.1em;margin-bottom:16px;display:block;width:100%}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px;width:100%}
 .toc-list a{font-size:13px;color:var(--text-soft);text-decoration:none;display:flex;gap:8px;align-items:flex-start;transition:color .2s}
 .toc-list a::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--main);flex-shrink:0;margin-top:8px}
 .related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
@@ -51,7 +51,7 @@ nav{position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid
 .sidebar{position:sticky;top:80px}
 .sidebar-toc{background:var(--bg-gray);border-radius:4px;padding:20px;border:1px solid var(--border)}
 .sidebar-toc-title{font-size:12px;font-weight:700;color:var(--main);letter-spacing:.1em;margin-bottom:14px}
-.sidebar-toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sidebar.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px;width:100%}
 .sidebar-toc-list a{font-size:12px;color:var(--text-soft);text-decoration:none;display:flex;gap:6px;align-items:flex-start;line-height:1.5;transition:color .2s}
 .sidebar-toc-list a::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--main);flex-shrink:0;margin-top:6px}
 .sidebar-cta{background:#2d3151;border-radius:4px;padding:20px;text-align:center;margin-top:20px}
