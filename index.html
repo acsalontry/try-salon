@@ -678,6 +678,30 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 }
 .__icon--opened { opacity: 0; }
 .__icon--closed { opacity: 1; position: relative; }
+/* icomoonフォント未読込のため、CSSで開閉用の矢印（シェブロン）を描画 */
+.swell-block-accordion__icon .__icon--closed,
+.swell-block-accordion__icon .__icon--opened { display: none !important; }
+.swell-block-accordion__icon {
+  position: relative;
+  width: 1.25em;
+  height: 1.25em;
+}
+.swell-block-accordion__icon::before {
+  content: "";
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  width: 0.5em;
+  height: 0.5em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 0.25s;
+}
+details[open] > summary .swell-block-accordion__icon::before,
+.swell-block-accordion__icon[data-opened="true"]::before {
+  transform: translate(-50%, -30%) rotate(-135deg);
+}
 /* 濃紺セクション内のアコーディオン見出しを白文字に */
 .swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title,
 .swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label,
@@ -832,7 +856,7 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 
 
 
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/2.png" alt="" class="wp-image-4852 size-full" style="object-position:96% 46%" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/vas-dashboard.png" alt="VASスコアによる施術効果の可視化" class="wp-image-4852 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <p class="has-large-font-size wp-block-paragraph"><strong>データで効果が見える、唯一の眼精疲労鍼灸</strong></p>
 
 
@@ -843,18 +867,14 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="900" height="600" src="/images/9-1.png" alt="実際のお客様のスッキリ度" class="wp-image-4886" /><figcaption class="wp-element-caption">実際のお客様のスッキリ度</figcaption></figure>
-
-
-
-<p class="wp-block-paragraph"><br>施術前と比べて<strong>平均で約2倍スッキリ</strong>した状態へ。<br>改善の度合いを、あなた自身の目で確認できます。<br><span style="font-size:13px" class="swl-fz">（※11名・33件の施術データに基づく／2026年5月時点）</span></p>
+<p class="wp-block-paragraph"><br>施術前と比べて<strong>平均で約2倍スッキリ</strong>した状態へ。<br>改善の度合いを、あなた自身の目で確認できます。</p>
 </div></details>
 </div>
 </div></div>
 
 
 
-<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile is-image-fill-element is-style-card"><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile is-image-fill-element is-style-card" style="grid-template-columns:auto 45%"><div class="wp-block-media-text__content">
 <p class="has-large-font-size wp-block-paragraph"><strong>タイプを見極めて、本当の原因にアプローチ</strong></p>
 
 
@@ -865,10 +885,6 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="900" height="600" src="/images/feature-treatment.png" alt="タイプ別の原因特定" class="wp-image-4887" style="border-radius:8px;" /></figure>
-
-
-
 <p class="wp-block-paragraph"><br>TRYは医学的根拠をもとに眼精疲労のタイプを見極め、<br><strong>本当の原因に対しての施術を行います。</strong><br>温めるだけ・揉むだけのケアとは、根本から違います。</p>
 </div></details>
 </div>
@@ -876,7 +892,7 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 
 
 
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/clinic-reception.png" alt="リウマチ膠原病と痛みの専門クリニック" class="wp-image-4968 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/clinic-reception.png" alt="リウマチ膠原病と痛みの専門クリニック" class="wp-image-4968 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <p class="has-large-font-size wp-block-paragraph"><strong>医療現場の知見が支える、安心の専門施術</strong></p>
 
 
@@ -884,10 +900,6 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 <div class="swell-block-accordion">
 <details class="swell-block-accordion__item" data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label">膠原病内科に勤める院長が施術</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="false"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
 <p class="wp-block-paragraph">TRYの院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながら、鍼灸院TRYを運営しています。</p>
-
-
-
-<figure class="wp-block-image size-full"><img decoding="async" width="1600" height="1200" src="/images/clinic-collaboration.png" alt="リウマチ膠原病専門クリニック 光中央診療所" class="wp-image-4974" style="border-radius:8px;" /></figure>
 
 
 
