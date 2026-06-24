@@ -691,6 +691,16 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 .swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__icon {
   color: #ffffff;
 }
+/* カード型（is-style-card）内のアコーディオンは明るい背景なので濃紺文字に上書き */
+.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__title,
+.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__label,
+.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__label strong,
+.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__icon {
+  color: #2d3151;
+}
+.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__title {
+  border-bottom: 1px solid rgba(45,49,81,0.25);
+}
 </style>
 </head>
 <body data-rsssl=1>
