@@ -848,6 +848,48 @@ details[open] > summary .swell-block-accordion__icon::before,
 }
 .try-reviews__more:hover { background: #2d3151; color: #fff; }
 .try-reviews__more-wrap { text-align: center; }
+/* ===== 「TRYから皆様へ 3つの約束」濃紺背景セクションの可読性 ===== */
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title,
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label,
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__body,
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__body p {
+  color: #fff !important;
+}
+.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-border_left {
+  border-left-color: rgba(255,255,255,.55) !important;
+}
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__item {
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+/* 3つの約束：JS非依存の常時表示ブロック */
+.try-promises { display: flex; flex-direction: column; gap: 1.5em; }
+.try-promise {
+  border-left: 3px solid rgba(255,255,255,.55);
+  padding-left: 1.1em;
+}
+.try-promise__title {
+  display: flex; align-items: center; gap: .6em;
+  color: #fff; font-weight: 700; font-size: 1.12em;
+  line-height: 1.5; margin: 0 0 .5em;
+}
+.try-promise__num {
+  flex: 0 0 auto; width: 1.7em; height: 1.7em;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: #fff; color: #2d3151;
+  font-size: .85em; font-weight: 700; line-height: 1;
+}
+.try-promise__body {
+  color: rgba(255,255,255,.92); font-size: .95em;
+  line-height: 1.85; margin: 0;
+}
+/* 3つの約束：画像＋テキストの2カラム配置 */
+.try-promise-cols .swell-block-columns__inner { align-items: center; gap: 2.5em; }
+.try-promise-cols .swell-block-column { background: transparent !important; box-shadow: none !important; }
+@media (min-width: 960px) {
+  .try-promise-cols .swell-block-columns__inner { flex-wrap: nowrap; }
+  .try-promise-cols .swell-block-column:first-child { flex: 0 0 42%; }
+  .try-promise-cols .swell-block-column:last-child { flex: 1 1 auto; }
+}
 @media (min-width: 768px) {
   .try-review-card { padding: 1.75em 2em 1.85em; }
   .try-review-card__body { font-size: .95em; }
@@ -1147,30 +1189,25 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
-<div class="swell-block-columns is-style-clmn-shadow"><div class="swell-block-columns__inner">
+<div class="swell-block-columns try-promise-cols"><div class="swell-block-columns__inner">
 <div class="swell-block-column swl-has-mb--s" data-valign="center"><div class="wp-block-image u-lb-off">
-<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/09/6.png" alt="" class="wp-image-4686" style="aspect-ratio:1.3333333333333333;object-fit:cover;width:544px;height:auto" /></figure>
+<figure class="aligncenter size-full is-resized"><img decoding="async" width="600" height="800" src="/images/profile.jpg" alt="鍼灸院TRY 院長 古賀勇帆" class="wp-image-4686" style="object-fit:cover;width:100%;max-width:420px;height:auto;border-radius:12px;" /></figure>
 </div></div>
 
 
 
-<div class="swell-block-column swl-has-mb--s animated fadeInDown">
-<div class="swell-block-accordion is-style-default">
-<details class="swell-block-accordion__item is-opened animated pulse o-anim-hover" open data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label"><span style="--the-icon-svg: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgd2lkdGg9IjFlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWhpZGRlbj0idHJ1ZSIgdmlld0JveD0iMCAwIDI1NiA1MTIiPjxwYXRoIGQ9Ik0xNjAgNjRjMC0xMS44LTYuNS0yMi42LTE2LjktMjguMnMtMjMtNS0zMi45IDEuNmwtOTYgNjRDLS41IDExMS4yLTQuNCAxMzEgNS40IDE0NS44czI5LjcgMTguNyA0NC40IDguOUw5NiAxMjMuOFY0MTZIMzJjLTE3LjcgMC0zMiAxNC4zLTMyIDMyczE0LjMgMzIgMzIgMzJoOTYgOTZjMTcuNyAwIDMyLTE0LjMgMzItMzJzLTE0LjMtMzItMzItMzJIMTYwVjY0eiI+PC9wYXRoPjwvc3ZnPg==)" data-icon="Fas1one" data-id="0" aria-hidden="true" class="swl-inline-icon"> </span>プロとして、お体の改善プランを提案します。</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="true"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
-<p class="is-style-border_left wp-block-paragraph">お体の状態に最適なプランを提案します。<br>通いやすくなるサブスクプランや回数券もありますが、無理な次回予約などは行いませんので、ご安心下さい。</p>
-</div></details>
-
-
-
-<details class="swell-block-accordion__item is-opened animated pulse o-anim-hover" open data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label"><span style="--the-icon-svg: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgd2lkdGg9IjFlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWhpZGRlbj0idHJ1ZSIgdmlld0JveD0iMCAwIDMyMCA1MTIiPjxwYXRoIGQ9Ik0xNDIuOSA5NmMtMjEuNSAwLTQyLjIgOC41LTU3LjQgMjMuOEw1NC42IDE1MC42Yy0xMi41IDEyLjUtMzIuOCAxMi41LTQ1LjMgMHMtMTIuNS0zMi44IDAtNDUuM0w0MC4yIDc0LjVDNjcuNSA0Ny4zIDEwNC40IDMyIDE0Mi45IDMyQzIyMyAzMiAyODggOTcgMjg4IDE3Ny4xYzAgMzguNS0xNS4zIDc1LjQtNDIuNSAxMDIuNkwxMDkuMyA0MTZIMjg4YzE3LjcgMCAzMiAxNC4zIDMyIDMycy0xNC4zIDMyLTMyIDMySDMyYy0xMi45IDAtMjQuNi03LjgtMjkuNi0xOS44cy0yLjItMjUuNyA2LjktMzQuOUwyMDAuMiAyMzQuNWMxNS4yLTE1LjIgMjMuOC0zNS45IDIzLjgtNTcuNGMwLTQ0LjgtMzYuMy04MS4xLTgxLjEtODEuMXoiPjwvcGF0aD48L3N2Zz4=)" data-icon="Fas2two" data-id="0" aria-hidden="true" class="swl-inline-icon"> </span>医学に基づく信頼性の高い施術を提供します。</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="true"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
-<p class="is-style-border_left wp-block-paragraph">医学に基づく論理的な施術を行います。<br>常にドクター方と働き医療の中にいることで、この職業の言葉の重みを感じています。</p>
-</div></details>
-
-
-
-<details class="swell-block-accordion__item is-opened animated pulse o-anim-hover" open data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label"><span style="--the-icon-svg: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgd2lkdGg9IjFlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWhpZGRlbj0idHJ1ZSIgdmlld0JveD0iMCAwIDQ0OCA1MTIiPjxwYXRoIGQ9Ik02NCA2NGMwLTE3LjcgMTQuMy0zMiAzMi0zMkgzMzZjMTMuMiAwIDI1IDguMSAyOS44IDIwLjRzMS41IDI2LjMtOC4yIDM1LjJMMjI2LjMgMjA4SDI0OGM3NS4xIDAgMTM2IDYwLjkgMTM2IDEzNnMtNjAuOSAxMzYtMTM2IDEzNkgxNjkuNGMtNDIuNCAwLTgxLjItMjQtMTAwLjItNjEuOWwtMS45LTMuOGMtNy45LTE1LjgtMS41LTM1IDE0LjMtNDIuOXMzNS0xLjUgNDIuOSAxNC4zbDEuOSAzLjhjOC4xIDE2LjMgMjQuOCAyNi41IDQyLjkgMjYuNUgyNDhjMzkuOCAwIDcyLTMyLjIgNzItNzJzLTMyLjItNzItNzItNzJIMTQ0Yy0xMy4yIDAtMjUtOC4xLTI5LjgtMjAuNHMtMS41LTI2LjMgOC4yLTM1LjJMMjUzLjcgOTZIOTZDNzguMyA5NiA2NCA4MS43IDY0IDY0eiI+PC9wYXRoPjwvc3ZnPg==)" data-icon="Fas3three" data-id="0" aria-hidden="true" class="swl-inline-icon"> </span>丁寧で居心地の良い空間をお届けします。</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="true"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
-<p class="is-style-border_left wp-block-paragraph">プライベートサロンであるため、初めは緊張すると思いますが、リラックスして施術を受けてほしい欲しいという想いから温かく丁寧にお出迎えします。</p>
-</div></details>
+<div class="swell-block-column swl-has-mb--s try-promises">
+<div class="try-promise">
+<p class="try-promise__title"><span class="try-promise__num">1</span>プロとして、お体の改善プランを提案します。</p>
+<p class="try-promise__body">お体の状態に最適なプランを提案します。通いやすくなるサブスクプランや回数券もありますが、無理な次回予約などは行いませんので、ご安心下さい。</p>
+</div>
+<div class="try-promise">
+<p class="try-promise__title"><span class="try-promise__num">2</span>医学に基づく、信頼性の高い施術を提供します。</p>
+<p class="try-promise__body">医学に基づく論理的な施術を行います。常にドクター方と働き、医療の現場にいることで、この職業の言葉の重みを感じています。</p>
+</div>
+<div class="try-promise">
+<p class="try-promise__title"><span class="try-promise__num">3</span>丁寧で、居心地の良い空間をお届けします。</p>
+<p class="try-promise__body">プライベートサロンであるため、初めは緊張されるかもしれません。リラックスして施術を受けていただきたいという想いから、温かく丁寧にお出迎えします。</p>
 </div>
 </div>
 </div></div>
