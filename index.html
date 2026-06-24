@@ -111,8 +111,8 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&#038;display=swap" rel="stylesheet">
 <noscript><link href="https://salontry.com/wp-content/themes/swell/build/css/noscript.css" rel="stylesheet"></noscript>
 <link rel='shortlink' href='https://salontry.com/' />
-<link rel="icon" href="https://salontry.com/wp-content/uploads/2024/10/cropped-S__76087337_0-removebg-preview-1-32x32.png" sizes="32x32" />
-<link rel="icon" href="https://salontry.com/wp-content/uploads/2024/10/cropped-S__76087337_0-removebg-preview-1-192x192.png" sizes="192x192" />
+<link rel="icon" href="https://salontry.com/wp-content/uploads/2024/10/cropped-S__76087337_0-removebg-preview-1-32x32.png" />
+<link rel="icon" href="https://salontry.com/wp-content/uploads/2024/10/cropped-S__76087337_0-removebg-preview-1-192x192.png" />
 <link rel="apple-touch-icon" href="https://salontry.com/wp-content/uploads/2024/10/cropped-S__76087337_0-removebg-preview-1-180x180.png" />
 <meta name="msapplication-TileImage" content="https://salontry.com/wp-content/uploads/2024/10/cropped-S__76087337_0-removebg-preview-1-270x270.png" />
 <style id="wp-custom-css">
@@ -633,11 +633,57 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 /*# sourceURL=core-block-supports-inline-css */
 </style>
 
+<style>
+/* ── アコーディオン修正CSS (JS不要版) ── */
+/* detailsのデフォルト動作を使う: open属性があれば表示 */
+details[data-swl-acc="wrapper"] > div[data-swl-acc="body"] {
+  overflow: hidden;
+  transition: padding 0.25s, opacity 0.25s;
+}
+/* 閉じているとき: height:0 をoverrideしない（SWELLCSSは :not(.is-opened) で height:0 を付ける） */
+/* 代わりにdetails[open]で確実に表示させる */
+details[data-swl-acc="wrapper"][open] > div[data-swl-acc="body"] {
+  height: auto !important;
+  opacity: 1 !important;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+  visibility: visible !important;
+}
+details[data-swl-acc="wrapper"]:not([open]) > div[data-swl-acc="body"] {
+  height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  visibility: hidden !important;
+}
+/* サマリーのデフォルトマーカーを非表示 */
+details[data-swl-acc="wrapper"] > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
+  display: none;
+}
+/* アイコン切り替え */
+.c-switchIconBtn[data-opened="false"] .__icon--opened { opacity: 0; transform: scale(0.5) rotate(-180deg); }
+.c-switchIconBtn[data-opened="false"] .__icon--closed { opacity: 1; transform: scale(1) rotate(0); }
+.c-switchIconBtn[data-opened="true"] .__icon--closed  { opacity: 0; transform: scale(0.5) rotate(180deg); }
+.c-switchIconBtn[data-opened="true"] .__icon--opened  { opacity: 1; transform: scale(1) rotate(0); }
+.__icon--closed, .__icon--opened {
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  width: 100%;
+}
+.__icon--opened { opacity: 0; }
+.__icon--closed { opacity: 1; position: relative; }
+</style>
 </head>
 <body data-rsssl=1>
 
 <div id="body_wrap" class="home wp-singular page-template-default page page-id-1253 wp-theme-swell wp-child-theme-swell_child -body-solid -index-off -sidebar-off -frame-off top id_1253" >
-<nav style="position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid #e5e5e5;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none"><img src="/images/logo.png" alt="鍼灸院TRY" style="height:36px;width:auto"></a><ul style="display:flex;gap:24px;list-style:none;margin:0;padding:0"><li><a href="/blog/" style="font-size:13px;color:#666;text-decoration:none">ブログ</a></li><li><a href="https://salontry.com/%e8%87%aa%e5%b7%b1%e7%b4%b9%e4%bb%8b/" style="font-size:13px;color:#666;text-decoration:none">院長紹介</a></li><li><a href="https://salontry.com/%e6%96%bd%e8%a1%93%e5%86%85%e5%ae%b9-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc/" style="font-size:13px;color:#666;text-decoration:none">施術/メニュー</a></li><li><a href="https://salontry.com/%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f-%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9/" style="font-size:13px;color:#666;text-decoration:none">よくある質問/アクセス</a></li></ul><a href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener" style="background:#06c755;color:white;font-size:12px;font-weight:700;padding:8px 18px;border-radius:4px;text-decoration:none">LINEから初回体験</a></nav><div id="main_visual" class="p-mainVisual -type-movie -height-set"><div class="p-mainVisual__inner c-filterLayer -filter-blur"><div class="p-mainVisual__imgLayer c-filterLayer__img"><picture><source media="(max-width: 768px)" srcset="/images/hero-sp.jpg"><img src="/images/hero-pc.jpg" alt="鍼灸院TRY" style="width:100%;height:100%;object-fit:cover;display:block;"></picture></div><div class="p-mainVisual__textLayer l-container l-parent u-ta-r" style="color:#ffffff;text-shadow:1px 1px 0px rgba(0, 0, 0, 0.2 )"><div class="p-blogParts post_content" data-partsID="2253"><p class="has-text-align-center o-anim-hover wp-block-paragraph"><strong><span style="font-size:32px" class="swl-fz">眼 精 疲 労 を 根 本 改 善 </span></strong><br><strong><span class="swl-fz u-fz-xl">T R Y に お 任 せ く だ さ い ！ </span></strong></p><div class="swell-block-button green_ -size-s is-style-btn_shiny" style="--the-fz:1.3em"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span><span class="swl-fz u-fz-l">公式LINEで<br>特別価格でご案内！</span></span></a></div><p class="has-text-align-center o-anim-hover wp-block-paragraph"></p></div></div><button class="p-mainVisual__scroll c-plainBtn" data-onclick="scrollToContent" style="color:#ffffff"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" class="p-mainVisual__scrollArrow"><path d="M5.9,14.4l-2.9,5C3,19.5,3,19.6,3,19.8c0,0.1,0.1,0.2,0.2,0.3l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.3-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1,0-0.3,0-0.4,0.1L40,33.5L6.7,14.2 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,14.2,6,14.3,5.9,14.4z"/><path d="M5.9,39.1l-2.9,5c-0.1,0.3-0.1,0.6,0.2,0.7l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.2-0.1,0.2-0.2,0.2-0.3s0-0.2-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2l0,0c-0.1,0-0.3,0-0.4,0.1L40,58.1L6.7,38.9 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,38.8,6,38.9,5.9,39.1z"/></svg><span class="p-mainVisual__scrollLabel">Scroll</span></button></div></div><div id="content" class="l-content l-container" data-postid="1253">
+<nav style="position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid #e5e5e5;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none"><img src="/images/logo.png" alt="鍼灸院TRY" style="height:36px;width:auto"></a><ul style="display:flex;gap:24px;list-style:none;margin:0;padding:0"><li><a href="/blog/" style="font-size:13px;color:#666;text-decoration:none">ブログ</a></li><li><a href="https://salontry.com/%e8%87%aa%e5%b7%b1%e7%b4%b9%e4%bb%8b/" style="font-size:13px;color:#666;text-decoration:none">院長紹介</a></li><li><a href="https://salontry.com/%e6%96%bd%e8%a1%93%e5%86%85%e5%ae%b9-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc/" style="font-size:13px;color:#666;text-decoration:none">施術/メニュー</a></li><li><a href="https://salontry.com/%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f-%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9/" style="font-size:13px;color:#666;text-decoration:none">よくある質問/アクセス</a></li></ul><a href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener" style="background:#06c755;color:white;font-size:12px;font-weight:700;padding:8px 18px;border-radius:4px;text-decoration:none">LINEから初回体験</a></nav><div id="main_visual" class="p-mainVisual -type-movie -height-set"><div class="p-mainVisual__inner c-filterLayer -filter-blur"><div class="p-mainVisual__imgLayer c-filterLayer__img"><picture><source media="(max-width: 768px)"><img src="/images/hero-pc.jpg" alt="鍼灸院TRY" style="width:100%;height:100%;object-fit:cover;display:block;"></picture></div><div class="p-mainVisual__textLayer l-container l-parent u-ta-r" style="color:#ffffff;text-shadow:1px 1px 0px rgba(0, 0, 0, 0.2 )"><div class="p-blogParts post_content" data-partsID="2253"><p class="has-text-align-center o-anim-hover wp-block-paragraph"><strong><span style="font-size:32px" class="swl-fz">眼 精 疲 労 を 根 本 改 善 </span></strong><br><strong><span class="swl-fz u-fz-xl">T R Y に お 任 せ く だ さ い ！ </span></strong></p><div class="swell-block-button green_ -size-s is-style-btn_shiny" style="--the-fz:1.3em"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span><span class="swl-fz u-fz-l">公式LINEで<br>特別価格でご案内！</span></span></a></div><p class="has-text-align-center o-anim-hover wp-block-paragraph"></p></div></div><button class="p-mainVisual__scroll c-plainBtn" data-onclick="scrollToContent" style="color:#ffffff"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" class="p-mainVisual__scrollArrow"><path d="M5.9,14.4l-2.9,5C3,19.5,3,19.6,3,19.8c0,0.1,0.1,0.2,0.2,0.3l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.3-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1,0-0.3,0-0.4,0.1L40,33.5L6.7,14.2 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,14.2,6,14.3,5.9,14.4z"/><path d="M5.9,39.1l-2.9,5c-0.1,0.3-0.1,0.6,0.2,0.7l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.2-0.1,0.2-0.2,0.2-0.3s0-0.2-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2l0,0c-0.1,0-0.3,0-0.4,0.1L40,58.1L6.7,38.9 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,38.8,6,38.9,5.9,39.1z"/></svg><span class="p-mainVisual__scrollLabel">Scroll</span></button></div></div><div id="content" class="l-content l-container" data-postid="1253">
 <main id="main_content" class="l-mainContent l-article">
 	<div class="l-mainContent__inner">
 				<div class="post_content">
@@ -700,7 +746,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken pc_only has-white-background-color has-background" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="682" src="https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_4-2-1024x682.jpg" alt="" class="wp-image-4106 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_4-2-1024x682.jpg 1024w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_4-2-300x200.jpg 300w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_4-2-768x511.jpg 768w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_4-2-1536x1023.jpg 1536w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_4-2.jpg 1568w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken pc_only has-white-background-color has-background" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="682" src="/images/LINE_ALBUM_20231128_240221_4-2-1024x682.jpg" alt="" class="wp-image-4106 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <h3 class="wp-block-heading has-text-align-center is-style-border_left is-style-section_ttl has-large-font-size">目のスッキリがずーっと続く<br>日常を届けたい。</h3>
 
 
@@ -728,7 +774,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 <div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="3bff0ce2"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
 </div></div>
-</div><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="700" src="https://salontry.com/wp-content/uploads/2025/10/初回-チェック説明-1-1.png" alt="" class="wp-image-4778 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/10/初回-チェック説明-1-1.png 900w, https://salontry.com/wp-content/uploads/2025/10/初回-チェック説明-1-1-300x233.png 300w, https://salontry.com/wp-content/uploads/2025/10/初回-チェック説明-1-1-768x597.png 768w" sizes="(max-width: 900px) 100vw, 900px" /></figure></div>
+</div><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="700" src="https://salontry.com/wp-content/uploads/2025/10/初回-チェック説明-1-1.png" alt="" class="wp-image-4778 size-full" style="object-position:50% 50%" /></figure></div>
 
 
 
@@ -747,7 +793,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 <div class="swell-block-columns is-style-clmn-shadow"><div class="swell-block-columns__inner">
 <div class="swell-block-column swl-has-mb--s" data-valign="center"><div class="wp-block-image">
-<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/09/7-2.png" alt="" class="wp-image-4693" style="width:494px;height:auto" srcset="https://salontry.com/wp-content/uploads/2025/09/7-2.png 760w, https://salontry.com/wp-content/uploads/2025/09/7-2-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="/images/7-2.png" alt="" class="wp-image-4693" style="width:494px;height:auto" /></figure>
 </div></div>
 
 
@@ -811,7 +857,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 <div class="swell-block-columns is-style-clmn-shadow"><div class="swell-block-columns__inner">
 <div class="swell-block-column swl-has-mb--s" data-valign="center"><div class="wp-block-image">
-<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/09/7-2.png" alt="" class="wp-image-4693" style="width:494px;height:auto" srcset="https://salontry.com/wp-content/uploads/2025/09/7-2.png 760w, https://salontry.com/wp-content/uploads/2025/09/7-2-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="/images/7-2.png" alt="" class="wp-image-4693" style="width:494px;height:auto" /></figure>
 </div></div>
 
 
@@ -914,7 +960,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/11/2.png" alt="" class="wp-image-4852 size-full" style="object-position:96% 46%" srcset="https://salontry.com/wp-content/uploads/2025/11/2.png 900w, https://salontry.com/wp-content/uploads/2025/11/2-300x200.png 300w, https://salontry.com/wp-content/uploads/2025/11/2-768x512.png 768w" sizes="(max-width: 900px) 100vw, 900px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/2.png" alt="" class="wp-image-4852 size-full" style="object-position:96% 46%" /></figure><div class="wp-block-media-text__content">
 <p class="has-large-font-size wp-block-paragraph"><strong>改善率１９４％の独自施術</strong></p>
 
 
@@ -925,7 +971,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/11/9-1.png" alt="" class="wp-image-4886" srcset="https://salontry.com/wp-content/uploads/2025/11/9-1.png 900w, https://salontry.com/wp-content/uploads/2025/11/9-1-300x200.png 300w, https://salontry.com/wp-content/uploads/2025/11/9-1-768x512.png 768w" sizes="(max-width: 900px) 100vw, 900px" /><figcaption class="wp-element-caption">実際のお客様のスッキリ度</figcaption></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/11/9-1.png" alt="" class="wp-image-4886" /><figcaption class="wp-element-caption">実際のお客様のスッキリ度</figcaption></figure>
 
 
 
@@ -947,18 +993,18 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/11/ホームページ素材.png" alt="" class="wp-image-4887" srcset="https://salontry.com/wp-content/uploads/2025/11/ホームページ素材.png 900w, https://salontry.com/wp-content/uploads/2025/11/ホームページ素材-300x200.png 300w, https://salontry.com/wp-content/uploads/2025/11/ホームページ素材-768x512.png 768w" sizes="(max-width: 900px) 100vw, 900px" /><figcaption class="wp-element-caption">実際の評価表</figcaption></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/11/ホームページ素材.png" alt="" class="wp-image-4887" /><figcaption class="wp-element-caption">実際の評価表</figcaption></figure>
 
 
 
 <p class="wp-block-paragraph"><br>1ヶ月ごとに再測定し、疲労要因の変化に合わせて施術方針を調整します。<br>「変化を見える化しながら改善を続ける」<br>TRYの月次リセットシステムが、<br><strong>結果の出る“継続改善”</strong>を実現します。</p>
 </div></details>
 </div>
-</div><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/11/1.png" alt="" class="wp-image-4853 size-full" style="object-position:92% 58%" srcset="https://salontry.com/wp-content/uploads/2025/11/1.png 900w, https://salontry.com/wp-content/uploads/2025/11/1-300x200.png 300w, https://salontry.com/wp-content/uploads/2025/11/1-768x512.png 768w" sizes="(max-width: 900px) 100vw, 900px" /></figure></div>
+</div><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/1.png" alt="" class="wp-image-4853 size-full" style="object-position:92% 58%" /></figure></div>
 
 
 
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/12/ホームページ素材-6.png" alt="" class="wp-image-4968 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/12/ホームページ素材-6.png 900w, https://salontry.com/wp-content/uploads/2025/12/ホームページ素材-6-300x200.png 300w, https://salontry.com/wp-content/uploads/2025/12/ホームページ素材-6-768x512.png 768w" sizes="(max-width: 900px) 100vw, 900px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="https://salontry.com/wp-content/uploads/2025/12/ホームページ素材-6.png" alt="" class="wp-image-4968 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <p class="has-large-font-size wp-block-paragraph">タイプ別に施術を提案</p>
 
 
@@ -969,7 +1015,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="1600" height="1200" src="https://salontry.com/wp-content/uploads/2025/12/TRY_Day2_02_Unified-1.png" alt="" class="wp-image-4974" srcset="https://salontry.com/wp-content/uploads/2025/12/TRY_Day2_02_Unified-1.png 1600w, https://salontry.com/wp-content/uploads/2025/12/TRY_Day2_02_Unified-1-300x225.png 300w, https://salontry.com/wp-content/uploads/2025/12/TRY_Day2_02_Unified-1-1024x768.png 1024w, https://salontry.com/wp-content/uploads/2025/12/TRY_Day2_02_Unified-1-768x576.png 768w, https://salontry.com/wp-content/uploads/2025/12/TRY_Day2_02_Unified-1-1536x1152.png 1536w" sizes="(max-width: 1600px) 100vw, 1600px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="1600" height="1200" src="/images/TRY_Day2_02_Unified-1.png" alt="" class="wp-image-4974" /></figure>
 
 
 
@@ -997,49 +1043,49 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 <div class="wp-block-group alignfull loop-slider u-mb-ctrl u-mb-50"><div class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained">
 <div class="alignfull swell-block-columns" style="--clmn-w--pc:12.5%;--clmn-w--mobile:33.33%;--swl-clmn-mrgn--x:8px"><div class="swell-block-columns__inner">
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/10/40分-5-1.png" alt="" class="wp-image-4784" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2025/10/40分-5-1.png 760w, https://salontry.com/wp-content/uploads/2025/10/40分-5-1-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/10/40分-5-1.png" alt="" class="wp-image-4784" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/11.jpg" alt="" class="wp-image-1654" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/11.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/11-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="/images/11.jpg" alt="" class="wp-image-1654" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/6.jpg" alt="" class="wp-image-1647" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/6.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/6-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="/images/6.jpg" alt="" class="wp-image-1647" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/19.jpg" alt="" class="wp-image-1655" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/19.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/19-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="/images/19.jpg" alt="" class="wp-image-1655" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/7-1.jpg" alt="" class="wp-image-1656" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/7-1.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/7-1-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/7-1.jpg" alt="" class="wp-image-1656" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/15.jpg" alt="" class="wp-image-1650" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/15.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/15-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/15.jpg" alt="" class="wp-image-1650" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/14.jpg" alt="" class="wp-image-1645" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/14.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/14-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/14.jpg" alt="" class="wp-image-1645" style="width:400px;height:auto" /></figure>
 </div>
 
 
 
 <div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/18-1.jpg" alt="" class="wp-image-1657" style="width:400px;height:auto" srcset="https://salontry.com/wp-content/uploads/2024/10/18-1.jpg 760w, https://salontry.com/wp-content/uploads/2024/10/18-1-300x213.jpg 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="wp-block-image size-full is-resized loop-slider is-style-default"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2024/10/18-1.jpg" alt="" class="wp-image-1657" style="width:400px;height:auto" /></figure>
 </div>
 </div></div>
 </div></div>
@@ -1118,7 +1164,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 <div class="swell-block-columns is-style-clmn-shadow"><div class="swell-block-columns__inner">
 <div class="swell-block-column swl-has-mb--s" data-valign="center"><div class="wp-block-image u-lb-off">
-<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/09/6.png" alt="" class="wp-image-4686" style="aspect-ratio:1.3333333333333333;object-fit:cover;width:544px;height:auto" srcset="https://salontry.com/wp-content/uploads/2025/09/6.png 760w, https://salontry.com/wp-content/uploads/2025/09/6-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure>
+<figure class="aligncenter size-full is-resized"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/09/6.png" alt="" class="wp-image-4686" style="aspect-ratio:1.3333333333333333;object-fit:cover;width:544px;height:auto" /></figure>
 </div></div>
 
 
@@ -1154,7 +1200,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 <div class="swell-block-step is-style-big" data-num-style="vertical">
 <div class="swell-block-step__item"><div class="swell-block-step__number" style="color:#000"><span class="__label">STEP</span></div><div class="swell-block-step__title u-fz-l">カウンセリング</div><div class="swell-block-step__body">
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/07/3-3.png" alt="" class="wp-image-4154 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/07/3-3.png 760w, https://salontry.com/wp-content/uploads/2025/07/3-3-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="760" height="540" src="/images/3-3.png" alt="" class="wp-image-4154 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <div class="wp-block-group has-white-background-color has-background"><div class="wp-block-group__inner-container">
 <p class="has-large-font-size wp-block-paragraph"><span class="swl-fz u-fz-s">目の疲れ方や生活習慣、体の不調について丁寧にお伺いします。<br>問診票とチェックシートを使い、眼精疲労の原因や生活習慣との関係を整理していきます。</span></p>
 </div></div>
@@ -1164,7 +1210,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 <div class="swell-block-step__item"><div class="swell-block-step__number" style="color:#000"><span class="__label">STEP</span></div><div class="swell-block-step__title u-fz-l">現状を見える化</div><div class="swell-block-step__body">
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="599" src="https://salontry.com/wp-content/uploads/2025/11/IMG_0796-1024x599.jpg" alt="" class="wp-image-4910 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/11/IMG_0796-1024x599.jpg 1024w, https://salontry.com/wp-content/uploads/2025/11/IMG_0796-300x175.jpg 300w, https://salontry.com/wp-content/uploads/2025/11/IMG_0796-768x449.jpg 768w, https://salontry.com/wp-content/uploads/2025/11/IMG_0796.jpg 1206w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="599" src="/images/IMG_0796-1024x599.jpg" alt="" class="wp-image-4910 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <div class="wp-block-group has-white-background-color has-background"><div class="wp-block-group__inner-container">
 <p class="has-large-font-size wp-block-paragraph"><span class="swl-fz u-fz-s">VASスケールを用いた見える化評価で、疲労度を数値でも把握します。どのように眼精疲労が根本改善してくかを丁寧に説明して行きます。</span></p>
 </div></div>
@@ -1174,7 +1220,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 <div class="swell-block-step__item"><div class="swell-block-step__number" style="color:#000"><span class="__label">STEP</span></div><div class="swell-block-step__title u-fz-l">施術</div><div class="swell-block-step__body">
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/10/40分-5-2.png" alt="" class="wp-image-4789 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/10/40分-5-2.png 760w, https://salontry.com/wp-content/uploads/2025/10/40分-5-2-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/10/40分-5-2.png" alt="" class="wp-image-4789 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <div class="wp-block-group has-white-background-color has-background"><div class="wp-block-group__inner-container">
 <p class="has-large-font-size wp-block-paragraph"><span class="swl-fz u-fz-s">くるみ灸・電気鍼・手技を組み合わせ、<br>目の奥の緊張や首・肩まわりのこわばりを和らげます。<br>視界がスッと明るくなり、頭や体が軽くなる感覚を実感できます。</span></p>
 </div></div>
@@ -1184,7 +1230,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 <div class="swell-block-step__item"><div class="swell-block-step__number" style="color:#000"><span class="__label">STEP</span></div><div class="swell-block-step__title u-fz-l">再評価</div><div class="swell-block-step__body">
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="682" src="https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_7-1024x682.jpg" alt="" class="wp-image-4034 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_7-1024x682.jpg 1024w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_7-300x200.jpg 300w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_7-768x511.jpg 768w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_7-1536x1023.jpg 1536w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_7.jpg 1568w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="682" src="/images/LINE_ALBUM_20231128_240221_7-1024x682.jpg" alt="" class="wp-image-4034 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <div class="wp-block-group has-white-background-color has-background"><div class="wp-block-group__inner-container">
 <p class="has-large-font-size wp-block-paragraph"><span class="swl-fz u-fz-s">施術後に、疲労度を再確認します。<br>VASスケールでの変化を一緒に見ながら、施術前後の違いを客観的に振り返ります。</span></p>
 </div></div>
@@ -1194,7 +1240,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 <div class="swell-block-step__item"><div class="swell-block-step__number" style="color:#000"><span class="__label">STEP</span></div><div class="swell-block-step__title u-fz-l">今後のプラン説明</div><div class="swell-block-step__body">
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="683" src="https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_5-1024x683.jpg" alt="" class="wp-image-4040 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_5-1024x683.jpg 1024w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_5-300x200.jpg 300w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_5-768x512.jpg 768w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_5-1536x1025.jpg 1536w, https://salontry.com/wp-content/uploads/2025/07/LINE_ALBUM_20231128_240221_5.jpg 1568w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="683" src="/images/LINE_ALBUM_20231128_240221_5-1024x683.jpg" alt="" class="wp-image-4040 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <div class="wp-block-group has-white-background-color has-background"><div class="wp-block-group__inner-container">
 <p class="has-large-font-size wp-block-paragraph"><span class="swl-fz u-fz-s">施術結果をもとに、眼精疲労を改善するために最適なプランを生活リズムや症状に合わせてご案内します。<br>TRYでは無理な継続を勧めず、改善に必要な方針を丁寧に共有します。</span></p>
 </div></div>
@@ -1204,7 +1250,7 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 
 
 <div class="swell-block-step__item"><div class="swell-block-step__number u-col-main"><span class="__label">STEP</span></div><div class="swell-block-step__title u-fz-l">継続ご希望の場合</div><div class="swell-block-step__body">
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/11/40分-1-1.png" alt="" class="wp-image-4912 size-full" style="object-position:50% 50%" srcset="https://salontry.com/wp-content/uploads/2025/11/40分-1-1.png 760w, https://salontry.com/wp-content/uploads/2025/11/40分-1-1-300x213.png 300w" sizes="(max-width: 760px) 100vw, 760px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken"><figure class="wp-block-media-text__media"><img decoding="async" width="760" height="540" src="https://salontry.com/wp-content/uploads/2025/11/40分-1-1.png" alt="" class="wp-image-4912 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
 <div class="wp-block-group has-white-background-color has-background"><div class="wp-block-group__inner-container">
 <p class="has-large-font-size wp-block-paragraph"><span class="swl-fz u-fz-s">当院の施術で効果を実感し眼精疲労を根本改善するために、初回以降下の流れで施術を行います。</span><br><strong><br></strong><span class="swl-fz u-fz-s">①初回施術<span class="swl-fz u-fz-xs">（所要時間40分）</span></span><span class="swl-fz u-fz-s"><br>②2週に1回〜週1回施術</span><span style="font-size:12px" class="swl-fz">＊目安</span><span class="swl-fz u-fz-s"><span class="swl-fz u-fz-xs">（所要時間20分）</span><br>③一ヶ月毎にプラン見直し</span><br><br><strong><span class="swl-fz u-fz-s"><span class="swl-marker mark_yellow">眼精疲労のプロフェッショナルがスッキリした目がずーっと続くようにサポートしていきます。</span></span><br></strong><span class="swl-fz u-fz-s"><br></span></p>
 </div></div>
@@ -1429,12 +1475,47 @@ margin: 0 auto;             /* コンテンツ中央寄せ */}
 var swellVars = {"siteUrl":"https://salontry.com/","restUrl":"https://salontry.com/wp-json/wp/v2/","ajaxUrl":"https://salontry.com/wp-admin/admin-ajax.php","ajaxNonce":"745459ff5b","isLoggedIn":"","useAjaxAfterPost":"1","useAjaxFooter":"1","usePvCount":"1","isFixHeadSP":"1","tocListTag":"ol","tocTarget":"h3","tocPrevText":"\u524d\u306e\u30da\u30fc\u30b8\u3078","tocNextText":"\u6b21\u306e\u30da\u30fc\u30b8\u3078","tocCloseText":"\u6298\u308a\u305f\u305f\u3080","tocOpenText":"\u3082\u3063\u3068\u898b\u308b","tocOmitType":"ct","tocOmitNum":"15","tocMinnum":"2","tocAdPosition":"before","offSmoothScroll":"1"};
 //# sourceURL=swell_script-js-extra
 </script>
-<script id="swell_script-js" src="https://salontry.com/wp-content/themes/swell/build/js/main.min.js?ver=2.12.0"></script>
-<script id="swell_set_mv-js" src="https://salontry.com/wp-content/themes/swell/build/js/front/set_mv.min.js?ver=2.12.0"></script>
-<script id="otter-animation-frontend-js" src="https://salontry.com/wp-content/plugins/blocks-animation/build/animation/frontend.js?ver=ae60f70d6e7261b91c62"></script>
-<script id="swell_set_fix_header-js" src="https://salontry.com/wp-content/themes/swell/build/js/front/set_fix_header.min.js?ver=2.12.0"></script>
-<script id="swell_count_CTR-js" src="https://salontry.com/wp-content/themes/swell/build/js/front/count_CTR.min.js?ver=2.12.0"></script>
-<script id="swell_accordion-js" src="https://salontry.com/wp-content/themes/swell/build/js/front/accordion.min.js?ver=2.12.0"></script>
+<script>
+// アコーディオン: details/summary ネイティブ動作 + アニメーション + アイコン切り替え
+document.addEventListener('DOMContentLoaded', function() {
+  // swell-block-accordion の各item を処理
+  document.querySelectorAll('details[data-swl-acc="wrapper"]').forEach(function(details) {
+    var summary = details.querySelector('summary[data-swl-acc="header"]');
+    var body = details.querySelector('[data-swl-acc="body"]');
+    var icon = details.querySelector('[data-swl-acc="icon"]');
+
+    // 初期状態で is-opened の場合は open 属性を付与
+    if (details.classList.contains('is-opened')) {
+      details.setAttribute('open', '');
+      if (icon) icon.setAttribute('data-opened', 'true');
+    }
+
+    summary.addEventListener('click', function(e) {
+      e.preventDefault();
+      var isOpen = details.hasAttribute('open');
+      if (isOpen) {
+        // 閉じる
+        details.removeAttribute('open');
+        details.classList.remove('is-opened');
+        if (icon) icon.setAttribute('data-opened', 'false');
+      } else {
+        // 開く
+        details.setAttribute('open', '');
+        details.classList.add('is-opened');
+        if (icon) icon.setAttribute('data-opened', 'true');
+      }
+    });
+  });
+
+  // スクロール先へのリンク
+  document.querySelectorAll('[data-onclick="scrollToContent"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var content = document.getElementById('content');
+      if (content) content.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+});
+</script>
 
 <!-- JSON-LD @SWELL -->
 <script type="application/ld+json">{"@context": "https://schema.org","@graph": [{"@type":"Organization","@id":"https:\/\/salontry.com\/#organization","name":"鍼灸マッサージ院TRY","url":"https:\/\/salontry.com\/","logo":{"@type":"ImageObject","url":"https:\/\/salontry.com\/wp-content\/uploads\/2024\/01\/cropped-ロゴ_背景あり-removebg-preview.png","width":512,"height":512},"founder":{"@type":"Person","name":"古賀健太"}},{"@type":"WebSite","@id":"https:\/\/salontry.com\/#website","url":"https:\/\/salontry.com\/","name":"【眼精疲労専門】鍼灸院TRY | 目に特化した鍼灸で、眼精疲労を根本改善","description":"桜木町駅徒歩３分ある鍼灸マッサージ院 TRY。２つのプランであなたの身体の悩みを解消していきます。","potentialAction":{"@type":"SearchAction","target":"https:\/\/salontry.com\/?s={s}","query-input":"name=s required"}}]}</script>
