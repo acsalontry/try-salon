@@ -678,6 +678,19 @@ details[data-swl-acc="wrapper"] > summary::-webkit-details-marker {
 }
 .__icon--opened { opacity: 0; }
 .__icon--closed { opacity: 1; position: relative; }
+/* 濃紺セクション内のアコーディオン見出しを白文字に */
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title,
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label,
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label strong {
+  color: #ffffff;
+}
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title {
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding: 0.75em 0.25em;
+}
+.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__icon {
+  color: #ffffff;
+}
 </style>
 </head>
 <body data-rsssl=1>
