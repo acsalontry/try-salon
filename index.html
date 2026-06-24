@@ -725,6 +725,68 @@ details[open] > summary .swell-block-accordion__icon::before,
 .swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__title {
   border-bottom: 1px solid rgba(45,49,81,0.25);
 }
+/* ===== 理由とは？セクションの特徴カード（案A：画像上＋本文常時表示） ===== */
+.try-feature-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  max-width: 880px;
+  margin: 2.5em auto 0;
+}
+.try-feature-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  color: #333;
+}
+.try-feature-card__media {
+  width: 100%;
+  background: #f4f6f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.try-feature-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+  object-fit: contain;
+}
+.try-feature-card__body {
+  padding: 1.75em 1.75em 2em;
+}
+.try-feature-card__label {
+  display: inline-block;
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: #2d3151;
+  border-radius: 999px;
+  padding: 0.35em 1.1em;
+  margin-bottom: 1em;
+}
+.try-feature-card__title {
+  font-size: 1.35em;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #2d3151;
+  margin: 0 0 0.75em;
+}
+.try-feature-card__text {
+  font-size: 1em;
+  line-height: 1.85;
+  margin: 0 0 1em;
+}
+.try-feature-card__text:last-child { margin-bottom: 0; }
+.try-feature-card__text strong { color: #2d3151; }
+.try-feature-card__text a { color: #2d3151; text-decoration: underline; }
+@media (min-width: 768px) {
+  .try-feature-card__body { padding: 2em 2.5em 2.25em; }
+  .try-feature-card__title { font-size: 1.5em; }
+}
 </style>
 </head>
 <body data-rsssl=1>
@@ -856,57 +918,39 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/vas-dashboard.png" alt="VASスコアによる施術効果の可視化" class="wp-image-4852 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
-<p class="has-large-font-size wp-block-paragraph"><strong>データで効果が見える、唯一の眼精疲労鍼灸</strong></p>
+<div class="try-feature-cards">
 
-
-
-<div class="swell-block-accordion">
-<details class="swell-block-accordion__item" data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label">感覚ではなく数字で証明</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="false"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
-<p class="wp-block-paragraph">サプリも目薬もホットアイマスクも「なんとなく良くなった気がする」で終わりがち。<br>TRYはVASスケール（自覚症状の数値化）で施術前後を計測し、自社開発アプリ「ハリミエ」にグラフで蓄積します。</p>
-
-
-
-<p class="wp-block-paragraph"><br>施術前と比べて<strong>平均で約2倍スッキリ</strong>した状態へ。<br>改善の度合いを、あなた自身の目で確認できます。</p>
-</div></details>
+<div class="try-feature-card">
+<div class="try-feature-card__media"><img src="/images/vas-dashboard.png" alt="VASスコアによる施術効果の可視化" loading="lazy" /></div>
+<div class="try-feature-card__body">
+<span class="try-feature-card__label">感覚ではなく数字で証明</span>
+<p class="try-feature-card__title">データで効果が見える、唯一の眼精疲労鍼灸</p>
+<p class="try-feature-card__text">サプリも目薬もホットアイマスクも「なんとなく良くなった気がする」で終わりがち。TRYはVASスケール（自覚症状の数値化）で施術前後を計測し、自社開発アプリ「ハリミエ」にグラフで蓄積します。</p>
+<p class="try-feature-card__text">施術前と比べて<strong>平均で約2倍スッキリ</strong>した状態へ。改善の度合いを、あなた自身の目で確認できます。</p>
 </div>
-</div></div>
-
-
-
-<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile is-image-fill-element is-style-card" style="grid-template-columns:auto 45%"><div class="wp-block-media-text__content">
-<p class="has-large-font-size wp-block-paragraph"><strong>タイプを見極めて、本当の原因にアプローチ</strong></p>
-
-
-
-<div class="swell-block-accordion">
-<details class="swell-block-accordion__item" data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label">あなたの原因を特定してから施術</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="false"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
-<p class="wp-block-paragraph">眼精疲労の原因は人それぞれ。<br>毛様体筋の緊張による血流低下なのか、自律神経の乱れなのか——</p>
-
-
-
-<p class="wp-block-paragraph"><br>TRYは医学的根拠をもとに眼精疲労のタイプを見極め、<br><strong>本当の原因に対しての施術を行います。</strong><br>温めるだけ・揉むだけのケアとは、根本から違います。</p>
-</div></details>
 </div>
-</div><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/type-screening.png" alt="タイプ別 原因スクリーニング" class="wp-image-4853 size-full" style="object-position:50% 50%" /></figure></div>
 
-
-
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-card" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="600" src="/images/clinic-reception.png" alt="リウマチ膠原病と痛みの専門クリニック" class="wp-image-4968 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
-<p class="has-large-font-size wp-block-paragraph"><strong>医療現場の知見が支える、安心の専門施術</strong></p>
-
-
-
-<div class="swell-block-accordion">
-<details class="swell-block-accordion__item" data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label">膠原病内科に勤める院長が施術</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="false"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body">
-<p class="wp-block-paragraph">TRYの院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながら、鍼灸院TRYを運営しています。</p>
-
-
-
-<p class="wp-block-paragraph"><br>眼精疲労の裏に潜む自己免疫疾患や慢性炎症も医学的視点で見極め、<br><strong>必要に応じてクリニックと連携します。</strong></p>
-</div></details>
+<div class="try-feature-card">
+<div class="try-feature-card__media"><img src="/images/type-screening.png" alt="タイプ別 原因スクリーニング" loading="lazy" /></div>
+<div class="try-feature-card__body">
+<span class="try-feature-card__label">あなたの原因を特定してから施術</span>
+<p class="try-feature-card__title">タイプを見極めて、本当の原因にアプローチ</p>
+<p class="try-feature-card__text">眼精疲労の原因は人それぞれ。毛様体筋の緊張による血流低下なのか、自律神経の乱れなのか——。</p>
+<p class="try-feature-card__text">TRYは医学的根拠をもとに眼精疲労のタイプを見極め、<strong>本当の原因に対しての施術を行います。</strong>温めるだけ・揉むだけのケアとは、根本から違います。</p>
 </div>
-</div></div>
+</div>
+
+<div class="try-feature-card">
+<div class="try-feature-card__media"><img src="/images/clinic-reception.png" alt="リウマチ膠原病と痛みの専門クリニック" loading="lazy" /></div>
+<div class="try-feature-card__body">
+<span class="try-feature-card__label">膠原病内科に勤める院長が施術</span>
+<p class="try-feature-card__title">医療現場の知見が支える、安心の専門施術</p>
+<p class="try-feature-card__text">TRYの院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながら、鍼灸院TRYを運営しています。</p>
+<p class="try-feature-card__text">眼精疲労の裏に潜む自己免疫疾患や慢性炎症も医学的視点で見極め、<strong>必要に応じてクリニックと連携します。</strong></p>
+</div>
+</div>
+
+</div>
 
 
 
