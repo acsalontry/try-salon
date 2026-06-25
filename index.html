@@ -344,6 +344,39 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 }
 .try-price p{ font-size: clamp(14px,1.8vw,16px); }
 
+/* 料金プラン：動画を外したスッキリ版レイアウト */
+.try-pricing{ max-width: 920px; margin: 0 auto; }
+.try-pricing__cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px,2.2vw,28px);
+  align-items: stretch;
+}
+@media (max-width: 767px){
+  .try-pricing__cards{ grid-template-columns: 1fr; }
+}
+.try-pricing .try-price{
+  display: flex; flex-direction: column;
+  margin: 0;
+}
+.try-price__name{
+  font-size: clamp(15px,1.9vw,17px); font-weight: 700;
+  color: var(--try-dark); margin: 0 0 4px; line-height: 1.4;
+}
+.try-price__name span{ font-size: .9em; }
+.try-price__amount{
+  font-size: clamp(28px,4vw,38px); font-weight: 800;
+  color: var(--try-dark); line-height: 1.1; margin: 0 0 12px;
+  display: flex; align-items: baseline; gap: 2px; flex-wrap: wrap;
+}
+.try-price__yen{ font-size: .5em; font-weight: 700; }
+.try-price__tax{ font-size: .38em; font-weight: 500; opacity: .7; margin-left: 2px; }
+.try-price__desc{
+  font-size: clamp(13px,1.7vw,15px); line-height: 1.85;
+  color: #555; margin: 0;
+}
+.try-pricing__cta{ margin-top: clamp(28px,4vw,40px) !important; }
+
 /* =========================
    9) FAQ（詳細ブロック）
    ========================= */
@@ -946,6 +979,11 @@ details[open] > summary .swell-block-accordion__icon::before,
 <iframe title="30代 看護師さん" width="422" height="750" src="https://www.youtube.com/embed/ZZP_WPMdFSA?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div></figure>
 </div>
+<div class="swell-block-column swl-has-mb--s">
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<iframe title="施術紹介" width="422" height="750" src="https://www.youtube.com/embed/kUVb634oRP8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></figure>
+</div>
 </div></div>
 
 
@@ -1118,6 +1156,11 @@ details[open] > summary .swell-block-accordion__icon::before,
 <iframe title="30代 看護師さん" width="422" height="750" src="https://www.youtube.com/embed/ZZP_WPMdFSA?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div></figure>
 </div>
+<div class="swell-block-column swl-has-mb--s">
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<iframe title="施術紹介" width="422" height="750" src="https://www.youtube.com/embed/kUVb634oRP8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></figure>
+</div>
 </div></div>
 
 
@@ -1230,27 +1273,21 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
-<div class="swell-block-columns"><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="施術紹介" width="422" height="750" src="https://www.youtube.com/embed/kUVb634oRP8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
+<div class="try-pricing">
+<div class="try-pricing__cards">
+<div class="try-price -primary">
+<p class="try-price__name">初回50分 <span>目特化コース</span></p>
+<p class="try-price__amount">8,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
+<p class="try-price__desc">目に特化したコースです。くるみ灸と電気鍼によるTRY独自の施術で、目の奥のモヤモヤ感や重だるさを集中的にケア。続けることで“眼精疲労”を解消していきます。</p>
 </div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<p class="has-border -border01 is-style-bg_stripe wp-block-paragraph"><strong>初回50分 目特化コース 8,000円<span class="swl-fz u-fz-s">(税込)</span></strong><br>目に特化にしたコースです。<br>くるみ灸と電気鍼によるTRY独自の施術で、目の奥のモヤモヤ感や重だるさを集中的にケア。<br>続けることで“眼精疲労”を解消していきます。</p>
-
-
-
-<p class="is-style-bg_stripe wp-block-paragraph"><strong>初回80分 目＋体コース 15,000円<span class="swl-fz u-fz-s">(税込)</span></strong><br>全身をケアするコースです。<br>くるみ灸と電気鍼によるTRY独自の施術で、目の奥のモヤモヤ感や重だるさを集中的にケア。<br>続けることで“眼精疲労”だけでなく、体の不調を解消していきます。</p>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="b16edd14"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
+<div class="try-price">
+<p class="try-price__name">初回80分 <span>目＋体コース</span></p>
+<p class="try-price__amount">15,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
+<p class="try-price__desc">全身をケアするコースです。くるみ灸と電気鍼によるTRY独自の施術で、目の奥のモヤモヤ感や重だるさを集中的にケア。続けることで“眼精疲労”だけでなく、体の不調も解消していきます。</p>
 </div>
-</div></div>
+</div>
+<div class="swell-block-button green_ is-style-btn_shiny try-pricing__cta" style="--the-fz:1.3em" data-id="b16edd14"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
+</div>
 
 
 
