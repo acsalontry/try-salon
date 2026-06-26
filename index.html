@@ -356,35 +356,15 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   font-weight:800; font-size:14px;
 }
 
-/* 施術の流れ：写真つきステップカード（PC=写真左固定） */
-.try-fstep{ max-width: 920px; margin: 0 auto; display:flex; flex-direction:column; gap: clamp(16px,2.4vw,24px); }
+/* 施術の流れ：縦構成ステップカード（タイトル→写真→説明） */
+.try-fstep{ max-width: 720px; margin: 0 auto; display:flex; flex-direction:column; gap: clamp(16px,2.4vw,24px); }
 .try-fstep__step{
-  display:grid; grid-template-columns: 320px 1fr;
   background: var(--try-white); border-radius: var(--try-radius);
   overflow:hidden; box-shadow: var(--try-shadow);
-  align-items:stretch;
-}
-.try-fstep__photo{
-  position:relative; min-height: 240px; background: var(--try-gray, #F8F9FA); overflow:hidden;
-}
-.try-fstep__photo img{
-  width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;
-}
-.try-fstep__num{
-  position:absolute; top:14px; left:14px; z-index:2;
-  min-width:46px; height:46px; padding:0 6px; border-radius:999px;
-  background: var(--try-mint); color:#fff;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  font-weight:800; line-height:1; box-shadow:0 4px 12px rgba(0,0,0,.25);
-}
-.try-fstep__num small{ font-size:8.5px; letter-spacing:.08em; opacity:.9; margin-bottom:2px; }
-.try-fstep__body{
-  padding: clamp(22px,3vw,36px);
-  display:flex; flex-direction:column; justify-content:center;
-  border-left: 1px solid #eef1f4;
+  padding: clamp(20px,3vw,28px);
 }
 .try-fstep__ttl{
-  font-size: clamp(17px,2.3vw,21px); font-weight:800; color: var(--try-dark);
+  font-size: clamp(18px,2.4vw,22px); font-weight:800; color: var(--try-dark);
   margin: 0 0 16px; padding-bottom: 14px; line-height:1.4;
   display:flex; align-items:center; flex-wrap:wrap; gap:8px;
   border-bottom: 2px solid var(--try-mint);
@@ -393,13 +373,23 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   display:inline-block; background: rgba(77,182,172,.12); color:#3a9a90;
   font-size:11px; font-weight:700; padding:3px 11px; border-radius:999px;
 }
+.try-fstep__photo{
+  position:relative; width:100%; aspect-ratio: 16/10; overflow:hidden;
+  border-radius:14px; background: var(--try-gray, #F8F9FA); margin-bottom:18px;
+}
+.try-fstep__photo img{
+  width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;
+}
+.try-fstep__num{
+  position:absolute; top:12px; left:12px; z-index:2;
+  min-width:46px; height:46px; padding:0 6px; border-radius:999px;
+  background: var(--try-mint); color:#fff;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-weight:800; line-height:1; box-shadow:0 4px 12px rgba(0,0,0,.25);
+}
+.try-fstep__num small{ font-size:8.5px; letter-spacing:.08em; opacity:.9; margin-bottom:2px; }
 .try-fstep__txt{
   font-size: clamp(13px,1.7vw,15px); line-height:1.9; color:#555; margin:0;
-}
-@media (max-width: 767px){
-  .try-fstep__step{ grid-template-columns: 1fr; }
-  .try-fstep__photo{ min-height: 0; aspect-ratio: 16/10; }
-  .try-fstep__body{ border-left: none; border-top: 1px solid #eef1f4; }
 }
 
 /* =========================
@@ -1314,7 +1304,7 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="cdf26c32"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
+<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em;margin-top:2.5em" data-id="cdf26c32"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
 
 
 
@@ -1399,39 +1389,29 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 <div class="try-fstep">
 <div class="try-fstep__step">
-<div class="try-fstep__photo"><img src="/images/flow-counseling.jpg" alt="カウンセリングの様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>1</span></div>
-<div class="try-fstep__body">
 <h3 class="try-fstep__ttl">カウンセリング</h3>
+<div class="try-fstep__photo"><img src="/images/flow-counseling.jpg" alt="カウンセリングの様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>1</span></div>
 <p class="try-fstep__txt">目の疲れ方や生活習慣、体の不調について丁寧にお伺いします。問診票とチェックシートを使い、眼精疲労の原因や生活習慣との関係を整理していきます。</p>
 </div>
-</div>
 <div class="try-fstep__step">
-<div class="try-fstep__photo"><img src="/images/vas-dashboard.png" alt="VASスケールによる見える化評価" loading="lazy"><span class="try-fstep__num"><small>STEP</small>2</span></div>
-<div class="try-fstep__body">
 <h3 class="try-fstep__ttl">現状を見える化<span class="try-fstep__tag">VASスケール</span></h3>
+<div class="try-fstep__photo"><img src="/images/vas-dashboard.png" alt="VASスケールによる見える化評価" loading="lazy"><span class="try-fstep__num"><small>STEP</small>2</span></div>
 <p class="try-fstep__txt">VASスケールを用いた見える化評価で、疲労度を数値でも把握します。どのように眼精疲労が根本改善していくかを丁寧に説明していきます。</p>
 </div>
-</div>
 <div class="try-fstep__step">
-<div class="try-fstep__photo"><img src="/images/flow-kyukyu.jpg" alt="くるみ灸と電気鍼による施術の様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>3</span></div>
-<div class="try-fstep__body">
 <h3 class="try-fstep__ttl">施術</h3>
+<div class="try-fstep__photo"><img src="/images/flow-kyukyu.jpg" alt="くるみ灸と電気鍼による施術の様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>3</span></div>
 <p class="try-fstep__txt">くるみ灸・電気鍼を組み合わせ、目の奥の緊張や首・肩まわりのこわばりを和らげます。視界がスッと明るくなり、頭や体がスッキリする感覚を実感できます。</p>
 </div>
-</div>
 <div class="try-fstep__step">
-<div class="try-fstep__photo"><img src="/images/flow-review.jpg" alt="施術後の再評価の様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>4</span></div>
-<div class="try-fstep__body">
 <h3 class="try-fstep__ttl">再評価<span class="try-fstep__tag">VASスケール</span></h3>
+<div class="try-fstep__photo"><img src="/images/flow-review.jpg" alt="施術後の再評価の様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>4</span></div>
 <p class="try-fstep__txt">施術後に、疲労度を再確認します。VASスケールでの変化を一緒に見ながら、施術前後の違いを客観的に振り返ります。</p>
 </div>
-</div>
 <div class="try-fstep__step">
-<div class="try-fstep__photo"><img src="/images/flow-plan.jpg" alt="今後のプランをご説明する様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>5</span></div>
-<div class="try-fstep__body">
 <h3 class="try-fstep__ttl">今後のプラン説明</h3>
+<div class="try-fstep__photo"><img src="/images/flow-plan.jpg" alt="今後のプランをご説明する様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>5</span></div>
 <p class="try-fstep__txt">施術結果をもとに、眼精疲労を改善するために最適なプランを生活リズムや症状に合わせてご案内します。TRYでは無理な継続を勧めず、改善に必要な方針を丁寧に共有します。</p>
-</div>
 </div>
 </div>
 </div></div>
