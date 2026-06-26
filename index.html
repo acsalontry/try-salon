@@ -40,28 +40,36 @@ html { scroll-behavior: smooth; }
   background:#fdfdfd; border-bottom:1px solid #e5e5e5;
   box-shadow:0 1px 4px rgba(0,0,0,.08);
   height:60px; display:flex; align-items:center; justify-content:space-between;
-  padding:0 clamp(12px,3vw,40px); gap:10px;
+  padding:0 16px; gap:10px;
 }
 .try-nav__logo{ display:flex; align-items:center; text-decoration:none; flex:0 0 auto; }
-.try-nav__logo img{ height:clamp(28px,7vw,36px); width:auto; display:block; }
+.try-nav__logo img{ height:32px; width:auto; display:block; }
 .try-nav__links{
-  display:flex; gap:clamp(12px,3vw,24px); list-style:none; margin:0; padding:0;
+  display:flex; gap:18px; list-style:none; margin:0; padding:0;
   flex:1 1 auto; justify-content:center;
 }
 .try-nav__links a{
-  font-size:clamp(12px,3.4vw,14px); color:#555; text-decoration:none;
+  font-size:13px; color:#555; text-decoration:none;
   white-space:nowrap; font-weight:500;
 }
 .try-nav__links a:hover{ color:var(--try-mint,#4DB6AC); }
 .try-nav__cta{
   flex:0 0 auto; background:#06c755; color:#fff;
-  font-size:clamp(11px,3vw,12px); font-weight:700; line-height:1.25;
-  padding:8px clamp(10px,2.5vw,18px); border-radius:6px; text-decoration:none;
+  font-size:12px; font-weight:700; line-height:1.25;
+  padding:8px 14px; border-radius:6px; text-decoration:none;
   white-space:nowrap; text-align:center;
 }
-@media (max-width:480px){
+@media (min-width:768px){
+  .try-nav{ padding:0 40px; }
+  .try-nav__logo img{ height:36px; }
+  .try-nav__links{ gap:24px; }
+  .try-nav__links a{ font-size:14px; }
+}
+@media (max-width:360px){
   .try-nav{ padding:0 10px; gap:6px; }
-  .try-nav__links{ gap:14px; }
+  .try-nav__links{ gap:12px; }
+  .try-nav__links a{ font-size:12px; }
+  .try-nav__cta{ font-size:11px; padding:8px 10px; }
 }
 
 /* アクセス：地図と動画を常時表示（タブ廃止のJS非依存版） */
@@ -1443,7 +1451,7 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
-<div id="access" class="swell-block-fullWide pc-py-20 sp-py-20 alignfull" style="color:#fff;background-color:#2d3151"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="swell-block-fullWide__SVG -top" role="presentation" style="height:4vw"><path d="M50,0C22.39,0,0,44.77,0,100h100C100,44.77,77.61,0,50,0z" stroke-width="0" fill="#2d3151"></path></svg><div class="swell-block-fullWide__inner l-article">
+<div class="swell-block-fullWide pc-py-20 sp-py-20 alignfull" style="color:#fff;background-color:#2d3151"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="swell-block-fullWide__SVG -top" role="presentation" style="height:4vw"><path d="M50,0C22.39,0,0,44.77,0,100h100C100,44.77,77.61,0,50,0z" stroke-width="0" fill="#2d3151"></path></svg><div class="swell-block-fullWide__inner l-article">
 <h2 class="wp-block-heading is-style-section_ttl"><strong><span class="swl-fz u-fz-l">眼精疲労にお悩みのあなたへ</span></strong></h2>
 
 
@@ -1494,6 +1502,7 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 <div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="489c65c0"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
 </div></div>
+<div id="access" aria-hidden="true" style="height:0"></div>
 
 
 
