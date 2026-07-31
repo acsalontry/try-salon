@@ -28,7 +28,10 @@ nav{position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid
 .post-card{background:var(--bg);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:box-shadow .2s;display:block}
 .post-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
 .post-card.hidden{display:none}
-.post-thumb{height:160px;background:linear-gradient(135deg,#2d3151,#4f5452);display:flex;align-items:center;justify-content:center;font-size:40px}
+.post-thumb{height:160px;background:linear-gradient(135deg,#2d3151,#3a3f66);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;text-align:center;padding:0 16px}
+.thumb-logo{font-size:20px;font-weight:700;letter-spacing:.08em}
+.thumb-cat{font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.82);position:relative;padding-top:11px}
+.thumb-cat::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:36px;height:1px;background:rgba(255,255,255,.4)}
 .post-body{padding:18px}
 .post-cat{font-size:10px;letter-spacing:.15em;color:var(--main);font-weight:700;background:rgba(79,84,82,.08);display:inline-block;padding:3px 8px;border-radius:2px;margin-bottom:8px}
 .post-title{font-size:16px;font-weight:700;line-height:1.55;margin-bottom:10px;color:var(--text)}
@@ -66,7 +69,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
   </div>
   <div class="posts-grid" id="postsGrid">
     <a href="/blog/posts/eye-strain-stiff-neck-headache-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">眼精疲労からくる肩こり・頭痛に鍼灸がおすすめな理由｜横浜・桜木町の鍼灸院TRY</h2>
@@ -75,18 +78,8 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
         <span class="post-more">続きを読む</span>
       </div>
     </a>
-    <a href="/blog/posts/test-article-001/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
-      <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">テスト記事｜自動publの動作確認</h2>
-        <p class="post-excerpt">鍼灸院TRYのブログ自動publパイプラインの動作確認用テスト記事です。横浜・桜木町の眼精疲労専門鍼灸院TRY。</p>
-        <p class="post-meta">2026.07.22</p>
-        <span class="post-more">続きを読む</span>
-      </div>
-    </a>
     <a href="/blog/posts/yokohama-sakuragicho-eye-strain-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">横浜・桜木町で眼精疲労にお悩みの方へ｜鍼灸で目の疲れを和らげる方法</h2>
@@ -96,7 +89,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </a>
     <a href="/blog/posts/eye-strain-shoulder-stiffness-headache-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">眼精疲労からくる肩こり・頭痛に！鍼灸で心身を整えるアプローチ</h2>
@@ -106,7 +99,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </a>
     <a href="/blog/posts/eye-strain-acupuncture-care/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">眼精疲労に鍼灸がおすすめな理由とは？横浜の専門院が解説</h2>
@@ -116,7 +109,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </a>
     <a href="/blog/posts/sakuragicho-eye-strain-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">桜木町で眼精疲労に悩む方へ｜鍼灸で目の疲れをスッキリ整える方法</h2>
@@ -126,7 +119,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </a>
     <a href="/blog/posts/yokohama-eye-strain-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">横浜で眼精疲労にお悩みの方へ｜鍼灸で心身を整えるおすすめケア</h2>
@@ -136,7 +129,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </a>
     <a href="/blog/posts/eye-fatigue-cause/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">眼精疲労の原因・対策</span></div>
       <div class="post-body">
         <span class="post-cat">眼精疲労の原因・対策</span>
         <h2 class="post-title">眼精疲労の原因とは？スマホ・PCで目が疲れるメカニズムを解説</h2>
@@ -146,7 +139,7 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </a>
     <a href="/blog/posts/acupuncture-eye/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
       <div class="post-body">
         <span class="post-cat">施術について</span>
         <h2 class="post-title">鍼灸で眼精疲労が改善する理由｜くるみ灸・電気鍼の効果を解説</h2>
