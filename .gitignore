@@ -1,1 +1,7 @@
 .vercel
+
+# secrets & local dev (never deploy)
+.env.local
+.env
+.preview_server.py
+.DS_Store

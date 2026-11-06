@@ -35,42 +35,130 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 html { scroll-behavior: smooth; }
 
 /* ナビゲーション（PC/スマホ共通・崩れない横並び） */
+/* ===== ヘッダー（参考デザイン：白ロゴカード＋紺/コーラルの一体ブロック） ===== */
 .try-nav{
-  position:sticky; top:0; z-index:100;
-  background:#fdfdfd; border-bottom:1px solid #e5e5e5;
-  box-shadow:0 1px 4px rgba(0,0,0,.08);
-  height:60px; display:flex; align-items:center; justify-content:space-between;
-  padding:0 16px; gap:10px;
+  position:sticky; top:0; z-index:1000;
+  background:transparent;
+  height:72px; display:flex; align-items:stretch; justify-content:space-between;
+  padding:0; gap:0; box-shadow:none;
 }
-.try-nav__logo{ display:flex; align-items:center; text-decoration:none; flex:0 0 auto; }
-.try-nav__logo img{ height:32px; width:auto; display:block; }
-.try-nav__links{
-  display:flex; gap:18px; list-style:none; margin:0; padding:0;
-  flex:1 1 auto; justify-content:center;
+.try-ico{ width:1.2em; height:1.2em; flex:0 0 auto; display:inline-block; vertical-align:middle; stroke:currentColor; }
+/* 左：白いロゴカード（角丸・浮き） */
+.try-nav__logo{
+  display:flex; align-items:center; gap:12px; text-decoration:none; flex:0 0 auto;
+  background:#fff; padding:0 30px 0 20px; border-radius:0 0 16px 0;
+  box-shadow:4px 6px 16px rgba(0,0,0,.08); position:relative; z-index:2;
 }
-.try-nav__links a{
-  font-size:13px; color:#555; text-decoration:none;
-  white-space:nowrap; font-weight:500;
+.try-nav__logo img{ height:40px; width:auto; display:block; }
+.try-nav__name{ font-weight:800; color:var(--try-dark); font-size:17px; white-space:nowrap; }
+.try-nav__actions{ display:flex; align-items:stretch; gap:0; flex:0 0 auto; margin-left:auto; }
+/* 公式LINE（電話の位置：白地＋コーラル文字） */
+.try-nav__contact{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:0 clamp(18px,2vw,30px); text-decoration:none;
+  color:#06c755 !important; font-weight:800; font-size:clamp(16px,1.6vw,20px); white-space:nowrap;
+  transition:filter .12s ease;
 }
-.try-nav__links a:hover{ color:var(--try-mint,#4DB6AC); }
-.try-nav__cta{
-  flex:0 0 auto; background:#06c755; color:#fff;
-  font-size:12px; font-weight:700; line-height:1.25;
-  padding:8px 14px; border-radius:6px; text-decoration:none;
-  white-space:nowrap; text-align:center;
+.try-nav__contact:hover{ filter:brightness(1.05); }
+.try-nav__ic{ font-size:1.15em; line-height:1; }
+/* 紺ブロック（ご予約・アクセス） */
+.try-nav__btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:0 clamp(18px,2vw,32px); border-radius:0; white-space:nowrap;
+  color:#fff !important; text-decoration:none; font-weight:700; font-size:15px;
+  transition:filter .12s ease;
 }
-@media (min-width:768px){
-  .try-nav{ padding:0 40px; }
-  .try-nav__logo img{ height:36px; }
-  .try-nav__links{ gap:24px; }
-  .try-nav__links a{ font-size:14px; }
+.try-nav__btn:hover{ filter:brightness(1.14); }
+.try-nav__btn.-book{ background:var(--try-dark); }
+.try-nav__btn.-access{ background:#4a9fd4; }
+/* ハンバーガー（コーラル） */
+.try-nav__burger{
+  width:72px; border:none; background:#ef8d8d;
+  border-radius:0; cursor:pointer; display:inline-flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:5px; padding:0;
+  transition:filter .12s ease;
 }
-@media (max-width:360px){
-  .try-nav{ padding:0 10px; gap:6px; }
-  .try-nav__links{ gap:12px; }
-  .try-nav__links a{ font-size:12px; }
-  .try-nav__cta{ font-size:11px; padding:8px 10px; }
+.try-nav__burger:hover{ filter:brightness(1.04); }
+.try-nav__burger span{ width:24px; height:2px; background:#fff; border-radius:2px; transition:.25s; }
+.try-nav__burger.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.try-nav__burger.is-open span:nth-child(2){ opacity:0; }
+.try-nav__burger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+@media (max-width:768px){
+  .try-nav{ height:60px; }
+  .try-nav__name{ display:none; }
+  .try-nav__logo{ padding:0 14px; border-radius:0 0 12px 0; }
+  .try-nav__logo img{ height:30px; }
+  .try-nav__contact{ display:none; }
+  .try-nav__btn.-access{ display:none; }
+  .try-nav__btn{ padding:0 14px; font-size:13px; }
+  .try-nav__burger{ width:56px; }
 }
+/* ===== ドロワー（ハンバーガーメニュー） ===== */
+.try-drawer{ position:fixed; inset:0; z-index:1001; background:rgba(30,42,50,.5); opacity:0; visibility:hidden; transition:.25s; }
+.try-drawer.is-open{ opacity:1; visibility:visible; }
+.try-drawer__inner{
+  position:absolute; top:0; right:0; height:100%; width:min(80vw,320px);
+  background:#fff; box-shadow:-8px 0 30px rgba(0,0,0,.15);
+  transform:translateX(100%); transition:transform .3s cubic-bezier(.22,1,.36,1);
+  display:flex; flex-direction:column; gap:2px; padding:78px 22px 28px;
+}
+.try-drawer.is-open .try-drawer__inner{ transform:translateX(0); }
+.try-drawer__close{
+  position:absolute; top:18px; right:18px; width:40px; height:40px; border:none;
+  background:#f1f3f4; border-radius:10px; font-size:20px; color:var(--try-dark); cursor:pointer;
+}
+.try-drawer__inner a.try-drawer__link{
+  color:var(--try-dark); text-decoration:none; font-weight:700; font-size:16px;
+  padding:14px 6px; border-bottom:1px solid #eee;
+}
+.try-drawer__inner a.try-drawer__link:hover{ color:var(--try-mint); }
+.try-drawer__cta{
+  color:#fff !important; text-decoration:none; text-align:center;
+  border-radius:8px; padding:14px; font-weight:800;
+}
+.try-drawer__cta.-line{ background:#06c755; margin-top:14px; }
+.try-drawer__cta.-book{ background:var(--try-dark); margin-top:8px; }
+/* ===== フッター固定バー（参考デザイン：吹き出し＋LINE / 紺・コーラルブロック） ===== */
+.try-fixbar{
+  position:fixed; left:0; right:0; bottom:0; z-index:998;
+  display:flex; align-items:stretch; background:transparent;
+  box-shadow:none; min-height:72px;
+}
+.try-fixbar__lead{
+  flex:1 1 auto; display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+  gap:5px; padding:8px 26px; min-width:0;
+}
+.try-fixbar__bubble{
+  position:relative; background:#4a9fd4; color:#fff; font-weight:700;
+  font-size:13px; padding:5px 16px; border-radius:9999px; white-space:nowrap;
+}
+.try-fixbar__bubble::after{ content:""; position:absolute; left:26px; bottom:-6px; border:6px solid transparent; border-top-color:#4a9fd4; }
+.try-fixbar__contact{
+  display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+  color:#06c755 !important; font-weight:800; font-size:clamp(18px,2vw,24px); white-space:nowrap;
+}
+.try-fixbar__ic{ font-size:1.1em; line-height:1; }
+.try-fixbar__segs{ display:flex; align-items:stretch; flex:0 0 auto; }
+.try-fixbar__seg{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  color:#fff !important; text-decoration:none; font-weight:700; font-size:15px;
+  padding:0 clamp(28px,3.5vw,56px); white-space:nowrap; transition:filter .12s ease;
+}
+.try-fixbar__seg:hover{ filter:brightness(1.1); }
+.try-fixbar__seg.-book{ background:var(--try-dark); }
+.try-fixbar__seg.-insta{ background:#ef8d8d; }
+.try-fixbar__seg.-access{ background:#4a9fd4; }
+.try-fixbar__seg.-line-m{ display:none; background:#06c755; }
+@media (max-width:767px){
+  .try-fixbar{ min-height:60px; }
+  .try-fixbar__lead{ display:none; }
+  .try-fixbar__segs{ flex:1 1 auto; width:100%; }
+  .try-fixbar__seg{ flex:1 1 0; flex-direction:column; gap:3px; justify-content:center; font-size:11px; padding:6px 4px; }
+  .try-fixbar__seg .try-ico{ width:20px; height:20px; }
+  .try-fixbar__seg.-line-m{ display:flex; }
+}
+body{ padding-bottom:72px !important; }
+@media (max-width:767px){ body{ padding-bottom:60px !important; } }
 
 /* アクセス：地図と動画を常時表示（タブ廃止のJS非依存版） */
 .try-access{ display:flex; flex-direction:column; gap: clamp(20px,3vw,32px); max-width:760px; margin:0 auto; }
@@ -152,7 +240,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 /*# sourceURL=main_style-inline-css */
 </style>
 <style id="swell_custom-inline-css">
-:root{--swl-fz--content:4vw;--swl-font_family:"Noto Sans JP", sans-serif;--swl-font_weight:400;--color_main:#4f5452;--color_text:#333333;--color_link:#d7c447;--color_htag:#4f5452;--color_bg:#ffffff;--color_gradient1:#d8ffff;--color_gradient2:#87e7ff;--color_main_thin:rgba(99, 105, 103, 0.05 );--color_main_dark:rgba(59, 63, 62, 1 );--color_list_check:#4f5452;--color_list_num:#4f5452;--color_list_good:#86dd7b;--color_list_triangle:#f4e03a;--color_list_bad:#f36060;--color_faq_q:#d55656;--color_faq_a:#6599b7;--color_icon_good:#3cd250;--color_icon_good_bg:#ecffe9;--color_icon_bad:#4b73eb;--color_icon_bad_bg:#eafaff;--color_icon_info:#f578b4;--color_icon_info_bg:#fff0fa;--color_icon_announce:#ffa537;--color_icon_announce_bg:#fff5f0;--color_icon_pen:#7a7a7a;--color_icon_pen_bg:#f7f7f7;--color_icon_book:#787364;--color_icon_book_bg:#f8f6ef;--color_icon_point:#ffa639;--color_icon_check:#86d67c;--color_icon_batsu:#f36060;--color_icon_hatena:#5295cc;--color_icon_caution:#f7da38;--color_icon_memo:#84878a;--color_deep01:#e44141;--color_deep02:#3d79d5;--color_deep03:#63a84d;--color_deep04:#f09f4d;--color_pale01:#fff2f0;--color_pale02:#f3f8fd;--color_pale03:#f1f9ee;--color_pale04:#fdf9ee;--color_mark_blue:#b7e3ff;--color_mark_green:#bdf9c3;--color_mark_yellow:#fcf69f;--color_mark_orange:#ffddbc;--border01:solid 1px var(--color_main);--border02:double 4px var(--color_main);--border03:dashed 2px var(--color_border);--border04:solid 1px var(--color_gray);--card_posts_thumb_ratio:56.25%;--list_posts_thumb_ratio:61.805%;--big_posts_thumb_ratio:56.25%;--thumb_posts_thumb_ratio:61.805%;--blogcard_thumb_ratio:56.25%;--color_header_bg:#fdfdfd;--color_header_text:#000000;--color_footer_bg:#ffffff;--color_footer_text:#ffffff;--container_size:1920px;--article_size:1440px;--logo_size_sp:48px;--logo_size_pc:40px;--logo_size_pcfix:32px;}.swl-cell-bg[data-icon="doubleCircle"]{--cell-icon-color:#ffc977}.swl-cell-bg[data-icon="circle"]{--cell-icon-color:#94e29c}.swl-cell-bg[data-icon="triangle"]{--cell-icon-color:#eeda2f}.swl-cell-bg[data-icon="close"]{--cell-icon-color:#ec9191}.swl-cell-bg[data-icon="hatena"]{--cell-icon-color:#93c9da}.swl-cell-bg[data-icon="check"]{--cell-icon-color:#94e29c}.swl-cell-bg[data-icon="line"]{--cell-icon-color:#9b9b9b}.cap_box[data-colset="col1"]{--capbox-color:#3aa9d8;--capbox-color--bg:#ffffff}.cap_box[data-colset="col2"]{--capbox-color:#1633ac;--capbox-color--bg:#ffffff}.cap_box[data-colset="col3"]{--capbox-color:#2fcd90;--capbox-color--bg:#eafaf2}.red_{--the-btn-color:#1084d4;--the-btn-color2:#06487a;--the-solid-shadow: rgba(12, 99, 159, 1 )}.blue_{--the-btn-color:#d36913;--the-btn-color2:#d38028;--the-solid-shadow: rgba(158, 79, 14, 1 )}.green_{--the-btn-color:#00b900;--the-btn-color2:#81d742;--the-solid-shadow: rgba(0, 139, 0, 1 )}.is-style-btn_normal,.is-style-btn_shiny{--the-btn-bg: linear-gradient(100deg,var(--the-btn-color) 0%,var(--the-btn-color2) 100%)}.is-style-btn_normal{--the-btn-radius:80px}.is-style-btn_solid{--the-btn-radius:4px}.is-style-btn_shiny{--the-btn-radius:4px}.is-style-btn_line{--the-btn-radius:0px}.post_content blockquote{padding:1.5em 2em 1.5em 3em}.post_content blockquote::before{content:"";display:block;width:5px;height:calc(100% - 3em);top:1.5em;left:1.5em;border-left:solid 1px rgba(180,180,180,.75);border-right:solid 1px rgba(180,180,180,.75);}.mark_blue{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_blue) 0%);background:linear-gradient(transparent 64%,var(--color_mark_blue) 0%)}.mark_green{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_green) 0%);background:linear-gradient(transparent 64%,var(--color_mark_green) 0%)}.mark_yellow{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_yellow) 0%);background:linear-gradient(transparent 64%,var(--color_mark_yellow) 0%)}.mark_orange{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_orange) 0%);background:linear-gradient(transparent 64%,var(--color_mark_orange) 0%)}[class*="is-style-icon_"]{color:#333;border-width:0}[class*="is-style-big_icon_"]{border-width:2px;border-style:solid}[data-col="gray"] .c-balloon__text{background:#f7f7f7;border-color:#ccc}[data-col="gray"] .c-balloon__before{border-right-color:#f7f7f7}[data-col="green"] .c-balloon__text{background:#d1f8c2;border-color:#9ddd93}[data-col="green"] .c-balloon__before{border-right-color:#d1f8c2}[data-col="blue"] .c-balloon__text{background:#e2f6ff;border-color:#93d2f0}[data-col="blue"] .c-balloon__before{border-right-color:#e2f6ff}[data-col="red"] .c-balloon__text{background:#ffebeb;border-color:#f48789}[data-col="red"] .c-balloon__before{border-right-color:#ffebeb}[data-col="yellow"] .c-balloon__text{background:#f9f7d2;border-color:#fbe593}[data-col="yellow"] .c-balloon__before{border-right-color:#f9f7d2}.-type-list2 .p-postList__body::after,.-type-big .p-postList__body::after{content: "READ MORE »";}.c-postThumb__cat{background-color:#4f5452;color:#fff;background-image: repeating-linear-gradient(-45deg,rgba(255,255,255,.1),rgba(255,255,255,.1) 6px,transparent 6px,transparent 12px)}.post_content h2:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title)){border-top:solid 2px var(--color_htag);border-bottom:solid 2px var(--color_htag);padding:1em .75em}.post_content h2:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title))::before{position:absolute;display:block;pointer-events:none}.post_content h3:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title)){padding:0 .5em .5em}.post_content h3:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title))::before{content:"";width:100%;height:2px;background: repeating-linear-gradient(90deg, var(--color_htag) 0%, var(--color_htag) 29.3%, rgba(99, 105, 103, 0.2 ) 29.3%, rgba(99, 105, 103, 0.2 ) 100%)}.post_content h4:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title)){padding:0 0 0 16px;border-left:solid 2px var(--color_htag)}.post_content h2.is-style-section_ttl{padding-bottom:.75em}.post_content h2.is-style-section_ttl::after{position:absolute;top:auto;bottom:0;left:calc(50% - 1.25em);right:auto;display:block;width:2.5em;height:1px;border-radius:2px;pointer-events:none;background:currentColor;content:""}.post_content h2.is-style-section_ttl.has-text-align-left::after{left:0px;right:auto}.post_content h2.is-style-section_ttl.has-text-align-right::after{left:auto;right:0}.l-footer__widgetArea{background:#2d3151}.l-footer__widgetArea{color:#ffffff}.l-header{box-shadow: 0 1px 4px rgba(0,0,0,.12)}.l-header__menuBtn{order:1}.l-header__customBtn{order:3}.l-header__menuBtn{color:#fff;background-color:#f9f9f9}.l-header__customBtn{color:#fff;background-color:#6dd622}.c-gnav a::after{background:var(--color_main);width:100%;height:2px;transform:scaleX(0)}.p-spHeadMenu .menu-item.-current{border-bottom-color:var(--color_main)}.c-gnav > li:hover > a::after,.c-gnav > .-current > a::after{transform: scaleX(1)}.c-gnav .sub-menu{color:#333;background:#fff}.l-fixHeader::before{opacity:1}#pagetop{border-radius:50%}#before_footer_widget{margin-bottom:0}.c-widget__title.-spmenu{padding:.5em .75em;border-radius:var(--swl-radius--2, 0px);background:var(--color_main);color:#fff;}.c-widget__title.-footer{padding:.5em}.c-widget__title.-footer::before{content:"";bottom:0;left:0;width:40%;z-index:1;background:var(--color_main)}.c-widget__title.-footer::after{content:"";bottom:0;left:0;width:100%;background:var(--color_border)}.c-secTitle{border-left:solid 2px var(--color_main);padding:0em .75em}.p-spMenu{color:#333}.p-spMenu__inner::before{background:#fffbf4;opacity:1}.p-spMenu__overlay{background:#000;opacity:0}[class*="page-numbers"]{color:#fff;background-color:#dedede}a{text-decoration: none}.l-topTitleArea.c-filterLayer::before{background-color:#000;opacity:0.2;content:""}@media screen and (min-width: 960px){:root{}}@media screen and (max-width: 959px){:root{}.l-header__logo{order:2;text-align:center}}@media screen and (min-width: 600px){:root{--swl-fz--content:16px;}}@media screen and (max-width: 599px){:root{}}@media (min-width: 1648px) {.alignwide{left:-100px;width:calc(100% + 200px);}}@media (max-width: 1648px) {.-sidebar-off .swell-block-fullWide__inner.l-container .alignwide{left:0px;width:100%;}}.l-fixHeader .l-fixHeader__gnav{order:0}[data-scrolled=true] .l-fixHeader[data-ready]{opacity:1;-webkit-transform:translateY(0)!important;transform:translateY(0)!important;visibility:visible}.-body-solid .l-fixHeader{box-shadow:0 2px 4px var(--swl-color_shadow)}.l-fixHeader__inner{align-items:stretch;color:var(--color_header_text);display:flex;padding-bottom:0;padding-top:0;position:relative;z-index:1}.l-fixHeader__logo{align-items:center;display:flex;line-height:1;margin-right:24px;order:0;padding:16px 0}.is-style-btn_normal a,.is-style-btn_shiny a{box-shadow:var(--swl-btn_shadow)}.c-shareBtns__btn,.is-style-balloon>.c-tabList .c-tabList__button,.p-snsCta,[class*=page-numbers]{box-shadow:var(--swl-box_shadow)}.p-articleThumb__img,.p-articleThumb__youtube{box-shadow:var(--swl-img_shadow)}.p-pickupBanners__item .c-bannerLink,.p-postList__thumb{box-shadow:0 2px 8px rgba(0,0,0,.1),0 4px 4px -4px rgba(0,0,0,.1)}.p-postList.-w-ranking li:before{background-image:repeating-linear-gradient(-45deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,.1) 6px,transparent 0,transparent 12px);box-shadow:1px 1px 4px rgba(0,0,0,.2)}:root{--swl-radius--2:2px;--swl-radius--4:4px;--swl-radius--8:8px}.c-categoryList__link,.c-tagList__link,.tag-cloud-link{border-radius:16px;padding:6px 10px}.-related .p-postList__thumb,.is-style-bg_gray,.is-style-bg_main,.is-style-bg_main_thin,.is-style-bg_stripe,.is-style-border_dg,.is-style-border_dm,.is-style-border_sg,.is-style-border_sm,.is-style-dent_box,.is-style-note_box,.is-style-stitch,[class*=is-style-big_icon_],input[type=number],input[type=text],textarea{border-radius:4px}.-ps-style-img .p-postList__link,.-type-thumb .p-postList__link,.p-postList__thumb{border-radius:12px;overflow:hidden;z-index:0}.c-widget .-type-list.-w-ranking .p-postList__item:before{border-radius:16px;left:2px;top:2px}.c-widget .-type-card.-w-ranking .p-postList__item:before{border-radius:0 0 4px 4px}.c-postThumb__cat{border-radius:16px;margin:.5em;padding:0 8px}.cap_box_ttl{border-radius:2px 2px 0 0}.cap_box_content{border-radius:0 0 2px 2px}.cap_box.is-style-small_ttl .cap_box_content{border-radius:0 2px 2px 2px}.cap_box.is-style-inner .cap_box_content,.cap_box.is-style-onborder_ttl .cap_box_content,.cap_box.is-style-onborder_ttl2 .cap_box_content,.cap_box.is-style-onborder_ttl2 .cap_box_ttl,.cap_box.is-style-shadow{border-radius:2px}.is-style-more_btn a,.p-postList__body:after,.submit{border-radius:40px}@media (min-width:960px){#sidebar .-type-list .p-postList__thumb{border-radius:8px}}@media not all and (min-width:960px){.-ps-style-img .p-postList__link,.-type-thumb .p-postList__link,.p-postList__thumb{border-radius:8px}}@media (min-width:960px){.-series .l-header__inner{align-items:stretch;display:flex}.-series .l-header__logo{align-items:center;display:flex;flex-wrap:wrap;margin-right:24px;padding:16px 0}.-series .l-header__logo .c-catchphrase{font-size:13px;padding:4px 0}.-series .c-headLogo{margin-right:16px}.-series-right .l-header__inner{justify-content:space-between}.-series-right .c-gnavWrap{margin-left:auto}.-series-right .w-header{margin-left:12px}.-series-left .w-header{margin-left:auto}}@media (min-width:960px) and (min-width:600px){.-series .c-headLogo{max-width:400px}}.c-submenuToggleBtn:after{content:"";height:100%;left:0;position:absolute;top:0;width:100%;z-index:0}.c-submenuToggleBtn{cursor:pointer;display:block;height:2em;line-height:2;position:absolute;right:8px;text-align:center;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);width:2em;z-index:1}.c-submenuToggleBtn:before{content:"\e910";display:inline-block;font-family:icomoon;font-size:14px;transition:-webkit-transform .25s;transition:transform .25s;transition:transform .25s,-webkit-transform .25s}.c-submenuToggleBtn:after{border:1px solid;opacity:.15;transition:background-color .25s}.c-submenuToggleBtn.is-opened:before{-webkit-transform:rotate(-180deg);transform:rotate(-180deg)}.widget_categories>ul>.cat-item>a,.wp-block-categories-list>li>a{padding-left:1.75em}.c-listMenu a{padding:.75em .5em;position:relative}.c-gnav .sub-menu a:not(:last-child),.c-listMenu a:not(:last-child){padding-right:40px}.c-gnav .sub-menu .sub-menu{box-shadow:none}.c-gnav .sub-menu .sub-menu,.c-listMenu .children,.c-listMenu .sub-menu{height:0;margin:0;opacity:0;overflow:hidden;position:relative;transition:.25s}.c-gnav .sub-menu .sub-menu.is-opened,.c-listMenu .children.is-opened,.c-listMenu .sub-menu.is-opened{height:auto;opacity:1;visibility:visible}.c-gnav .sub-menu .sub-menu a,.c-listMenu .children a,.c-listMenu .sub-menu a{font-size:.9em;padding-left:1.5em}.c-gnav .sub-menu .sub-menu ul a,.c-listMenu .children ul a,.c-listMenu .sub-menu ul a{padding-left:2.25em}@media (min-width:600px){.c-submenuToggleBtn{height:28px;line-height:28px;transition:background-color .25s;width:28px}}@media (min-width:960px){.c-submenuToggleBtn:hover:after{background-color:currentcolor}}:root{--color_content_bg:var(--color_bg);--mv_btn_radius:4px;--mv_slide_animation:no;}.c-widget__title.-side{padding:.5em}.c-widget__title.-side::before{content:"";bottom:0;left:0;width:40%;z-index:1;background:var(--color_main)}.c-widget__title.-side::after{content:"";bottom:0;left:0;width:100%;background:var(--color_border)}.top #content{padding-top:0}.p-mainVisual__inner{height:80vh}.p-mainVisual .c-filterLayer::before{background-color:#000000;opacity:0.3;content:""}.-type-slider .p-mainVisual__scroll{padding-bottom: 16px}.page.-index-off .w-beforeToc{display:none}@media screen and (min-width: 960px){:root{}.p-mainVisual__inner{height:50vw}}@media screen and (max-width: 959px){:root{}}@media screen and (min-width: 600px){:root{}}@media screen and (max-width: 599px){:root{}}.swell-block-fullWide__inner.l-container{--swl-fw_inner_pad:var(--swl-pad_container,0px)}@media (min-width:960px){.-sidebar-on .l-content .alignfull,.-sidebar-on .l-content .alignwide{left:-16px;width:calc(100% + 32px)}.swell-block-fullWide__inner.l-article{--swl-fw_inner_pad:var(--swl-pad_post_content,0px)}.-sidebar-on .swell-block-fullWide__inner .alignwide{left:0;width:100%}.-sidebar-on .swell-block-fullWide__inner .alignfull{left:calc(0px - var(--swl-fw_inner_pad, 0))!important;margin-left:0!important;margin-right:0!important;width:calc(100% + var(--swl-fw_inner_pad, 0)*2)!important}}.-index-off .p-toc,.swell-toc-placeholder:empty{display:none}.p-toc.-modal{height:100%;margin:0;overflow-y:auto;padding:0}#main_content .p-toc{border-radius:var(--swl-radius--2,0);margin:4em auto;max-width:800px}#sidebar .p-toc{margin-top:-.5em}.p-toc .__pn:before{content:none!important;counter-increment:none}.p-toc .__prev{margin:0 0 1em}.p-toc .__next{margin:1em 0 0}.p-toc.is-omitted:not([data-omit=ct]) [data-level="2"] .p-toc__childList{height:0;margin-bottom:-.5em;visibility:hidden}.p-toc.is-omitted:not([data-omit=nest]){position:relative}.p-toc.is-omitted:not([data-omit=nest]):before{background:linear-gradient(hsla(0,0%,100%,0),var(--color_bg));bottom:5em;content:"";height:4em;left:0;opacity:.75;pointer-events:none;position:absolute;width:100%;z-index:1}.p-toc.is-omitted:not([data-omit=nest]):after{background:var(--color_bg);bottom:0;content:"";height:5em;left:0;opacity:.75;position:absolute;width:100%;z-index:1}.p-toc.is-omitted:not([data-omit=nest]) .__next,.p-toc.is-omitted:not([data-omit=nest]) [data-omit="1"]{display:none}.p-toc .p-toc__expandBtn{background-color:#f7f7f7;border:rgba(0,0,0,.2);border-radius:5em;box-shadow:0 0 0 1px #bbb;color:#333;display:block;font-size:14px;line-height:1.5;margin:.75em auto 0;min-width:6em;padding:.5em 1em;position:relative;transition:box-shadow .25s;z-index:2}.p-toc[data-omit=nest] .p-toc__expandBtn{display:inline-block;font-size:13px;margin:0 0 0 1.25em;padding:.5em .75em}.p-toc:not([data-omit=nest]) .p-toc__expandBtn:after,.p-toc:not([data-omit=nest]) .p-toc__expandBtn:before{border-top-color:inherit;border-top-style:dotted;border-top-width:3px;content:"";display:block;height:1px;position:absolute;top:calc(50% - 1px);transition:border-color .25s;width:100%;width:22px}.p-toc:not([data-omit=nest]) .p-toc__expandBtn:before{right:calc(100% + 1em)}.p-toc:not([data-omit=nest]) .p-toc__expandBtn:after{left:calc(100% + 1em)}.p-toc.is-expanded .p-toc__expandBtn{border-color:transparent}.p-toc__ttl{display:block;font-size:1.2em;line-height:1;position:relative;text-align:center}.p-toc__ttl:before{content:"\e918";display:inline-block;font-family:icomoon;margin-right:.5em;padding-bottom:2px;vertical-align:middle}#index_modal .p-toc__ttl{margin-bottom:.5em}.p-toc__list li{line-height:1.6}.p-toc__list>li+li{margin-top:.5em}.p-toc__list .p-toc__childList{padding-left:.5em}.p-toc__list [data-level="3"]{font-size:.9em}.p-toc__list .mininote{display:none}.post_content .p-toc__list{padding-left:0}#sidebar .p-toc__list{margin-bottom:0}#sidebar .p-toc__list .p-toc__childList{padding-left:0}.p-toc__link{color:inherit;font-size:inherit;text-decoration:none}.p-toc__link:hover{opacity:.8}.p-toc.-border{border-bottom:2px solid var(--color_main);border-top:2px solid var(--color_main);padding:1.75em .5em 1.5em}.p-toc.-border .p-toc__ttl{margin-bottom:.75em}@media (min-width:960px){#main_content .p-toc{width:92%}}@media (hover:hover){.p-toc .p-toc__expandBtn:hover{border-color:transparent;box-shadow:0 0 0 2px currentcolor}}@media (min-width:600px){.p-toc.-border{padding:1.75em 1em 1.5em}}.w-beforeFooter{margin:6em auto 3em;overflow:hidden}.c-widget__title.-footer:before{background-color:currentcolor!important}.l-footer{background-color:var(--color_footer_bg);color:var(--color_footer_text);position:relative;z-index:0}.l-footer a,.l-footer span{color:inherit}.l-footer .copyright{font-size:12px;text-align:center}.l-footer .copyright a{color:var(--color_link)}.l-footer__nav{color:inherit;display:flex;flex-wrap:wrap;justify-content:center;padding:.5em 0 1em}.l-footer__nav a{color:inherit;display:block;font-size:3vw;padding:.25em .5em;text-decoration:none}.l-footer__nav a:hover{text-decoration:underline}.l-footer__foot,.l-footer__widgetArea{padding-bottom:1em;padding-top:1em}.p-indexModal{padding:80px 16px}.p-indexModal__inner{background:#fdfdfd;border-radius:var(--swl-radius--4,0);color:#333;height:100%;margin:-1em auto 0!important;max-width:800px;padding:2em 1.5em;position:relative;-webkit-transform:translateY(16px);transform:translateY(16px);transition:-webkit-transform .5s;transition:transform .5s;transition:transform .5s,-webkit-transform .5s;z-index:1}.is-opened>.p-indexModal__inner{-webkit-transform:translateY(0);transform:translateY(0)}.p-searchModal__inner{background:hsla(0,0%,100%,.1);left:50%;max-width:600px;padding:1em;position:absolute;top:calc(50% + 16px);-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);transition:top .5s;width:96%;z-index:1}.is-opened>.p-searchModal__inner{top:50%}.p-searchModal__inner .c-searchForm{box-shadow:0 0 4px hsla(0,0%,100%,.2)}.p-searchModal__inner .s{font-size:16px}@media (min-width:960px){.w-footer{display:flex;justify-content:space-between}.w-footer__box{flex:1;padding:1em}}@media not all and (min-width:960px){.w-footer__box{padding:1em 0}.w-footer__box+.w-footer__box{margin-top:1em}.l-footer__inner{padding-bottom:calc(env(safe-area-inset-bottom)*.5)}}@media (min-width:600px){.l-footer__nav a{border-right:1px solid;font-size:13px;padding:0 .75em}.l-footer__nav li:first-child a{border-left:1px solid}.p-indexModal__inner{padding:2em}}.p-mainVisual{overflow:hidden;position:relative;width:100%}.p-mainVisual.-margin-on{padding:8px}.p-mainVisual.-height-full{height:calc(var(--swl-mv-height, 100vh) - var(--swl-headerH, 0px) - var(--swl-adminbarH, 0px))}.p-mainVisual.-height-full .p-mainVisual__inner{height:100%}.-height-img [src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="]{height:0}.-height-img .swiper-slide{width:var(--swl-mv_slide_width--pc,100%)}.-height-img .p-mainVisual__imgLayer{height:auto;position:relative}.-height-img .p-mainVisual__img{display:block;height:auto;width:100%}.p-mainVisual__inner{position:relative}.-height-auto .p-mainVisual__inner{height:auto}.p-mainVisual__slide{height:auto;overflow:hidden;position:relative}.-height-full .p-mainVisual__slide,.-height-set .p-mainVisual__slide{height:100%}.p-mainVisual__slideLink{height:100%;left:0;position:absolute;top:0;width:100%}.p-mainVisual__textLayer{display:flex;flex-direction:column;height:100%;justify-content:center;left:50%;position:absolute;top:0;-webkit-transform:translateX(-50%);transform:translateX(-50%);width:100%;z-index:3}.p-mainVisual__textLayer>.p-blogParts{margin:1em 0 0;text-align:left}.-height-auto .p-mainVisual__textLayer{left:0;padding-bottom:4em;padding-top:4em;position:relative;-webkit-transform:none;transform:none}.p-mainVisual__slideTitle{font-size:5.5vw;line-height:1.4}.p-mainVisual__slideText{font-size:3.2vw;margin-top:.75em}.-height-full .p-mainVisual__slideText{font-size:3.4vw}.p-mainVisual__scroll{bottom:16px;color:#fff;left:50%;opacity:.75;position:absolute;text-align:center;-webkit-transform:translateX(-50%);transform:translateX(-50%);transition:opacity .25s;z-index:9}.-height-full>.p-mainVisual__scroll{bottom:24px}.p-mainVisual__scroll:hover{opacity:1}.p-mainVisual__scrollArrow{-webkit-animation:FloatVertical 3s ease-in-out infinite alternate;animation:FloatVertical 3s ease-in-out infinite alternate;display:block;height:20px;margin:0 auto;width:20px}.p-mainVisual__scrollLabel{display:block;font-size:12px;letter-spacing:var(--swl-letter_spacing,1px);line-height:1;padding-top:4px}.p-mainVisual__video{display:block;height:100%;-o-object-fit:cover;object-fit:cover;pointer-events:none;position:relative;width:100%;z-index:-1}@media (min-width:600px){.p-mainVisual.-margin-on{padding:16px}.p-mainVisual__slideTitle{font-size:28px}.p-mainVisual__slideText{font-size:16px}.-height-full .p-mainVisual__slideText{font-size:18px}}@media not all and (min-width:960px){.-height-img .swiper-slide{width:var(--swl-mv_slide_width--sp,100%)}.p-mainVisual__textLayer{padding:0 4vw}}.c-pageTitle{font-size:1.3em;line-height:1.4;position:relative}.c-pageTitle:after{clear:both;content:"";display:block;height:0;visibility:hidden}.c-pageTitle[data-style=b_bottom]{border-bottom:1px solid var(--color_border)}.c-pageTitle[data-style=b_bottom] .c-pageTitle__inner{border-bottom:1px solid var(--color_main);float:left;margin-bottom:-1px;padding:.25em .5em}.c-pageTitle__inner{display:block;padding-top:.5em}.c-pageTitle__subTitle{font-style:italic;letter-spacing:var(--swl-letter_spacing,1px);margin-left:1em;opacity:.8;position:relative;top:-2px}.c-pageExcerpt{margin-top:1em}.c-secTitle{display:block;font-size:4.5vw;margin-bottom:1.5em;position:relative}.c-secTitle:after,.c-secTitle:before{box-sizing:inherit;display:block;height:1px;position:absolute;z-index:0}.post-password-form:not(:first-child){border-top:1px dashed var(--color_border);padding-top:1em}.post-password-form p{margin-bottom:1em}@media (min-width:600px){.c-pageTitle{font-size:1.5em}.c-secTitle{font-size:20px}.l-articleBottom__section{margin-top:6em}}@media not all and (min-width:600px){.l-articleBottom__section{margin-top:4em}}
+:root{--swl-fz--content:4vw;--swl-font_family:"Noto Sans JP", sans-serif;--swl-font_weight:400;--color_main:#4f5452;--color_text:#333333;--color_link:#d7c447;--color_htag:#4f5452;--color_bg:#ffffff;--color_gradient1:#d8ffff;--color_gradient2:#87e7ff;--color_main_thin:rgba(99, 105, 103, 0.05 );--color_main_dark:rgba(59, 63, 62, 1 );--color_list_check:#4f5452;--color_list_num:#4f5452;--color_list_good:#86dd7b;--color_list_triangle:#f4e03a;--color_list_bad:#f36060;--color_faq_q:#d55656;--color_faq_a:#6599b7;--color_icon_good:#3cd250;--color_icon_good_bg:#ecffe9;--color_icon_bad:#4b73eb;--color_icon_bad_bg:#eafaff;--color_icon_info:#f578b4;--color_icon_info_bg:#fff0fa;--color_icon_announce:#ffa537;--color_icon_announce_bg:#fff5f0;--color_icon_pen:#7a7a7a;--color_icon_pen_bg:#f7f7f7;--color_icon_book:#787364;--color_icon_book_bg:#f8f6ef;--color_icon_point:#ffa639;--color_icon_check:#86d67c;--color_icon_batsu:#f36060;--color_icon_hatena:#5295cc;--color_icon_caution:#f7da38;--color_icon_memo:#84878a;--color_deep01:#e44141;--color_deep02:#3d79d5;--color_deep03:#63a84d;--color_deep04:#f09f4d;--color_pale01:#fff2f0;--color_pale02:#f3f8fd;--color_pale03:#f1f9ee;--color_pale04:#fdf9ee;--color_mark_blue:#b7e3ff;--color_mark_green:#bdf9c3;--color_mark_yellow:#fcf69f;--color_mark_orange:#ffddbc;--border01:solid 1px var(--color_main);--border02:double 4px var(--color_main);--border03:dashed 2px var(--color_border);--border04:solid 1px var(--color_gray);--card_posts_thumb_ratio:56.25%;--list_posts_thumb_ratio:61.805%;--big_posts_thumb_ratio:56.25%;--thumb_posts_thumb_ratio:61.805%;--blogcard_thumb_ratio:56.25%;--color_header_bg:#fdfdfd;--color_header_text:#000000;--color_footer_bg:#ffffff;--color_footer_text:#ffffff;--container_size:1920px;--article_size:1440px;--logo_size_sp:48px;--logo_size_pc:40px;--logo_size_pcfix:32px;}.swl-cell-bg[data-icon="doubleCircle"]{--cell-icon-color:#ffc977}.swl-cell-bg[data-icon="circle"]{--cell-icon-color:#94e29c}.swl-cell-bg[data-icon="triangle"]{--cell-icon-color:#eeda2f}.swl-cell-bg[data-icon="close"]{--cell-icon-color:#ec9191}.swl-cell-bg[data-icon="hatena"]{--cell-icon-color:#93c9da}.swl-cell-bg[data-icon="check"]{--cell-icon-color:#94e29c}.swl-cell-bg[data-icon="line"]{--cell-icon-color:#9b9b9b}.cap_box[data-colset="col1"]{--capbox-color:#3aa9d8;--capbox-color--bg:#ffffff}.cap_box[data-colset="col2"]{--capbox-color:#1633ac;--capbox-color--bg:#ffffff}.cap_box[data-colset="col3"]{--capbox-color:#2fcd90;--capbox-color--bg:#eafaf2}.red_{--the-btn-color:#1084d4;--the-btn-color2:#06487a;--the-solid-shadow: rgba(12, 99, 159, 1 )}.blue_{--the-btn-color:#d36913;--the-btn-color2:#d38028;--the-solid-shadow: rgba(158, 79, 14, 1 )}.green_{--the-btn-color:#00b900;--the-btn-color2:#81d742;--the-solid-shadow: rgba(0, 139, 0, 1 )}.is-style-btn_normal,.is-style-btn_shiny{--the-btn-bg: linear-gradient(100deg,var(--the-btn-color) 0%,var(--the-btn-color2) 100%)}.is-style-btn_normal{--the-btn-radius:80px}.is-style-btn_solid{--the-btn-radius:4px}.is-style-btn_shiny{--the-btn-radius:4px}.is-style-btn_line{--the-btn-radius:0px}.post_content blockquote{padding:1.5em 2em 1.5em 3em}.post_content blockquote::before{content:"";display:block;width:5px;height:calc(100% - 3em);top:1.5em;left:1.5em;border-left:solid 1px rgba(180,180,180,.75);border-right:solid 1px rgba(180,180,180,.75);}.mark_blue{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_blue) 0%);background:linear-gradient(transparent 64%,var(--color_mark_blue) 0%)}.mark_green{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_green) 0%);background:linear-gradient(transparent 64%,var(--color_mark_green) 0%)}.mark_yellow{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_yellow) 0%);background:linear-gradient(transparent 64%,var(--color_mark_yellow) 0%)}.mark_orange{background:-webkit-linear-gradient(transparent 64%,var(--color_mark_orange) 0%);background:linear-gradient(transparent 64%,var(--color_mark_orange) 0%)}[class*="is-style-icon_"]{color:#333;border-width:0}[class*="is-style-big_icon_"]{border-width:2px;border-style:solid}[data-col="gray"] .c-balloon__text{background:#f7f7f7;border-color:#ccc}[data-col="gray"] .c-balloon__before{border-right-color:#f7f7f7}[data-col="green"] .c-balloon__text{background:#d1f8c2;border-color:#9ddd93}[data-col="green"] .c-balloon__before{border-right-color:#d1f8c2}[data-col="blue"] .c-balloon__text{background:#e2f6ff;border-color:#93d2f0}[data-col="blue"] .c-balloon__before{border-right-color:#e2f6ff}[data-col="red"] .c-balloon__text{background:#ffebeb;border-color:#f48789}[data-col="red"] .c-balloon__before{border-right-color:#ffebeb}[data-col="yellow"] .c-balloon__text{background:#f9f7d2;border-color:#fbe593}[data-col="yellow"] .c-balloon__before{border-right-color:#f9f7d2}.-type-list2 .p-postList__body::after,.-type-big .p-postList__body::after{content: "READ MORE »";}.c-postThumb__cat{background-color:#4f5452;color:#fff;background-image: repeating-linear-gradient(-45deg,rgba(255,255,255,.1),rgba(255,255,255,.1) 6px,transparent 6px,transparent 12px)}.post_content h2:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title)){border-top:solid 2px var(--color_htag);border-bottom:solid 2px var(--color_htag);padding:1em .75em}.post_content h2:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title))::before{position:absolute;display:block;pointer-events:none}.post_content h3:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title)){padding:0 .5em .5em}.post_content h3:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title))::before{content:"";width:100%;height:2px;background: repeating-linear-gradient(90deg, var(--color_htag) 0%, var(--color_htag) 29.3%, rgba(99, 105, 103, 0.2 ) 29.3%, rgba(99, 105, 103, 0.2 ) 100%)}.post_content h4:where(:not([class^="swell-block-"]):not(.faq_q):not(.p-postList__title)){padding:0 0 0 16px;border-left:solid 2px var(--color_htag)}.post_content h2.is-style-section_ttl{padding-bottom:.75em}.post_content h2.is-style-section_ttl::after{position:absolute;top:auto;bottom:0;left:calc(50% - 1.25em);right:auto;display:block;width:2.5em;height:1px;border-radius:2px;pointer-events:none;background:currentColor;content:""}.post_content h2.is-style-section_ttl.has-text-align-left::after{left:0px;right:auto}.post_content h2.is-style-section_ttl.has-text-align-right::after{left:auto;right:0}.l-footer__widgetArea{background:#1E2A32}.l-footer__widgetArea{color:#ffffff}.l-header{box-shadow: 0 1px 4px rgba(0,0,0,.12)}.l-header__menuBtn{order:1}.l-header__customBtn{order:3}.l-header__menuBtn{color:#fff;background-color:#f9f9f9}.l-header__customBtn{color:#fff;background-color:#6dd622}.c-gnav a::after{background:var(--color_main);width:100%;height:2px;transform:scaleX(0)}.p-spHeadMenu .menu-item.-current{border-bottom-color:var(--color_main)}.c-gnav > li:hover > a::after,.c-gnav > .-current > a::after{transform: scaleX(1)}.c-gnav .sub-menu{color:#333;background:#fff}.l-fixHeader::before{opacity:1}#pagetop{border-radius:50%}#before_footer_widget{margin-bottom:0}.c-widget__title.-spmenu{padding:.5em .75em;border-radius:var(--swl-radius--2, 0px);background:var(--color_main);color:#fff;}.c-widget__title.-footer{padding:.5em}.c-widget__title.-footer::before{content:"";bottom:0;left:0;width:40%;z-index:1;background:var(--color_main)}.c-widget__title.-footer::after{content:"";bottom:0;left:0;width:100%;background:var(--color_border)}.c-secTitle{border-left:solid 2px var(--color_main);padding:0em .75em}.p-spMenu{color:#333}.p-spMenu__inner::before{background:#fffbf4;opacity:1}.p-spMenu__overlay{background:#000;opacity:0}[class*="page-numbers"]{color:#fff;background-color:#dedede}a{text-decoration: none}.l-topTitleArea.c-filterLayer::before{background-color:#000;opacity:0.2;content:""}@media screen and (min-width: 960px){:root{}}@media screen and (max-width: 959px){:root{}.l-header__logo{order:2;text-align:center}}@media screen and (min-width: 600px){:root{--swl-fz--content:16px;}}@media screen and (max-width: 599px){:root{}}@media (min-width: 1648px) {.alignwide{left:-100px;width:calc(100% + 200px);}}@media (max-width: 1648px) {.-sidebar-off .swell-block-fullWide__inner.l-container .alignwide{left:0px;width:100%;}}.l-fixHeader .l-fixHeader__gnav{order:0}[data-scrolled=true] .l-fixHeader[data-ready]{opacity:1;-webkit-transform:translateY(0)!important;transform:translateY(0)!important;visibility:visible}.-body-solid .l-fixHeader{box-shadow:0 2px 4px var(--swl-color_shadow)}.l-fixHeader__inner{align-items:stretch;color:var(--color_header_text);display:flex;padding-bottom:0;padding-top:0;position:relative;z-index:1}.l-fixHeader__logo{align-items:center;display:flex;line-height:1;margin-right:24px;order:0;padding:16px 0}.is-style-btn_normal a,.is-style-btn_shiny a{box-shadow:var(--swl-btn_shadow)}.c-shareBtns__btn,.is-style-balloon>.c-tabList .c-tabList__button,.p-snsCta,[class*=page-numbers]{box-shadow:var(--swl-box_shadow)}.p-articleThumb__img,.p-articleThumb__youtube{box-shadow:var(--swl-img_shadow)}.p-pickupBanners__item .c-bannerLink,.p-postList__thumb{box-shadow:0 2px 8px rgba(0,0,0,.1),0 4px 4px -4px rgba(0,0,0,.1)}.p-postList.-w-ranking li:before{background-image:repeating-linear-gradient(-45deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,.1) 6px,transparent 0,transparent 12px);box-shadow:1px 1px 4px rgba(0,0,0,.2)}:root{--swl-radius--2:2px;--swl-radius--4:4px;--swl-radius--8:8px}.c-categoryList__link,.c-tagList__link,.tag-cloud-link{border-radius:16px;padding:6px 10px}.-related .p-postList__thumb,.is-style-bg_gray,.is-style-bg_main,.is-style-bg_main_thin,.is-style-bg_stripe,.is-style-border_dg,.is-style-border_dm,.is-style-border_sg,.is-style-border_sm,.is-style-dent_box,.is-style-note_box,.is-style-stitch,[class*=is-style-big_icon_],input[type=number],input[type=text],textarea{border-radius:4px}.-ps-style-img .p-postList__link,.-type-thumb .p-postList__link,.p-postList__thumb{border-radius:12px;overflow:hidden;z-index:0}.c-widget .-type-list.-w-ranking .p-postList__item:before{border-radius:16px;left:2px;top:2px}.c-widget .-type-card.-w-ranking .p-postList__item:before{border-radius:0 0 4px 4px}.c-postThumb__cat{border-radius:16px;margin:.5em;padding:0 8px}.cap_box_ttl{border-radius:2px 2px 0 0}.cap_box_content{border-radius:0 0 2px 2px}.cap_box.is-style-small_ttl .cap_box_content{border-radius:0 2px 2px 2px}.cap_box.is-style-inner .cap_box_content,.cap_box.is-style-onborder_ttl .cap_box_content,.cap_box.is-style-onborder_ttl2 .cap_box_content,.cap_box.is-style-onborder_ttl2 .cap_box_ttl,.cap_box.is-style-shadow{border-radius:2px}.is-style-more_btn a,.p-postList__body:after,.submit{border-radius:40px}@media (min-width:960px){#sidebar .-type-list .p-postList__thumb{border-radius:8px}}@media not all and (min-width:960px){.-ps-style-img .p-postList__link,.-type-thumb .p-postList__link,.p-postList__thumb{border-radius:8px}}@media (min-width:960px){.-series .l-header__inner{align-items:stretch;display:flex}.-series .l-header__logo{align-items:center;display:flex;flex-wrap:wrap;margin-right:24px;padding:16px 0}.-series .l-header__logo .c-catchphrase{font-size:13px;padding:4px 0}.-series .c-headLogo{margin-right:16px}.-series-right .l-header__inner{justify-content:space-between}.-series-right .c-gnavWrap{margin-left:auto}.-series-right .w-header{margin-left:12px}.-series-left .w-header{margin-left:auto}}@media (min-width:960px) and (min-width:600px){.-series .c-headLogo{max-width:400px}}.c-submenuToggleBtn:after{content:"";height:100%;left:0;position:absolute;top:0;width:100%;z-index:0}.c-submenuToggleBtn{cursor:pointer;display:block;height:2em;line-height:2;position:absolute;right:8px;text-align:center;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);width:2em;z-index:1}.c-submenuToggleBtn:before{content:"\e910";display:inline-block;font-family:icomoon;font-size:14px;transition:-webkit-transform .25s;transition:transform .25s;transition:transform .25s,-webkit-transform .25s}.c-submenuToggleBtn:after{border:1px solid;opacity:.15;transition:background-color .25s}.c-submenuToggleBtn.is-opened:before{-webkit-transform:rotate(-180deg);transform:rotate(-180deg)}.widget_categories>ul>.cat-item>a,.wp-block-categories-list>li>a{padding-left:1.75em}.c-listMenu a{padding:.75em .5em;position:relative}.c-gnav .sub-menu a:not(:last-child),.c-listMenu a:not(:last-child){padding-right:40px}.c-gnav .sub-menu .sub-menu{box-shadow:none}.c-gnav .sub-menu .sub-menu,.c-listMenu .children,.c-listMenu .sub-menu{height:0;margin:0;opacity:0;overflow:hidden;position:relative;transition:.25s}.c-gnav .sub-menu .sub-menu.is-opened,.c-listMenu .children.is-opened,.c-listMenu .sub-menu.is-opened{height:auto;opacity:1;visibility:visible}.c-gnav .sub-menu .sub-menu a,.c-listMenu .children a,.c-listMenu .sub-menu a{font-size:.9em;padding-left:1.5em}.c-gnav .sub-menu .sub-menu ul a,.c-listMenu .children ul a,.c-listMenu .sub-menu ul a{padding-left:2.25em}@media (min-width:600px){.c-submenuToggleBtn{height:28px;line-height:28px;transition:background-color .25s;width:28px}}@media (min-width:960px){.c-submenuToggleBtn:hover:after{background-color:currentcolor}}:root{--color_content_bg:var(--color_bg);--mv_btn_radius:4px;--mv_slide_animation:no;}.c-widget__title.-side{padding:.5em}.c-widget__title.-side::before{content:"";bottom:0;left:0;width:40%;z-index:1;background:var(--color_main)}.c-widget__title.-side::after{content:"";bottom:0;left:0;width:100%;background:var(--color_border)}.top #content{padding-top:0}.p-mainVisual__inner{height:80vh}.p-mainVisual .c-filterLayer::before{background-color:#000000;opacity:0.3;content:""}.-type-slider .p-mainVisual__scroll{padding-bottom: 16px}.page.-index-off .w-beforeToc{display:none}@media screen and (min-width: 960px){:root{}.p-mainVisual__inner{height:50vw}}@media screen and (max-width: 959px){:root{}}@media screen and (min-width: 600px){:root{}}@media screen and (max-width: 599px){:root{}}.swell-block-fullWide__inner.l-container{--swl-fw_inner_pad:var(--swl-pad_container,0px)}@media (min-width:960px){.-sidebar-on .l-content .alignfull,.-sidebar-on .l-content .alignwide{left:-16px;width:calc(100% + 32px)}.swell-block-fullWide__inner.l-article{--swl-fw_inner_pad:var(--swl-pad_post_content,0px)}.-sidebar-on .swell-block-fullWide__inner .alignwide{left:0;width:100%}.-sidebar-on .swell-block-fullWide__inner .alignfull{left:calc(0px - var(--swl-fw_inner_pad, 0))!important;margin-left:0!important;margin-right:0!important;width:calc(100% + var(--swl-fw_inner_pad, 0)*2)!important}}.-index-off .p-toc,.swell-toc-placeholder:empty{display:none}.p-toc.-modal{height:100%;margin:0;overflow-y:auto;padding:0}#main_content .p-toc{border-radius:var(--swl-radius--2,0);margin:4em auto;max-width:800px}#sidebar .p-toc{margin-top:-.5em}.p-toc .__pn:before{content:none!important;counter-increment:none}.p-toc .__prev{margin:0 0 1em}.p-toc .__next{margin:1em 0 0}.p-toc.is-omitted:not([data-omit=ct]) [data-level="2"] .p-toc__childList{height:0;margin-bottom:-.5em;visibility:hidden}.p-toc.is-omitted:not([data-omit=nest]){position:relative}.p-toc.is-omitted:not([data-omit=nest]):before{background:linear-gradient(hsla(0,0%,100%,0),var(--color_bg));bottom:5em;content:"";height:4em;left:0;opacity:.75;pointer-events:none;position:absolute;width:100%;z-index:1}.p-toc.is-omitted:not([data-omit=nest]):after{background:var(--color_bg);bottom:0;content:"";height:5em;left:0;opacity:.75;position:absolute;width:100%;z-index:1}.p-toc.is-omitted:not([data-omit=nest]) .__next,.p-toc.is-omitted:not([data-omit=nest]) [data-omit="1"]{display:none}.p-toc .p-toc__expandBtn{background-color:#f7f7f7;border:rgba(0,0,0,.2);border-radius:5em;box-shadow:0 0 0 1px #bbb;color:#333;display:block;font-size:14px;line-height:1.5;margin:.75em auto 0;min-width:6em;padding:.5em 1em;position:relative;transition:box-shadow .25s;z-index:2}.p-toc[data-omit=nest] .p-toc__expandBtn{display:inline-block;font-size:13px;margin:0 0 0 1.25em;padding:.5em .75em}.p-toc:not([data-omit=nest]) .p-toc__expandBtn:after,.p-toc:not([data-omit=nest]) .p-toc__expandBtn:before{border-top-color:inherit;border-top-style:dotted;border-top-width:3px;content:"";display:block;height:1px;position:absolute;top:calc(50% - 1px);transition:border-color .25s;width:100%;width:22px}.p-toc:not([data-omit=nest]) .p-toc__expandBtn:before{right:calc(100% + 1em)}.p-toc:not([data-omit=nest]) .p-toc__expandBtn:after{left:calc(100% + 1em)}.p-toc.is-expanded .p-toc__expandBtn{border-color:transparent}.p-toc__ttl{display:block;font-size:1.2em;line-height:1;position:relative;text-align:center}.p-toc__ttl:before{content:"\e918";display:inline-block;font-family:icomoon;margin-right:.5em;padding-bottom:2px;vertical-align:middle}#index_modal .p-toc__ttl{margin-bottom:.5em}.p-toc__list li{line-height:1.6}.p-toc__list>li+li{margin-top:.5em}.p-toc__list .p-toc__childList{padding-left:.5em}.p-toc__list [data-level="3"]{font-size:.9em}.p-toc__list .mininote{display:none}.post_content .p-toc__list{padding-left:0}#sidebar .p-toc__list{margin-bottom:0}#sidebar .p-toc__list .p-toc__childList{padding-left:0}.p-toc__link{color:inherit;font-size:inherit;text-decoration:none}.p-toc__link:hover{opacity:.8}.p-toc.-border{border-bottom:2px solid var(--color_main);border-top:2px solid var(--color_main);padding:1.75em .5em 1.5em}.p-toc.-border .p-toc__ttl{margin-bottom:.75em}@media (min-width:960px){#main_content .p-toc{width:92%}}@media (hover:hover){.p-toc .p-toc__expandBtn:hover{border-color:transparent;box-shadow:0 0 0 2px currentcolor}}@media (min-width:600px){.p-toc.-border{padding:1.75em 1em 1.5em}}.w-beforeFooter{margin:6em auto 3em;overflow:hidden}.c-widget__title.-footer:before{background-color:currentcolor!important}.l-footer{background-color:var(--color_footer_bg);color:var(--color_footer_text);position:relative;z-index:0}.l-footer a,.l-footer span{color:inherit}.l-footer .copyright{font-size:12px;text-align:center}.l-footer .copyright a{color:var(--color_link)}.l-footer__nav{color:inherit;display:flex;flex-wrap:wrap;justify-content:center;padding:.5em 0 1em}.l-footer__nav a{color:inherit;display:block;font-size:3vw;padding:.25em .5em;text-decoration:none}.l-footer__nav a:hover{text-decoration:underline}.l-footer__foot,.l-footer__widgetArea{padding-bottom:1em;padding-top:1em}.p-indexModal{padding:80px 16px}.p-indexModal__inner{background:#fdfdfd;border-radius:var(--swl-radius--4,0);color:#333;height:100%;margin:-1em auto 0!important;max-width:800px;padding:2em 1.5em;position:relative;-webkit-transform:translateY(16px);transform:translateY(16px);transition:-webkit-transform .5s;transition:transform .5s;transition:transform .5s,-webkit-transform .5s;z-index:1}.is-opened>.p-indexModal__inner{-webkit-transform:translateY(0);transform:translateY(0)}.p-searchModal__inner{background:hsla(0,0%,100%,.1);left:50%;max-width:600px;padding:1em;position:absolute;top:calc(50% + 16px);-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);transition:top .5s;width:96%;z-index:1}.is-opened>.p-searchModal__inner{top:50%}.p-searchModal__inner .c-searchForm{box-shadow:0 0 4px hsla(0,0%,100%,.2)}.p-searchModal__inner .s{font-size:16px}@media (min-width:960px){.w-footer{display:flex;justify-content:space-between}.w-footer__box{flex:1;padding:1em}}@media not all and (min-width:960px){.w-footer__box{padding:1em 0}.w-footer__box+.w-footer__box{margin-top:1em}.l-footer__inner{padding-bottom:calc(env(safe-area-inset-bottom)*.5)}}@media (min-width:600px){.l-footer__nav a{border-right:1px solid;font-size:13px;padding:0 .75em}.l-footer__nav li:first-child a{border-left:1px solid}.p-indexModal__inner{padding:2em}}.p-mainVisual{overflow:hidden;position:relative;width:100%}.p-mainVisual.-margin-on{padding:8px}.p-mainVisual.-height-full{height:calc(var(--swl-mv-height, 100vh) - var(--swl-headerH, 0px) - var(--swl-adminbarH, 0px))}.p-mainVisual.-height-full .p-mainVisual__inner{height:100%}.-height-img [src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="]{height:0}.-height-img .swiper-slide{width:var(--swl-mv_slide_width--pc,100%)}.-height-img .p-mainVisual__imgLayer{height:auto;position:relative}.-height-img .p-mainVisual__img{display:block;height:auto;width:100%}.p-mainVisual__inner{position:relative}.-height-auto .p-mainVisual__inner{height:auto}.p-mainVisual__slide{height:auto;overflow:hidden;position:relative}.-height-full .p-mainVisual__slide,.-height-set .p-mainVisual__slide{height:100%}.p-mainVisual__slideLink{height:100%;left:0;position:absolute;top:0;width:100%}.p-mainVisual__textLayer{display:flex;flex-direction:column;height:100%;justify-content:center;left:50%;position:absolute;top:0;-webkit-transform:translateX(-50%);transform:translateX(-50%);width:100%;z-index:3}.p-mainVisual__textLayer>.p-blogParts{margin:1em 0 0;text-align:left}.-height-auto .p-mainVisual__textLayer{left:0;padding-bottom:4em;padding-top:4em;position:relative;-webkit-transform:none;transform:none}.p-mainVisual__slideTitle{font-size:5.5vw;line-height:1.4}.p-mainVisual__slideText{font-size:3.2vw;margin-top:.75em}.-height-full .p-mainVisual__slideText{font-size:3.4vw}.p-mainVisual__scroll{bottom:16px;color:#fff;left:50%;opacity:.75;position:absolute;text-align:center;-webkit-transform:translateX(-50%);transform:translateX(-50%);transition:opacity .25s;z-index:9}.-height-full>.p-mainVisual__scroll{bottom:24px}.p-mainVisual__scroll:hover{opacity:1}.p-mainVisual__scrollArrow{-webkit-animation:FloatVertical 3s ease-in-out infinite alternate;animation:FloatVertical 3s ease-in-out infinite alternate;display:block;height:20px;margin:0 auto;width:20px}.p-mainVisual__scrollLabel{display:block;font-size:12px;letter-spacing:var(--swl-letter_spacing,1px);line-height:1;padding-top:4px}.p-mainVisual__video{display:block;height:100%;-o-object-fit:cover;object-fit:cover;pointer-events:none;position:relative;width:100%;z-index:-1}@media (min-width:600px){.p-mainVisual.-margin-on{padding:16px}.p-mainVisual__slideTitle{font-size:28px}.p-mainVisual__slideText{font-size:16px}.-height-full .p-mainVisual__slideText{font-size:18px}}@media not all and (min-width:960px){.-height-img .swiper-slide{width:var(--swl-mv_slide_width--sp,100%)}.p-mainVisual__textLayer{padding:0 4vw}}.c-pageTitle{font-size:1.3em;line-height:1.4;position:relative}.c-pageTitle:after{clear:both;content:"";display:block;height:0;visibility:hidden}.c-pageTitle[data-style=b_bottom]{border-bottom:1px solid var(--color_border)}.c-pageTitle[data-style=b_bottom] .c-pageTitle__inner{border-bottom:1px solid var(--color_main);float:left;margin-bottom:-1px;padding:.25em .5em}.c-pageTitle__inner{display:block;padding-top:.5em}.c-pageTitle__subTitle{font-style:italic;letter-spacing:var(--swl-letter_spacing,1px);margin-left:1em;opacity:.8;position:relative;top:-2px}.c-pageExcerpt{margin-top:1em}.c-secTitle{display:block;font-size:4.5vw;margin-bottom:1.5em;position:relative}.c-secTitle:after,.c-secTitle:before{box-sizing:inherit;display:block;height:1px;position:absolute;z-index:0}.post-password-form:not(:first-child){border-top:1px dashed var(--color_border);padding-top:1em}.post-password-form p{margin-bottom:1em}@media (min-width:600px){.c-pageTitle{font-size:1.5em}.c-secTitle{font-size:20px}.l-articleBottom__section{margin-top:6em}}@media not all and (min-width:600px){.l-articleBottom__section{margin-top:4em}}
 /*# sourceURL=swell_custom-inline-css */
 </style>
 <style id="classic-theme-styles-inline-css">
@@ -184,7 +272,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
    例）ヒーロー: try-hero / 共感: try-problems / 特徴: try-features …など
    ========================================================= */
 :root{
-  --try-mint:#4DB6AC;      /* CTA/アクセント */
+  --try-mint:#4a9fd4;      /* CTA/アクセント（ヘッダー/フッターと統一：ティール） */
   --try-blue:#E3F2FD;      /* 淡ブルー背景 */
   --try-gray:#F8F9FA;      /* ライトグレー背景 */
   --try-text:#333333;      /* 本文 */
@@ -225,7 +313,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 .try-closing .wp-block-button__link{
   background: var(--try-mint)!important;
   color: var(--try-white)!important;
-  border-radius: 30px!important;
+  border-radius: 8px!important;
   padding: 16px 28px!important;
   font-weight: 800;
   letter-spacing: .02em;
@@ -237,8 +325,10 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   transform: translateY(-1px);
   opacity: .96;
 }
-.try-btn--sm{ padding: 12px 18px!important; border-radius: 24px!important; font-weight:700; }
-.try-btn--lg{ padding: 18px 34px!important; border-radius: 36px!important; font-size: clamp(16px,2vw,20px)!important; }
+.try-btn--sm{ padding: 12px 18px!important; border-radius: 8px!important; font-weight:700; }
+.try-btn--lg{ padding: 18px 34px!important; border-radius: 8px!important; font-size: clamp(16px,2vw,20px)!important; }
+/* SWELLボタン（公式LINE等）の角丸もヘッダー/フッターに合わせて角張らせる */
+.swell-block-button .swell-block-button__link{ border-radius:8px !important; }
 
 /* =========================
    1) HERO（ファーストビュー）
@@ -350,47 +440,46 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 }
 .try-step .try-step__num{
   position:absolute; top:12px; left:12px;
-  width:34px; height:34px; border-radius:50%;
+  width:34px; height:34px; border-radius:8px;
   display:grid; place-items:center;
-  background: var(--try-mint); color: var(--try-white);
+  background:#4a9fd4; color: var(--try-white);
   font-weight:800; font-size:14px;
 }
 
-/* 施術の流れ：縦構成ステップカード（タイトル→写真→説明） */
-.try-fstep{ max-width: 720px; margin: 0 auto; display:flex; flex-direction:column; gap: clamp(16px,2.4vw,24px); }
-.try-fstep__step{
-  background: var(--try-white); border-radius: var(--try-radius);
-  overflow:hidden; box-shadow: var(--try-shadow);
-  padding: clamp(20px,3vw,28px);
+/* 施術の流れ：横ステッパー＋写真スライダー（白地） */
+.try-fstep{ display:grid; grid-template-columns:repeat(5,1fr); gap:0; max-width:860px; margin:0 auto clamp(40px,5vw,54px); }
+.try-fstep__step{ position:relative; padding:0 10px; text-align:center; background:none; box-shadow:none; border-radius:0; }
+.try-fstep__step::before{ content:""; position:absolute; top:21px; left:-50%; width:100%; height:2px; background:#e4ecf2; z-index:0; }
+.try-fstep__step:first-child::before{ display:none; }
+.try-fstep__num{ position:relative; z-index:1; width:44px; height:44px; margin:0 auto 14px; border-radius:50%; background:#fff; border:2px solid var(--try-mint); color:#2f7fb3; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center; }
+.try-fstep__step.is-vas .try-fstep__num{ background:var(--try-mint); border-color:var(--try-mint); color:#fff; box-shadow:0 6px 16px rgba(74,159,212,.35); }
+.try-fstep__ttl{ font-size:14px; font-weight:800; color:var(--try-dark); margin:0 0 6px; line-height:1.4; border:0; padding:0; }
+.try-fstep__txt{ font-size:11.5px; line-height:1.7; color:#4a5a66; margin:0; }
+@media (max-width:720px){
+  .try-fstep{ grid-template-columns:1fr; max-width:420px; }
+  .try-fstep__step{ display:grid; grid-template-columns:44px 1fr; gap:14px; text-align:left; padding:0 0 22px; }
+  .try-fstep__step::before{ top:0; left:21px; width:2px; height:100%; }
+  .try-fstep__step:first-child::before{ display:block; top:22px; }
+  .try-fstep__num{ margin:0; }
+  .try-fstep__ttl{ grid-column:2; padding-top:10px; } .try-fstep__txt{ grid-column:2; }
 }
-.try-fstep__ttl{
-  font-size: clamp(18px,2.4vw,22px); font-weight:800; color: var(--try-dark);
-  margin: 0 0 16px; padding-bottom: 14px; line-height:1.4;
-  display:flex; align-items:center; flex-wrap:wrap; gap:8px;
-  border-bottom: 2px solid var(--try-mint);
-}
-.try-fstep__tag{
-  display:inline-block; background: rgba(77,182,172,.12); color:#3a9a90;
-  font-size:11px; font-weight:700; padding:3px 11px; border-radius:999px;
-}
-.try-fstep__photo{
-  position:relative; width:100%; aspect-ratio: 16/10; overflow:hidden;
-  border-radius:14px; background: var(--try-gray, #F8F9FA); margin-bottom:18px;
-}
-.try-fstep__photo img{
-  width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;
-}
-.try-fstep__num{
-  position:absolute; top:12px; left:12px; z-index:2;
-  min-width:46px; height:46px; padding:0 6px; border-radius:999px;
-  background: var(--try-mint); color:#fff;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  font-weight:800; line-height:1; box-shadow:0 4px 12px rgba(0,0,0,.25);
-}
-.try-fstep__num small{ font-size:8.5px; letter-spacing:.08em; opacity:.9; margin-bottom:2px; }
-.try-fstep__txt{
-  font-size: clamp(13px,1.7vw,15px); line-height:1.9; color:#555; margin:0;
-}
+/* 写真スライダー */
+.try-fslide{ position:relative; max-width:900px; margin:0 auto; overflow:hidden; }
+.try-fslide__track{ display:flex; width:max-content; padding:4px 2px 18px; animation:tryFslideMove 70s linear infinite; will-change:transform; }
+.try-fslide:hover .try-fslide__track{ animation-play-state:paused; }
+@keyframes tryFslideMove{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+@media (prefers-reduced-motion: reduce){ .try-fslide{ overflow-x:auto; } .try-fslide__track{ animation:none; width:auto; } }
+.try-fslide__item{ flex:0 0 clamp(240px,70vw,360px); margin-right:18px; }
+.try-fslide__ph{ position:relative; width:100%; aspect-ratio:4/3; border-radius:16px; overflow:hidden; background:#f5f8fb; box-shadow:0 10px 28px rgba(30,42,50,.1); margin:0; }
+.try-fslide__ph img{ width:100%; height:100%; object-fit:cover; display:block; }
+.try-fslide__badge{ position:absolute; top:12px; left:12px; background:rgba(30,42,50,.78); color:#fff; font-size:11px; font-weight:800; letter-spacing:.1em; padding:5px 11px; border-radius:999px; }
+.try-fslide__cap{ text-align:center; font-size:14px; font-weight:800; color:var(--try-dark); margin:14px 0 0; }
+.try-fslide__nav{ display:flex; align-items:center; justify-content:center; gap:16px; margin-top:16px; }
+.try-fslide__btn{ width:44px; height:44px; border-radius:50%; border:1.5px solid #e4ecf2; background:#fff; color:#2f7fb3; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.15s; }
+.try-fslide__btn:hover{ border-color:var(--try-mint); background:#f5f8fb; }
+.try-fslide__dots{ display:flex; gap:8px; }
+.try-fslide__dot{ width:8px; height:8px; border-radius:50%; background:#e4ecf2; border:0; padding:0; cursor:pointer; transition:.2s; }
+.try-fslide__dot.on{ background:var(--try-mint); width:22px; border-radius:999px; }
 
 /* =========================
    6) Before / After
@@ -422,6 +511,28 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   display: grid; gap: 10px;
 }
 .try-stars{ color:#FFD700; letter-spacing: 1px; }
+/* お客様の声：引用コメント主役型 */
+/* コメントを吹き出しで動画の上に、動画は小さめに */
+.swell-block-column:has(.try-vcard__cap){ display:flex; flex-direction:column; align-items:center; }
+.swell-block-column:has(.try-vcard__cap) .try-vcard__cap{ order:-1; }
+.swell-block-column:has(.try-vcard__cap) figure.wp-block-embed{ order:0; max-width:240px; width:100%; margin:0 auto; }
+.try-vcard__cap{
+  width:100%; max-width:240px; margin:0 auto 20px; padding:16px 18px; background:#fff;
+  border-radius:16px; box-shadow:0 8px 22px rgba(0,0,0,.10);
+  position:relative; border:1px solid #e3eef6;
+  min-height:150px; display:flex; flex-direction:column; justify-content:center;
+}
+.try-vcard__cap::after{
+  content:""; position:absolute; left:50%; bottom:-13px; transform:translateX(-50%);
+  border:13px solid transparent; border-top-color:#fff;
+  filter: drop-shadow(0 4px 3px rgba(0,0,0,.06));
+}
+.try-vcard__quote{
+  margin:0 0 10px; font-size:clamp(15px,1.9vw,18px); font-weight:800;
+  color:var(--try-dark); line-height:1.65;
+}
+.try-vcard__by{ margin:0; font-size:13px; font-weight:700; color:#5b6b78; }
+.try-vcard__stars{ color:#FFB400; margin-right:.5em; letter-spacing:1px; }
 
 /* =========================
    8) 料金・プラン
@@ -433,6 +544,12 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   padding: clamp(18px,2.2vw,28px);
   box-shadow: var(--try-shadow);
   border: 2px solid transparent;
+  position: relative;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.try-price:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.14);
 }
 .try-price.-primary{ border-color: var(--try-mint); }
 .try-price h3{ margin:0 0 6px; }
@@ -474,6 +591,39 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   color: #555; margin: 0;
 }
 .try-pricing__cta{ margin-top: clamp(28px,4vw,40px) !important; }
+.try-pricing__sublabel{
+  text-align: center; font-weight: 800; color: var(--try-dark);
+  font-size: clamp(16px,2.2vw,20px);
+  margin: clamp(28px,4vw,44px) 0 clamp(14px,1.8vw,20px);
+}
+.try-pricing__sublabel:first-child{ margin-top: 0; }
+.try-pricing__cards.-three{ grid-template-columns: repeat(3,1fr); }
+@media (max-width: 767px){
+  .try-pricing__cards.-three{ grid-template-columns: 1fr; }
+}
+.try-price.-plain .try-price__amount{ margin-bottom: 0; }
+.try-pricing__note{
+  text-align: center; font-size: clamp(12px,1.6vw,14px);
+  color: #777; margin: clamp(14px,1.8vw,18px) 0 0;
+}
+/* 料金カードの写真・おすすめ（参考サイト風の視覚強化） */
+.try-price__photo{
+  width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
+  border-radius: 12px; display: block; margin: 0 0 14px;
+}
+.try-price__reco{
+  margin: 14px 0 0; padding: 12px 14px;
+  background: var(--try-blue); border-radius: 10px;
+}
+.try-price__reco-ttl{
+  display: inline-block; font-weight: 700; color: #1565C0;
+  font-size: clamp(12px,1.6vw,13px); letter-spacing: .04em; margin: 0 0 6px;
+}
+.try-price__reco ul{ margin: 0; padding-left: 1.15em; }
+.try-price__reco li{
+  font-size: clamp(12px,1.6vw,14px); color: #555;
+  line-height: 1.85; margin: 0;
+}
 
 /* =========================
    9) FAQ（詳細ブロック）
@@ -834,88 +984,98 @@ details[open] > summary .swell-block-accordion__icon::before,
   transform: translate(-50%, -30%) rotate(-135deg);
 }
 /* 濃紺セクション内のアコーディオン見出しを白文字に */
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title,
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label,
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label strong {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__title,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__label,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__label strong {
   color: #ffffff;
 }
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__title {
   border-bottom: 1px solid rgba(255,255,255,0.3);
   padding: 0.75em 0.25em;
 }
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__icon {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__icon {
   color: #ffffff;
 }
 /* カード型（is-style-card）内のアコーディオンは明るい背景なので濃紺文字に上書き */
-.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__title,
-.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__label,
-.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__label strong,
-.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__icon {
-  color: #2d3151;
+.swell-block-fullWide[style*="background-color:#1E2A32"] .is-style-card .swell-block-accordion__title,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .is-style-card .swell-block-accordion__label,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .is-style-card .swell-block-accordion__label strong,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .is-style-card .swell-block-accordion__icon {
+  color: #1E2A32;
 }
-.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-card .swell-block-accordion__title {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .is-style-card .swell-block-accordion__title {
   border-bottom: 1px solid rgba(45,49,81,0.25);
 }
 /* ===== 理由とは？セクションの特徴カード（タイトル→画像→本文） ===== */
 .try-feature-cards {
   display: flex;
   flex-direction: column;
-  gap: 2.5em;
-  max-width: 880px;
+  gap: 2em;
+  max-width: 1080px;
   margin: 2.5em auto 0;
 }
 .try-feature-card {
   background: #fff;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 8px 28px rgba(0,0,0,0.18);
   color: #333;
+  display: flex;
+  flex-direction: column;
 }
+.try-feature-card__media{ order: -1; } /* モバイルは写真を上に */
 .try-feature-card__head {
   padding: 1.75em 1.75em 1.25em;
 }
 .try-feature-card__num {
-  display: inline-block;
-  font-size: 0.82em;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #2d3151;
-  border: 1.5px solid #2d3151;
-  border-radius: 999px;
-  padding: 0.2em 0.9em;
-  margin-bottom: 0.9em;
+  position: absolute; top: -16px; left: -14px; z-index: 3; margin: 0;
+  display: inline-flex; align-items: baseline; gap: 0.3em;
+  font-size: 0.95em; font-weight: 800; letter-spacing: 0.04em;
+  color: #fff; background: #4a9fd4;
+  border: none; border-radius: 10px;
+  padding: 0.4em 0.95em;
+  box-shadow: 0 6px 16px rgba(74,159,212,.45);
+}
+.try-feature-card__no {
+  font-size: 1.55em; font-weight: 900; line-height: 1; letter-spacing: 0;
 }
 .try-feature-card__label {
   display: inline-block;
-  font-size: 0.78em;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #fff;
-  background: #2d3151;
-  border-radius: 999px;
-  padding: 0.35em 1.1em;
-  margin: 0 0 0.9em 0.6em;
+  font-size: 0.9em; font-weight: 800; letter-spacing: 0.03em;
+  color: #2b6ea0; background: #e3f1fb;
+  border: 1.5px solid #bfe0f5; border-radius: 10px;
+  padding: 0.5em 1.05em; margin: 0 0 0.9em 0.6em;
+  vertical-align: middle;
 }
 .try-feature-card__title {
-  font-size: 1.35em;
-  font-weight: 700;
-  line-height: 1.45;
-  color: #2d3151;
-  margin: 0;
+  position: relative;
+  font-size: 1.4em;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #1E2A32;
+  margin: 0 0 0.7em;
+  padding-bottom: 0.55em;
+}
+.try-feature-card__title::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 60px; height: 4px;
+  background: #4a9fd4; border-radius: 2px;
 }
 .try-feature-card__media {
+  position: relative;
   width: 100%;
   background: #f4f6f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 16px 16px 0 0;
+  aspect-ratio: 16 / 10;
+  overflow: visible;
 }
 .try-feature-card__media img {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 460px;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 .try-feature-card__body {
   padding: 1.5em 1.75em 2em;
@@ -926,8 +1086,12 @@ details[open] > summary .swell-block-accordion__icon::before,
   margin: 0 0 1em;
 }
 .try-feature-card__text:last-child { margin-bottom: 0; }
-.try-feature-card__text strong { color: #2d3151; }
-.try-feature-card__text a { color: #2d3151; text-decoration: underline; }
+.try-feature-card__text strong {
+  color: #1E2A32; font-weight: 800;
+  background: linear-gradient(transparent 62%, #bfe0f5 62%);
+  padding: 0 .08em;
+}
+.try-feature-card__text a { color: #1E2A32; text-decoration: underline; }
 /* 最後のカードとLINEボタンの間に余白 */
 .try-feature-cards + .swell-block-button,
 .try-feature-cards + * {
@@ -937,6 +1101,21 @@ details[open] > summary .swell-block-accordion__icon::before,
   .try-feature-card__head { padding: 2em 2.5em 1.5em; }
   .try-feature-card__body { padding: 1.75em 2.5em 2.25em; }
   .try-feature-card__title { font-size: 1.5em; }
+  /* 画像ありカードは横並び（画像左＋テキスト右）でスクロール削減 */
+  .try-feature-card:has(.try-feature-card__media){
+    display:grid; grid-template-columns: 42% 1fr;
+    grid-template-areas: "media head" "media body"; align-items:start;
+  }
+  .try-feature-card:has(.try-feature-card__media) .try-feature-card__media{
+    grid-area:media; align-self:start;
+    aspect-ratio: 4 / 3; padding:0;
+    border-radius: 16px 0 0 16px;
+  }
+  .try-feature-card:has(.try-feature-card__media) .try-feature-card__media img{
+    width:100%; height:100%; max-height:none; object-fit:cover;
+  }
+  .try-feature-card:has(.try-feature-card__media) .try-feature-card__head{ grid-area:head; padding-bottom:0.5em; }
+  .try-feature-card:has(.try-feature-card__media) .try-feature-card__body{ grid-area:body; padding-top:0.75em; }
 }
 /* ===== Googleレビュー（自前カード） ===== */
 .try-reviews { max-width: 880px; margin: 0 auto; }
@@ -945,7 +1124,7 @@ details[open] > summary .swell-block-accordion__icon::before,
   gap: .4em; margin-bottom: 2.5em; text-align: center;
 }
 .try-reviews__score {
-  font-size: 3em; font-weight: 700; line-height: 1; color: #2d3151;
+  font-size: 3em; font-weight: 700; line-height: 1; color: #1E2A32;
 }
 .try-reviews__stars { color: #fbbc05; font-size: 1.4em; letter-spacing: 2px; line-height: 1; }
 .try-reviews__count { font-size: .9em; opacity: .7; }
@@ -966,42 +1145,57 @@ details[open] > summary .swell-block-accordion__icon::before,
   font-weight: 700; font-size: 1.15em; color: #fff; line-height: 1;
 }
 .try-review-card__meta { display: flex; flex-direction: column; gap: .15em; min-width: 0; }
-.try-review-card__name { font-weight: 700; font-size: .98em; color: #2d3151; }
+.try-review-card__name { font-weight: 700; font-size: .98em; color: #1E2A32; }
 .try-review-card__date { font-size: .78em; opacity: .6; }
 .try-review-card__stars { color: #fbbc05; font-size: .95em; letter-spacing: 1px; line-height: 1; }
 .try-review-card__body { font-size: .92em; line-height: 1.85; color: #444; margin: 0; }
 /* ===== 「TRYから皆様へ 3つの約束」濃紺背景セクションの可読性 ===== */
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__title,
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__label,
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__body,
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__body p {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__title,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__label,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__body,
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__body p {
   color: #fff !important;
 }
-.swell-block-fullWide[style*="background-color:#2d3151"] .is-style-border_left {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .is-style-border_left {
   border-left-color: rgba(255,255,255,.55) !important;
 }
-.swell-block-fullWide[style*="background-color:#2d3151"] .swell-block-accordion__item {
+.swell-block-fullWide[style*="background-color:#1E2A32"] .swell-block-accordion__item {
   border-bottom: 1px solid rgba(255,255,255,.18);
 }
 /* 3つの約束：JS非依存の常時表示ブロック */
-.try-promises { display: flex; flex-direction: column; gap: 1.5em; }
+.try-promises {
+  display: flex; flex-direction: column; gap: 1.5em;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: clamp(22px,3vw,34px);
+  box-shadow: 0 12px 34px rgba(0,0,0,.12);
+}
+/* スカイブルー背景セクションの本文を半透明白パネルで見やすく */
+.try-frost{
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: clamp(28px,4vw,48px) !important;
+  box-shadow: 0 12px 34px rgba(0,0,0,.12);
+}
 .try-promise {
-  border-left: 3px solid rgba(255,255,255,.55);
+  border-left: 3px solid rgba(30,42,50,.35);
   padding-left: 1.1em;
 }
 .try-promise__title {
   display: flex; align-items: center; gap: .6em;
-  color: #fff; font-weight: 700; font-size: 1.12em;
+  color: #1E2A32; font-weight: 700; font-size: 1.12em;
   line-height: 1.5; margin: 0 0 .5em;
 }
 .try-promise__num {
   flex: 0 0 auto; width: 1.7em; height: 1.7em;
   display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 50%; background: #fff; color: #2d3151;
+  border-radius: 50%; background: #1E2A32; color: #fff;
   font-size: .85em; font-weight: 700; line-height: 1;
 }
 .try-promise__body {
-  color: rgba(255,255,255,.92); font-size: .95em;
+  color: rgba(30,42,50,.9); font-size: .95em;
   line-height: 1.85; margin: 0;
 }
 /* 3つの約束：画像＋テキストの2カラム配置 */
@@ -1017,185 +1211,339 @@ details[open] > summary .swell-block-accordion__icon::before,
   .try-review-card__body { font-size: .95em; }
 }
 </style>
+<style>
+/* お客様の声：メイン動画＋サムネ切替 */
+.try-vf{ max-width:980px; margin:1.2em auto 0; padding:0 16px; }
+.try-vf__main{ display:flex; gap:clamp(20px,3vw,40px); align-items:center; background:#fff; border-radius:18px; box-shadow:0 12px 34px rgba(0,0,0,.10); padding:clamp(18px,2.6vw,30px); }
+.try-vf__video{ flex:0 0 auto; width:min(22%,150px); aspect-ratio:9/16; border-radius:14px; overflow:hidden; background:#000; }
+.try-vf__iframe{ width:100%; height:100%; display:block; border:0; }
+.try-vf__info{ flex:1 1 auto; min-width:0; }
+.try-vf__badge{ display:inline-block; background:var(--try-blue); color:#1565C0; font-weight:800; font-size:12px; letter-spacing:.08em; padding:4px 12px; border-radius:999px; margin-bottom:14px; }
+.try-vf__quote{ font-size:clamp(19px,2.5vw,29px); font-weight:800; color:var(--try-dark); line-height:1.6; margin:0 0 16px; }
+.try-vf__quote::before{ content:"\201C"; color:#bcdcf2; font-size:1.5em; line-height:0; vertical-align:-.25em; margin-right:.04em; }
+.try-vf__by{ margin:0; font-size:15px; font-weight:700; color:#5b6b78; }
+.try-vf__stars{ color:#FFB400; margin-right:.6em; letter-spacing:1px; }
+.try-vf__thumbs{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:22px; }
+.try-vf__thumb{ position:relative; width:84px; height:118px; border-radius:10px; border:3px solid transparent; background-size:cover; background-position:center; cursor:pointer; overflow:hidden; padding:0; box-shadow:0 4px 12px rgba(0,0,0,.14); transition:transform .12s ease, border-color .12s ease; }
+.try-vf__thumb::before{ content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%, rgba(0,0,0,.7)); }
+.try-vf__thumb span{ position:absolute; left:0; right:0; bottom:6px; color:#fff; font-size:10px; font-weight:700; line-height:1.25; text-align:center; z-index:1; padding:0 3px; }
+.try-vf__thumb:hover{ transform:translateY(-2px); }
+.try-vf__thumb.is-active{ border-color:#4a9fd4; box-shadow:0 6px 16px rgba(74,159,212,.45); }
+@media (max-width:767px){
+  .try-vf__main{ flex-direction:column; text-align:center; }
+  .try-vf__video{ width:min(45%,150px); }
+  .try-vf__quote{ font-size:clamp(18px,5vw,24px); }
+  .try-vf__quote::before{ display:none; }
+}
+</style>
+<style>
+/* お客様の声：自動再生動画の2列グリッド */
+.try-vg{ max-width:1080px; margin:1.4em auto 0; padding:0 16px 14px; display:flex; gap:clamp(16px,2vw,28px); overflow-x:auto; -webkit-overflow-scrolling:touch; justify-content:center; scroll-snap-type:x proximity; }
+.try-vg__item{ flex:0 0 auto; width:min(82vw,330px); scroll-snap-align:start; background:#fff; border-radius:16px; box-shadow:0 10px 28px rgba(0,0,0,.10); padding:16px; display:flex; flex-direction:column; align-items:center; }
+.try-vg__video{ width:100%; aspect-ratio:1/1; border-radius:12px; overflow:hidden; background:#000; }
+.try-vg__video iframe, .try-vg__video video{ width:100%; height:100%; border:0; display:block; object-fit:cover; background:#000; }
+.try-vg__cap{ margin-top:14px; text-align:center; }
+.try-vg__quote{ font-size:clamp(14px,1.8vw,17px); font-weight:800; color:var(--try-dark); line-height:1.6; margin:0 0 8px; }
+.try-vg__by{ margin:0; font-size:13px; font-weight:700; color:#5b6b78; }
+.try-vg__stars{ color:#FFB400; margin-right:.4em; letter-spacing:1px; }
+</style>
 </head>
 <body data-rsssl=1>
 
 <div id="body_wrap" class="home wp-singular page-template-default page page-id-1253 wp-theme-swell wp-child-theme-swell_child -body-solid -index-off -sidebar-off -frame-off top id_1253" >
-<nav class="try-nav"><a href="/" class="try-nav__logo"><img src="/images/logo.png" alt="鍼灸院TRY"></a><ul class="try-nav__links"><li><a href="/blog/">ブログ</a></li><li><a href="#menu">料金</a></li><li><a href="#access">アクセス</a></li></ul><a href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener" class="try-nav__cta">LINEから初回体験</a></nav><div id="main_visual" class="p-mainVisual -type-movie -height-set"><div class="p-mainVisual__inner c-filterLayer -filter-blur"><div class="p-mainVisual__imgLayer c-filterLayer__img"><picture><source media="(max-width: 768px)"><img src="/images/hero-pc.jpg" alt="鍼灸院TRY" style="width:100%;height:100%;object-fit:cover;display:block;"></picture></div><div class="p-mainVisual__textLayer l-container l-parent u-ta-r" style="color:#ffffff;text-shadow:1px 1px 0px rgba(0, 0, 0, 0.2 )"><div class="p-blogParts post_content" data-partsID="2253"><p class="has-text-align-center o-anim-hover wp-block-paragraph"><strong><span style="font-size:32px" class="swl-fz">眼 精 疲 労 を 根 本 改 善 </span></strong><br><strong><span class="swl-fz u-fz-xl">T R Y に お 任 せ く だ さ い ！ </span></strong></p><div class="swell-block-button green_ -size-s is-style-btn_shiny" style="--the-fz:1.3em"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span><span class="swl-fz u-fz-l">公式LINEで<br>特別価格でご案内！</span></span></a></div><p class="has-text-align-center o-anim-hover wp-block-paragraph"></p></div></div><button class="p-mainVisual__scroll c-plainBtn" data-onclick="scrollToContent" style="color:#ffffff"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" class="p-mainVisual__scrollArrow"><path d="M5.9,14.4l-2.9,5C3,19.5,3,19.6,3,19.8c0,0.1,0.1,0.2,0.2,0.3l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.3-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1,0-0.3,0-0.4,0.1L40,33.5L6.7,14.2 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,14.2,6,14.3,5.9,14.4z"/><path d="M5.9,39.1l-2.9,5c-0.1,0.3-0.1,0.6,0.2,0.7l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.2-0.1,0.2-0.2,0.2-0.3s0-0.2-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2l0,0c-0.1,0-0.3,0-0.4,0.1L40,58.1L6.7,38.9 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,38.8,6,38.9,5.9,39.1z"/></svg><span class="p-mainVisual__scrollLabel">Scroll</span></button></div></div><div id="content" class="l-content l-container" data-postid="1253">
+<nav class="try-nav">
+<a href="/" class="try-nav__logo"><img src="/images/logo.png" alt="鍼灸院TRY"><span class="try-nav__name">眼精疲労専門 鍼灸院TRY</span></a>
+<div class="try-nav__actions">
+<a class="try-nav__contact" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>公式LINE</a>
+<a class="try-nav__btn -book" href="https://reserve.salontry.com/c/try"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg><span class="try-nav__lbl">ご予約</span></a>
+<a class="try-nav__btn -access" href="#access"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="try-nav__lbl">アクセス</span></a>
+<button class="try-nav__burger" id="tryBurger" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+</div>
+</nav>
+<div class="try-drawer" id="tryDrawer" aria-hidden="true">
+<div class="try-drawer__inner">
+<button class="try-drawer__close" id="tryDrawerClose" aria-label="閉じる">✕</button>
+<a class="try-drawer__link" href="/">ホーム</a>
+<a class="try-drawer__link" href="/blog/">ブログ</a>
+<a class="try-drawer__link" href="#menu">料金メニュー</a>
+<a class="try-drawer__link" href="#access">アクセス</a>
+<a class="try-drawer__cta -line" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで初回体験</a>
+<a class="try-drawer__cta -book" href="https://reserve.salontry.com/c/try">WEB予約はこちら</a>
+</div>
+</div>
+<style>
+/* ヒーロー：PCは動画／スマホは画像 */
+.try-hero-video{ display:none; width:100%; height:100%; object-fit:cover; }
+.try-hero-img{ display:block; width:100%; height:100%; object-fit:cover; }
+@media (min-width:768px){
+  .try-hero-video{ display:block; }
+  .try-hero-img{ display:none; }
+}
+/* ヒーローのコピー */
+.try-hero-copy{ text-shadow: 0 2px 14px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.45); }
+.try-hero-main{ display:block; font-weight:800; font-size: clamp(32px,5.6vw,70px); line-height:1.25; letter-spacing:.02em; }
+.try-hero-sub{ display:block; margin-top:.8em; font-weight:700; font-size: clamp(15px,2vw,24px); line-height:1.65; letter-spacing:.02em; }
+/* PC：F型に沿って左寄せ（映像の被写体が右側のため） */
+@media (min-width:768px){
+  #main_visual .p-mainVisual__textLayer{ left:0; transform:none; align-items:flex-start; padding-left: clamp(48px,8vw,150px); }
+  #main_visual .p-mainVisual__textLayer .p-blogParts{ text-align:left; max-width:680px; margin:0; }
+  #main_visual .try-hero-copy{ text-align:left !important; }
+  #main_visual .swell-block-button{ margin-left:0 !important; }
+  /* 動画を明るく＋左側だけ濃いスクリムで文字の視認性を維持 */
+  #main_visual .try-hero-video{ filter: brightness(1.12); }
+  #main_visual .c-filterLayer::before{
+    background: linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.3) 42%, rgba(0,0,0,0) 72%) !important;
+    opacity: 1 !important;
+  }
+}
+/* スマホ：中央・視認性優先 */
+@media (max-width:767px){
+  .p-mainVisual .c-filterLayer::before{ opacity:0.48 !important; }
+  .try-hero-main{ font-size: clamp(30px,8.6vw,46px); }
+  .try-hero-sub{ font-size: clamp(13px,3.6vw,18px); }
+}
+</style>
+<div id="main_visual" class="p-mainVisual -type-movie -height-set"><div class="p-mainVisual__inner c-filterLayer -filter-blur"><div class="p-mainVisual__imgLayer c-filterLayer__img"><video class="try-hero-video" autoplay muted loop playsinline poster="/images/hero-pc.jpg"><source src="/videos/hero-pc.mp4" type="video/mp4"></video><img class="try-hero-img" src="/images/hero-pc.jpg" alt="鍼灸院TRY" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="p-mainVisual__textLayer l-container l-parent u-ta-r" style="color:#ffffff;text-shadow:1px 1px 0px rgba(0, 0, 0, 0.2 )"><div class="p-blogParts post_content" data-partsID="2253"><p class="has-text-align-center o-anim-hover wp-block-paragraph try-hero-copy"><span class="try-hero-main"><strong>辛い眼精疲労を、<br>根本から。</strong></span><span class="try-hero-sub">横浜唯一の&ldquo;眼精疲労専門&rdquo;鍼灸院<br>他より医学的で、効果の高い鍼灸で解消。</span></p><div class="swell-block-button green_ -size-s is-style-btn_shiny" style="--the-fz:1.3em"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span><span class="swl-fz u-fz-l">公式LINEで<br>特別価格でご案内！</span></span></a></div><p class="has-text-align-center o-anim-hover wp-block-paragraph"></p></div></div><button class="p-mainVisual__scroll c-plainBtn" data-onclick="scrollToContent" style="color:#ffffff"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" class="p-mainVisual__scrollArrow"><path d="M5.9,14.4l-2.9,5C3,19.5,3,19.6,3,19.8c0,0.1,0.1,0.2,0.2,0.3l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.3-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1,0-0.3,0-0.4,0.1L40,33.5L6.7,14.2 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,14.2,6,14.3,5.9,14.4z"/><path d="M5.9,39.1l-2.9,5c-0.1,0.3-0.1,0.6,0.2,0.7l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.2-0.1,0.2-0.2,0.2-0.3s0-0.2-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2l0,0c-0.1,0-0.3,0-0.4,0.1L40,58.1L6.7,38.9 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,38.8,6,38.9,5.9,39.1z"/></svg><span class="p-mainVisual__scrollLabel">Scroll</span></button></div></div><div id="content" class="l-content l-container" data-postid="1253">
 <main id="main_content" class="l-mainContent l-article">
 	<div class="l-mainContent__inner">
 				<div class="post_content">
 			
-<div style="height:18px" aria-hidden="true" class="wp-block-spacer"></div>
-
-
-
-<div class="swell-block-columns" style="--clmn-w--pc:400px;--clmn-w--tab:400px;--clmn-w--mobile:300px" data-scrollable="1"><div class="c-scrollHint"><span>スクロールできます <i class="icon-more_arrow"></i></span></div><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="40代 SNS運用さん" width="422" height="750" src="https://www.youtube.com/embed/Yzmx1LN8VnM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="50代　美容関係さん" width="422" height="750" src="https://www.youtube.com/embed/BzgWBfwZhvg?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="50代 ファイナンシャルプランナーさん" width="422" height="750" src="https://www.youtube.com/embed/4FKa9LVBfY0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="40代　事務職さん" width="422" height="750" src="https://www.youtube.com/embed/PrmfuLRIWF0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="30代 看護師さん" width="422" height="750" src="https://www.youtube.com/embed/ZZP_WPMdFSA?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="施術紹介" width="422" height="750" src="https://www.youtube.com/embed/kUVb634oRP8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-</div></div>
-
-
-
-<p class="has-text-align-left tate wp-block-paragraph"><span class="swl-fz u-fz-s">about us</span><br><strong>横浜唯一 <span style="font-size:16px" class="swl-fz">眼精疲労専門の鍼灸院</span></strong><span style="font-size:19px" class="swl-fz"><br><br></span><span class="swl-fz u-fz-xl"><strong><strong>目の奥の重さ・頭のモヤモヤ…</strong><br>辛い眼精疲労を根本改善へ導く</strong></span><span style="font-size:19px" class="swl-fz"><br></span><br></p>
-
-
-
-<p class="sp_only wp-block-paragraph"><br><br></p>
-
-
-
-<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
-
-
-
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill-element is-style-broken pc_only has-white-background-color has-background" style="grid-template-columns:45% auto"><figure class="wp-block-media-text__media"><img decoding="async" width="1024" height="682" src="/images/LINE_ALBUM_20231128_240221_4.jpg" alt="" class="wp-image-4106 size-full" style="object-position:50% 50%" /></figure><div class="wp-block-media-text__content">
-<h3 class="wp-block-heading has-text-align-center is-style-border_left is-style-section_ttl has-large-font-size">目のスッキリがずーっと続く<br>日常を届けたい。</h3>
-
-
-
-<div class="wp-block-group has-border -border04 has-white-background-color has-background"><div class="wp-block-group__inner-container">
-<p class="has-text-align-center is-style-border_left wp-block-paragraph">TRYは、眼精疲労を根本改善することに特化した鍼灸院です。<br>単なるリラクゼーションではなく、<br>科学的な視点から「目」と「神経」にアプローチし、疲れの原因そのものを整えます。<br>目の癖や疲労度を見える化し、<br>あなたに合った施術で“もう疲れない目”へ導きます。</p>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="d27689f4"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-</div></div>
-</div></div>
-
-
-
-<div class="wp-block-media-text has-media-on-the-right is-stacked-on-mobile is-image-fill-element is-style-broken sp_only has-white-background-color has-background" style="grid-template-columns:auto 45%"><div class="wp-block-media-text__content">
-<h3 class="wp-block-heading has-text-align-center is-style-border_left is-style-default has-white-background-color has-background has-large-font-size">「そ の 場 し の ぎ 」は<br>もう終わりにしませんか？</h3>
-
-
-
-<div class="wp-block-group has-border -border04 has-white-background-color has-background"><div class="wp-block-group__inner-container">
-<p class="has-text-align-center is-style-border_left wp-block-paragraph">TRYは、眼精疲労を根本改善することに特化した鍼灸院です。<br>単なるリラクゼーションではなく、<br>科学的な視点から「目」と「神経」にアプローチし、疲れの原因そのものを整えます。<br>目の癖や疲労度を見える化し、<br>あなたに合った施術で“もう疲れない目”へ導きます。<br></p>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="3bff0ce2"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-</div></div>
-</div><figure class="wp-block-media-text__media"><img decoding="async" width="900" height="700" src="/images/LINE_ALBUM_20231128_240221_4.jpg" alt="鍼灸院TRYの院長によるカウンセリング" class="wp-image-4778 size-full" style="object-position:50% 50%" /></figure></div>
-
-
-
-<div class="swell-block-fullWide pc-py-60 sp-py-40 alignfull" style="background-color:#ffffff"><div class="swell-block-fullWide__inner l-article">
-<h2 class="wp-block-heading is-style-section_ttl"><span class="swl-fz u-fz-l">なぜ、鍼で目の疲れが<br>改善するのか</span></h2>
-
-
-
-<div class="swell-block-columns" style="max-width:920px;margin-left:auto;margin-right:auto;"><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s" data-valign="top"><div style="background-color:#f7f8fa;border:1px solid #e3e6ea;height:100%;border-radius:12px;padding:1.75em;">
-<p class="has-large-font-size wp-block-paragraph" style="margin-bottom:0.5em;"><strong>原因1｜目のまわりの筋肉のコリ</strong></p>
-<p class="wp-block-paragraph">ピント調整を担う「毛様体筋」が、長時間のスマホ・PCで緊張しっぱなしに。血流が落ち、酸素や栄養が届かなくなることで、重だるさやかすみが起こります。</p>
-<figure class="wp-block-image" style="margin:1.25em 0;"><img decoding="async" src="/images/eye-anatomy.png" alt="眼球の構造と毛様体筋" style="width:100%;height:200px;object-fit:contain;display:block;margin:0 auto;" /></figure>
-<p class="wp-block-paragraph" style="margin-bottom:0;"><strong style="color:#2d3151;">→ TRYはくるみ灸で目元を温め、血流を回復させます。</strong></p>
-</div></div>
-
-
-
-<div class="swell-block-column swl-has-mb--s" data-valign="top"><div style="background-color:#f7f8fa;border:1px solid #e3e6ea;height:100%;border-radius:12px;padding:1.75em;">
-<p class="has-large-font-size wp-block-paragraph" style="margin-bottom:0.5em;"><strong>原因2｜自律神経の乱れ</strong></p>
-<p class="wp-block-paragraph">目の神経（三叉神経）と自律神経は深くつながっています。ここが乱れると、目だけでなく頭痛・肩こり・睡眠の質にも影響します。</p>
-<figure class="wp-block-image" style="margin:1.25em 0;"><img decoding="async" src="/images/trigeminal-nerve.png" alt="三叉神経の走行" style="width:100%;height:200px;object-fit:contain;display:block;margin:0 auto;" /></figure>
-<p class="wp-block-paragraph" style="margin-bottom:0;"><strong style="color:#2d3151;">→ TRYは電気鍼で神経に直接アプローチし、緊張をリセットします。</strong></p>
-</div></div>
-</div></div>
-</div></div>
-
-
-
-<div class="swell-block-fullWide pc-py-40 sp-py-20 alignfull" style="color:#fff;background-color:#2d3151"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="swell-block-fullWide__SVG -top" role="presentation" style="height:5vw"><path d="M100,0v100H0L100,0z" stroke-width="0" fill="#2d3151"></path></svg><div class="swell-block-fullWide__inner">
-<h2 class="wp-block-heading is-style-section_ttl"><span class="swl-fz u-fz-l">TRYが眼精疲労を改善</span><br><span class="swl-fz u-fz-l"> できる理由とは？</span></h2>
-
-
-
-<div class="try-feature-cards">
-
-<div class="try-feature-card">
-<div class="try-feature-card__head">
-<span class="try-feature-card__num">理由①</span><span class="try-feature-card__label">感覚ではなく数字で証明</span>
-<p class="try-feature-card__title">データで効果が見える、唯一の眼精疲労鍼灸</p>
-</div>
-<div class="try-feature-card__media"><img src="/images/vas-dashboard.png" alt="VASスコアによる施術効果の可視化" loading="lazy" /></div>
-<div class="try-feature-card__body">
-<p class="try-feature-card__text">サプリも目薬もホットアイマスクも「なんとなく良くなった気がする」で終わりがち。TRYはVASスケール（自覚症状の数値化）で施術前後を計測し、自社開発アプリ「ハリミエ」にグラフで蓄積します。</p>
-<p class="try-feature-card__text">施術前と比べて<strong>平均で約2倍スッキリ</strong>した状態へ。改善の度合いを、あなた自身の目で確認できます。</p>
-</div>
-</div>
-
-<div class="try-feature-card">
-<div class="try-feature-card__head">
-<span class="try-feature-card__num">理由②</span><span class="try-feature-card__label">あなたの原因を特定してから施術</span>
-<p class="try-feature-card__title">タイプを見極めて、本当の原因にアプローチ</p>
-</div>
-<div class="try-feature-card__media"><img src="/images/type-screening.png" alt="タイプ別 原因スクリーニング" loading="lazy" /></div>
-<div class="try-feature-card__body">
-<p class="try-feature-card__text">眼精疲労の原因は人それぞれ。毛様体筋の緊張による血流低下なのか、自律神経の乱れなのか——。</p>
-<p class="try-feature-card__text">TRYは医学的分類に基づいた独自の眼精疲労のタイプで、<strong>本当の原因に対しての施術を行います。</strong>温めるだけ・揉むだけのケアとは、根本から違います。</p>
-</div>
-</div>
-
-<div class="try-feature-card">
-<div class="try-feature-card__head">
-<span class="try-feature-card__num">理由③</span><span class="try-feature-card__label">膠原病内科に勤める院長が施術</span>
-<p class="try-feature-card__title">医療現場の知見が支える、安心の専門施術</p>
-</div>
-<div class="try-feature-card__media"><img src="/images/clinic-reception.jpg" alt="リウマチ膠原病と痛みの専門クリニック" loading="lazy" /></div>
-<div class="try-feature-card__body">
-<p class="try-feature-card__text">TRYの院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながら、鍼灸院TRYを運営しています。</p>
-<p class="try-feature-card__text">眼精疲労の裏に潜む自己免疫疾患や慢性炎症も医学的視点で見極め、<strong>必要に応じてクリニックと連携します。</strong></p>
-</div>
-</div>
-
-</div>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="92fe2652"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="swell-block-fullWide__SVG -bottom" role="presentation" style="height:5vw"><path d="M0,0h100L0,100V0z" stroke-width="0" fill="#2d3151"></path></svg></div>
+<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+/* CONCEPT：店舗コンセプト（動画入り・強調型） */
+.try-concept{ position:relative; margin:0; padding:0; background:#fff; overflow:hidden; }
+.try-concept__inner{ display:grid; grid-template-columns:1.25fr 1fr; align-items:center; }
+.try-concept__text{ display:flex; flex-direction:column; justify-content:center; min-width:0;
+  padding-block:clamp(44px,6vw,86px);
+  padding-left:clamp(20px,3vw,44px);
+  padding-right:clamp(24px,4vw,60px); }
+.try-concept__eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-concept__eng::before{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-concept__title{ font-size:clamp(32px,4.8vw,52px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0 0 20px; }
+.try-concept__title .accent{ color:var(--try-mint); }
+.try-concept__title .mark{ background:linear-gradient(transparent 60%, #c9e7fb 60%); padding:0 .05em; }
+.try-concept .try-concept__title{ border:0; padding:0; margin:0 0 22px; }
+.try-concept .try-concept__title::before, .try-concept .try-concept__title::after{ display:none; content:none; }
+.try-concept__lead{ font-size:clamp(15px,1.25vw,18px); line-height:2.05; color:var(--try-text); max-width:36em; margin:0 0 clamp(28px,3.4vw,40px); }
+.try-concept__lead strong{ color:var(--try-dark); }
+.try-concept__video{ position:relative; width:100%; aspect-ratio:3/4; max-height:clamp(360px,42vw,500px); margin:0; overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 20%, #000 80%, transparent 100%); mask-image:linear-gradient(to right, transparent 0%, #000 20%, #000 80%, transparent 100%); }
+.try-concept__video video{ width:100%; height:100%; object-fit:cover; display:block; }
+.try-concept__cta-wrap{ margin-top:clamp(24px,2.6vw,32px); text-align:center; }
+.try-concept__cta{ display:inline-flex; flex-direction:column; align-items:center; background:#06C755; color:#fff; font-weight:800; font-size:clamp(18px,1.6vw,23px); text-decoration:none; padding:21px 60px; border-radius:999px; box-shadow:0 14px 30px rgba(6,199,85,.36); transition:transform .15s ease, box-shadow .15s ease; }
+.try-concept__cta:hover{ transform:translateY(-2px); box-shadow:0 18px 38px rgba(6,199,85,.46); color:#fff; }
+.try-concept__cta small{ font-size:.7em; font-weight:700; opacity:.95; margin-top:3px; }
+@media (max-width:860px){
+  .try-concept__inner{ grid-template-columns:1fr; }
+  .try-concept__text{ padding-left:max(20px, env(safe-area-inset-left,0px)); padding-right:max(20px, env(safe-area-inset-right,0px)); padding-block:clamp(36px,8vw,56px); }
+  .try-concept__video{ height:auto; aspect-ratio:16/10; max-height:none; -webkit-mask-image:none; mask-image:none; }
+}
+</style>
+<style id="try-joint">
+/* セクション繋ぎ目：交互トーン＋ウェーブ＋スクロール誘導（3案ミックス） */
+section.try-mech, section.try-voice2, section.try-greet{
+  background:#f1f8fd;
+  position:relative;
+  left:calc(50% - 50vw + var(--swl-scrollbar_width, 0px)/2);
+  width:calc(100vw - var(--swl-scrollbar_width, 0px));
+  max-width:100vw;
+}
+#menu.swell-block-fullWide{ background-color:#f1f8fd !important; }
+/* 繋ぎ目を密着させる（WPブロック余白を無効化して帯を連続させる） */
+.try-jt,
+section.try-concept, section.try-mech, section.try-reason, section.try-voice2,
+section.try-compare-sec, section.try-greet, section.try-acc,
+#menu.swell-block-fullWide, .swell-block-fullWide.pc-py-60,
+#access{
+  margin-top:0 !important; margin-bottom:0 !important;
+}
+.try-jt{ position:relative;
+  left:calc(50% - 50vw + var(--swl-scrollbar_width, 0px)/2);
+  width:calc(100vw - var(--swl-scrollbar_width, 0px));
+  max-width:100vw; line-height:0; }
+.try-jt.-to-mint{ background:#fff; }
+.try-jt.-to-white{ background:#f1f8fd; }
+.try-jt__wave{ display:block; width:100%; height:clamp(30px,4vw,54px); }
+.try-jt.-to-mint .try-jt__wave path{ fill:#f1f8fd; }
+.try-jt.-to-white .try-jt__wave path{ fill:#fff; }
+.try-jt__more{ line-height:1.5; text-align:center; padding:4px 0 12px;
+  font-size:12.5px; font-weight:800; letter-spacing:.08em; color:#2f7fb3;
+  display:flex; flex-direction:column-reverse; align-items:center; gap:5px; }
+.try-jt__chev{ width:11px; height:11px; border-right:2.5px solid var(--try-mint,#4a9fd4); border-bottom:2.5px solid var(--try-mint,#4a9fd4); transform:rotate(45deg); animation:tryBob 1.7s ease-in-out infinite; }
+@keyframes tryBob{ 0%,100%{ transform:translateY(0) rotate(45deg);} 50%{ transform:translateY(4px) rotate(45deg);} }
+@media (prefers-reduced-motion: reduce){ .try-jt__chev{ animation:none; } }
+</style>
+<section class="try-concept">
+  <div class="try-concept__inner">
+    <div class="try-concept__text">
+      <p class="try-concept__eng">Concept</p>
+      <h2 class="try-concept__title">横浜で、眼精疲労<span class="accent">“だけ”</span>を<br>極めた鍼灸院。</h2>
+      <p class="try-concept__lead">目薬でもマッサージでも消えなかった、目の奥の重さ。TRYは医学的根拠にもとづき、目と神経にアプローチ。目の疲労度を数値で<span class="mark">“見える化”</span>しながら、くるみ灸×電気鍼の独自施術で、その場しのぎではなく<strong>根本改善</strong>へ導きます。「どこに行っても良くならなかった」という方こそ、一度おまかせください。</p>
+      <div class="try-concept__cta-wrap">
+        <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談する<small>いま特別価格でご案内中！</small></a>
+      </div>
+    </div>
+    <div class="try-concept__video">
+      <video src="/videos/concept-v2.mp4" autoplay muted loop playsinline poster="/images/concept-poster-v2.jpg" preload="metadata"></video>
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+/* MECHANISM：なぜ改善するのか（CONCEPT調に統一） */
+.try-mech{ background:#fff; overflow:hidden;
+  padding-block:clamp(40px,5vw,72px);
+  padding-left:max(20px, env(safe-area-inset-left,0px));
+  padding-right:max(20px, env(safe-area-inset-right,0px)); }
+.try-mech__head{ max-width:var(--try-max); margin:0 auto clamp(28px,3.5vw,44px); text-align:center; }
+.try-mech__eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-mech__eng::before, .try-mech__eng::after{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-mech__title{ font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0 0 22px; }
+.try-mech__title .accent{ color:var(--try-mint); }
+.try-mech .try-mech__title{ border:0; padding:0; margin:0 0 22px; }
+.try-mech .try-mech__title::before, .try-mech .try-mech__title::after{ display:none; content:none; }
+.try-mech__sub{ margin:0 auto; max-width:34em; font-size:clamp(16px,1.5vw,20px); color:var(--try-text); line-height:2.0; }
+
+.try-mech__rows{ max-width:var(--try-max); margin:0 auto; display:flex; flex-direction:column; gap:clamp(28px,3.5vw,48px); }
+.try-mech__row{ display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:clamp(24px,4vw,56px); }
+.try-mech__row.is-rev .try-mech__body{ order:2; }
+.try-mech__row.is-rev .try-mech__fig{ order:1; }
+.try-mech__no{ display:inline-flex; align-items:baseline; gap:10px; font-size:13px; font-weight:800; letter-spacing:.2em; color:var(--try-mint); margin:0 0 2px; }
+.try-mech__no span{ font-size:34px; line-height:1; letter-spacing:.02em; font-weight:800; }
+.try-mech__cause{ font-size:clamp(22px,2.7vw,32px); font-weight:800; color:var(--try-dark); line-height:1.5; margin:0 0 14px; letter-spacing:.01em; }
+.try-mech__text{ font-size:clamp(16px,1.4vw,19px); line-height:1.95; color:var(--try-text); margin:0 0 18px; }
+.try-mech__text strong{ color:var(--try-dark); font-weight:800; }
+.try-mech__text .mark{ background:linear-gradient(transparent 62%, #c9e7fb 62%); padding:0 .06em; font-weight:700; color:var(--try-dark); }
+.try-mech__arrow{ margin:0; padding:18px 24px; border-left:3px solid var(--try-mint); background:linear-gradient(90deg, rgba(74,159,212,.09), rgba(74,159,212,0)); border-radius:0 12px 12px 0; font-size:clamp(15.5px,1.25vw,18px); line-height:1.9; color:var(--try-dark); font-weight:700; }
+.try-mech__arrow b{ display:inline-block; background:var(--try-mint); color:#fff; font-size:11.5px; font-weight:800; letter-spacing:.08em; padding:4px 11px; border-radius:999px; margin-right:10px; vertical-align:middle; }
+.try-mech__fig{ margin:0; }
+.try-mech__fig img{ width:100%; max-width:520px; height:auto; display:block; margin:0 auto; }
+@media (max-width:860px){
+  .try-mech__row{ grid-template-columns:1fr; gap:26px; }
+  .try-mech__row.is-rev .try-mech__body{ order:2; }
+  .try-mech__row.is-rev .try-mech__fig{ order:1; }
+  .try-mech__fig img{ max-width:400px; }
+}
+</style>
+
+<div class="try-jt -to-mint" aria-hidden="true"><div class="try-jt__more"><span class="try-jt__chev"></span><span>原因を見る</span></div><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
+
+<section class="try-mech">
+  <div class="try-mech__head">
+    <p class="try-mech__eng">Mechanism</p>
+    <h2 class="try-mech__title">目の疲れを感じる原因は、<br>大きく<span class="accent">2つ</span>ある。</h2>
+    <p class="try-mech__sub">TRYはその両方に、鍼灸ならではの方法でアプローチします。</p>
+  </div>
+  <div class="try-mech__rows">
+    <div class="try-mech__row">
+      <div class="try-mech__body">
+        <p class="try-mech__no">原因 <span>01</span></p>
+        <h3 class="try-mech__cause">目のまわりの筋肉のコリ</h3>
+        <p class="try-mech__text">ピント調整を担う<strong>「毛様体筋」</strong>が、長時間のスマホ・PCで<strong>緊張しっぱなし</strong>に。血流が落ち、酸素や栄養が届かなくなることで、<span class="mark">重だるさやかすみ</span>が起こります。</p>
+        <p class="try-mech__arrow"><b>TRYの対応</b>くるみ灸で目元を温め、血流を回復させます。</p>
+      </div>
+      <figure class="try-mech__fig"><img decoding="async" src="/images/eye-anatomy.png" alt="眼球の構造と毛様体筋" /></figure>
+    </div>
+    <div class="try-mech__row is-rev">
+      <div class="try-mech__body">
+        <p class="try-mech__no">原因 <span>02</span></p>
+        <h3 class="try-mech__cause">痛みを伝える神経の乱れ</h3>
+        <p class="try-mech__text">顔や目まわりの感覚・痛みを脳に伝える<strong>「三叉神経」</strong>。長時間の緊張や目の酷使でこの神経が<strong>過敏</strong>になると、<span class="mark">目の奥の痛み・重だるさ・頭痛</span>として感じやすくなります。</p>
+        <p class="try-mech__arrow"><b>TRYの対応</b>電気鍼で三叉神経に直接アプローチし、高ぶった神経を落ち着かせます。</p>
+      </div>
+      <figure class="try-mech__fig"><img decoding="async" src="/images/trigeminal-nerve.png" alt="三叉神経の走行" /></figure>
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+/* REASON：TRYだからできる3つの理由（CONCEPT調に統一） */
+.try-reason{ background:#fff; overflow:hidden;
+  padding-block:clamp(32px,4vw,56px);
+  padding-left:max(20px, env(safe-area-inset-left,0px));
+  padding-right:max(20px, env(safe-area-inset-right,0px)); }
+.try-reason__head{ max-width:var(--try-max); margin:0 auto clamp(20px,2.5vw,32px); text-align:center; }
+.try-reason__eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-reason__eng::before, .try-reason__eng::after{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-reason__title{ font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0; }
+.try-reason__title .accent{ color:var(--try-mint); }
+.try-reason .try-reason__title{ border:0; padding:0; margin:0; }
+.try-reason .try-reason__title::before, .try-reason .try-reason__title::after{ display:none; content:none; }
+
+.try-reason__rows{ max-width:var(--try-max); margin:0 auto; display:flex; flex-direction:column; gap:clamp(24px,3vw,40px); }
+.try-reason__row{ display:grid; grid-template-columns:1fr 1fr; align-items:stretch; gap:clamp(26px,4vw,56px); }
+.try-reason__body{ display:flex; flex-direction:column; justify-content:center; }
+.try-reason__row.is-rev .try-reason__body{ order:2; }
+.try-reason__row.is-rev .try-reason__fig{ order:1; }
+.try-reason__no{ display:inline-flex; align-items:baseline; gap:9px; font-size:13px; font-weight:800; letter-spacing:.2em; color:var(--try-mint); margin:0 0 4px; line-height:1; }
+.try-reason__no span{ font-size:32px; line-height:1; letter-spacing:.02em; }
+.try-reason__ttl{ font-size:clamp(20px,2.3vw,28px); font-weight:800; color:var(--try-dark); line-height:1.5; margin:0 0 10px; letter-spacing:.01em; }
+.try-reason__text{ font-size:clamp(15px,1.2vw,17px); line-height:2.0; color:var(--try-text); margin:0 0 14px; }
+.try-reason__text:last-child{ margin-bottom:0; }
+.try-reason__text strong{ color:var(--try-dark); font-weight:800; }
+.try-reason__text .mark{ background:linear-gradient(transparent 62%, #c9e7fb 62%); padding:0 .06em; font-weight:700; color:var(--try-dark); }
+.try-reason__text a{ color:var(--try-mint); text-decoration:underline; }
+.try-reason__fig{ border-radius:18px; overflow:hidden; background:var(--try-gray); height:100%; min-height:clamp(230px,24vw,290px); }
+.try-reason__fig img{ width:100%; height:100%; object-fit:cover; display:block; }
+.try-reason__fig.is-contain{ background:var(--try-gray); }
+.try-reason__fig.is-contain img{ object-fit:contain; padding:14px; }
+.try-reason__cta-wrap{ text-align:center; margin-top:clamp(30px,3.6vw,48px); }
+@media (max-width:860px){
+  .try-reason__row{ grid-template-columns:1fr; gap:16px; }
+  .try-reason__body{ justify-content:flex-start; }
+  .try-reason__row.is-rev .try-reason__body{ order:2; }
+  .try-reason__row.is-rev .try-reason__fig{ order:1; }
+  .try-reason__fig{ max-width:460px; margin:0 auto; width:100%; height:auto; aspect-ratio:16/10; min-height:0; }
+}
+</style>
+
+<div class="try-jt -to-white" aria-hidden="true"><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
+
+<section class="try-reason">
+  <div class="try-reason__head">
+    <p class="try-reason__eng">Reason</p>
+    <h2 class="try-reason__title">TRYだからできる、<br><span class="accent">3つ</span>の理由</h2>
+  </div>
+  <div class="try-reason__rows">
+
+    <div class="try-reason__row">
+      <div class="try-reason__body">
+        <p class="try-reason__no">理由 <span>01</span></p>
+        <h3 class="try-reason__ttl">鍼灸でしか届かない、神経・深部へのアプローチ</h3>
+        <p class="try-reason__text">目薬は目の表面、マッサージは表層の筋肉まで。目の奥の神経や深部のコリには届きません。TRYの鍼灸（電気鍼・くるみ灸）は、三叉神経・深部筋・自律神経に<strong>直接アプローチ</strong>。<span class="mark">もやもやの原因そのもの</span>にはたらきかけます。</p>
+      </div>
+      <div class="try-reason__fig"><img src="/images/feature-denki.jpg" alt="電気鍼で神経に直接アプローチする施術" loading="lazy" /></div>
+    </div>
+
+    <div class="try-reason__row is-rev">
+      <div class="try-reason__body">
+        <p class="try-reason__no">理由 <span>02</span></p>
+        <h3 class="try-reason__ttl">効果を“見える化”。納得して通えます</h3>
+        <p class="try-reason__text">VASスケール（自覚症状の数値化）で施術前後を計測し、自社開発アプリ「ハリミエ」にグラフで記録。<span class="mark">改善の度合いが一目でわかる</span>から、<strong>納得しながら通院を続けられます</strong>。</p>
+      </div>
+      <div class="try-reason__fig is-contain"><img src="/images/vas-dashboard.png" alt="VASスコアによる施術効果の可視化" loading="lazy" /></div>
+    </div>
+
+    <div class="try-reason__row">
+      <div class="try-reason__body">
+        <p class="try-reason__no">理由 <span>03</span></p>
+        <h3 class="try-reason__ttl">医療現場の知見が支える、安心の専門施術</h3>
+        <p class="try-reason__text">院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながらTRYを運営。眼精疲労の裏に潜む疾患も医学的視点で見極め、<strong>必要に応じてクリニックと連携します</strong>。</p>
+      </div>
+      <div class="try-reason__fig"><img src="/images/clinic-reception.jpg" alt="リウマチ膠原病と痛みの専門クリニック" loading="lazy" /></div>
+    </div>
+
+  </div>
+  <div class="try-reason__cta-wrap">
+    <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談する<small>いま特別価格でご案内中！</small></a>
+  </div>
+</section>
 
 
 
@@ -1203,147 +1551,214 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
-<p class="has-text-align-left is-style-section_ttl tate has-background wp-block-paragraph" style="background-color:#ffffff63"><span class="swl-fz u-fz-s"><strong>trust<br>実際のお客様の声</strong></span><br><span class="swl-fz u-fz-l"><strong>目が開くようになった！</strong></span><br><span class="swl-fz u-fz-l"><strong>痛みがなくなってスッキリした！</strong></span></p>
+<style>
+/* VOICE：お客様の声（CONCEPT調に統一） */
+.try-voice2{ background:#fff; overflow:hidden;
+  padding-block:clamp(40px,5vw,72px);
+  padding-left:max(20px, env(safe-area-inset-left,0px));
+  padding-right:max(20px, env(safe-area-inset-right,0px)); }
+.try-voice2__head{ max-width:var(--try-max); margin:0 auto clamp(20px,2.5vw,32px); text-align:center; }
+.try-voice2__eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-voice2__eng::before, .try-voice2__eng::after{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-voice2__title{ font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0; }
+.try-voice2__title .accent{ color:var(--try-mint); }
+.try-voice2 .try-voice2__title{ border:0; padding:0; margin:0; }
+.try-voice2 .try-voice2__title::before, .try-voice2 .try-voice2__title::after{ display:none; content:none; }
+.try-voice2__sub{ margin:14px auto 0; max-width:36em; font-size:clamp(15px,1.3vw,18px); color:var(--try-text); line-height:1.95; }
+/* 動画：カード枠を外してクリーンに */
+.try-voice2 .try-vg{ max-width:var(--try-max); margin:clamp(26px,3.2vw,40px) auto 0; padding:0 0 4px; gap:clamp(18px,2.4vw,32px); }
+.try-voice2 .try-vg__item{ background:transparent; box-shadow:none; padding:0; }
+.try-voice2 .try-vg__video{ border-radius:16px; box-shadow:0 12px 30px rgba(30,42,50,.12); }
+.try-voice2 .try-vg__quote{ font-size:clamp(15px,1.4vw,18px); }
+/* Googleレビュー：軽いパネルに */
+.try-voice2 .try-reviews{ margin-top:clamp(34px,4.2vw,56px); }
+.try-voice2 .try-review-card{ background:var(--try-gray); box-shadow:none; border:1px solid #e9eef2; }
+.try-voice2__cta-wrap{ text-align:center; margin-top:clamp(30px,3.6vw,48px); }
+</style>
+
+<div class="try-jt -to-mint" aria-hidden="true"><div class="try-jt__more"><span class="try-jt__chev"></span><span>みんなの声</span></div><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
+
+<section class="try-voice2">
+  <div class="try-voice2__head">
+    <p class="try-voice2__eng">Voice</p>
+    <h2 class="try-voice2__title">「目が開いた」「視界がスッキリ」。<br>通う人の<span class="accent">リアルな声</span>。</h2>
+    <p class="try-voice2__sub">実際に通われている方の、施術直後の表情とGoogleクチコミです。</p>
+  </div>
 
 
 
-<div class="swell-block-columns" style="--clmn-w--pc:400px;--clmn-w--tab:400px;--clmn-w--mobile:300px" data-scrollable="1"><div class="c-scrollHint"><span>スクロールできます <i class="icon-more_arrow"></i></span></div><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="40代 SNS運用さん" width="422" height="750" src="https://www.youtube.com/embed/Yzmx1LN8VnM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
+<div class="try-vg">
+<div class="try-vg__item"><div class="try-vg__video"><video src="/videos/voice-1.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><div class="try-vg__cap"><p class="try-vg__quote">「目を開けるのもつらかったのに、スッキリしました。」</p><p class="try-vg__by"><span class="try-vg__stars">★★★★★</span>40代・SNS運用さん</p></div></div>
+<div class="try-vg__item"><div class="try-vg__video"><video src="/videos/voice-2.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><div class="try-vg__cap"><p class="try-vg__quote">「あ、なんか目も開いてる！ こんなに変わるなんて。」</p><p class="try-vg__by"><span class="try-vg__stars">★★★★★</span>50代・美容関係さん</p></div></div>
+<div class="try-vg__item"><div class="try-vg__video"><video src="/videos/voice-3.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><div class="try-vg__cap"><p class="try-vg__quote">「朝の目の張りが、通ううちにラクになりました。」</p><p class="try-vg__by"><span class="try-vg__stars">★★★★★</span>50代・ファイナンシャルプランナーさん</p></div></div>
 </div>
 
 
 
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="50代　美容関係さん" width="422" height="750" src="https://www.youtube.com/embed/BzgWBfwZhvg?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
+
+
+<style>
+/* お客様の声：Googleクチコミ（LINE風チャット：案A） */
+.try-gsum{ max-width:560px; margin:clamp(30px,4vw,48px) auto clamp(22px,3vw,32px); display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; background:var(--try-gray); border:1px solid #e9eef2; border-radius:14px; padding:12px 20px; }
+.try-gsum__g{ width:22px; height:22px; flex:0 0 22px; }
+.try-gsum__score{ font-size:26px; font-weight:800; color:var(--try-dark); line-height:1; }
+.try-gsum__stars{ color:#FBBC05; letter-spacing:1px; font-size:16px; }
+.try-gsum__count{ font-size:13px; color:#5b6b78; font-weight:700; }
+.try-gsum__link{ font-size:12px; color:var(--try-mint); font-weight:700; text-decoration:none; }
+.try-chat{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:22px; }
+.try-chat__msg{ display:flex; gap:12px; align-items:flex-start; }
+.try-chat__av{ width:46px; height:46px; border-radius:50%; flex:0 0 46px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px; }
+.try-chat__col{ max-width:78%; min-width:0; }
+.try-chat__meta{ font-size:12px; color:#8396a3; margin:2px 0 5px 2px; font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.try-chat__meta .nm{ color:#5b6b78; }
+.try-chat__meta .st{ color:#FBBC05; letter-spacing:.5px; }
+.try-chat__meta .g{ width:13px; height:13px; flex:0 0 13px; }
+.try-chat__bubble{ background:#eef6fc; border:1px solid #dcebf7; border-radius:3px 16px 16px 16px; padding:14px 16px; font-size:clamp(14.5px,1.3vw,16px); line-height:1.85; color:#2a3a44; box-shadow:var(--try-shadow); }
+.try-chat__bubble strong{ color:var(--try-dark); font-weight:800; }
+/* 右側（交互） */
+.try-chat__msg.is-right{ flex-direction:row-reverse; }
+.try-chat__msg.is-right .try-chat__meta{ justify-content:flex-end; margin:2px 2px 5px 0; }
+.try-chat__msg.is-right .try-chat__bubble{ border-radius:16px 3px 16px 16px; background:#eefaf3; border-color:#d7efe0; }
+@media (max-width:600px){ .try-chat__col{ max-width:84%; } }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="tryG" viewBox="0 0 48 48"><path fill="#4285f4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34a853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#fbbc05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#ea4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></symbol></svg>
+
+<div class="try-gsum">
+  <svg class="try-gsum__g"><use href="#tryG"/></svg>
+  <span class="try-gsum__score">5.0</span>
+  <span class="try-gsum__stars">★★★★★</span>
+  <span class="try-gsum__count">Googleクチコミ 19件</span>
+  <a class="try-gsum__link" href="https://maps.google.com/?cid=1597813890028183817" target="_blank" rel="nofollow noopener">すべて見る ↗</a>
+</div>
+
+<div class="try-chat">
+  <div class="try-chat__msg">
+    <span class="try-chat__av" style="background:#4285f4">K</span>
+    <div class="try-chat__col">
+      <p class="try-chat__meta"><span class="nm">Kazuki Kuroiwaさん</span><span class="st">★★★★★</span><svg class="g"><use href="#tryG"/></svg>Googleクチコミ</p>
+      <div class="try-chat__bubble">目へのお灸がとても心地よく、終わった後は<strong>目が開きやすく、視界がスッキリ</strong>します。PCで目を酷使している方に本当におすすめです。</div>
+    </div>
+  </div>
+  <div class="try-chat__msg is-right">
+    <span class="try-chat__av" style="background:#34a853">H</span>
+    <div class="try-chat__col">
+      <p class="try-chat__meta"><span class="nm">Hiromasa Haradaさん</span><span class="st">★★★★★</span><svg class="g"><use href="#tryG"/></svg>Googleクチコミ</p>
+      <div class="try-chat__bubble">マッサージでは治らなかった<strong>目の疲れも、すぐに治ってスッキリ</strong>。通ううちに体質改善にもつながっています。</div>
+    </div>
+  </div>
+  <div class="try-chat__msg">
+    <span class="try-chat__av" style="background:#ea4335">絋</span>
+    <div class="try-chat__col">
+      <p class="try-chat__meta"><span class="nm">絋さん</span><span class="st">★★★★★</span><svg class="g"><use href="#tryG"/></svg>Googleクチコミ</p>
+      <div class="try-chat__bubble">行きは重かった身体が、帰りは<strong>羽が生えたかのような軽さ</strong>に。しっかり症状を診て的確にアプローチしてくれるので、満足感がとてつもないです。</div>
+    </div>
+  </div>
+  <div class="try-chat__msg is-right">
+    <span class="try-chat__av" style="background:#fbbc05;color:#1E2A32">S</span>
+    <div class="try-chat__col">
+      <p class="try-chat__meta"><span class="nm">Sakumaさん</span><span class="st">★★★★★</span><svg class="g"><use href="#tryG"/></svg>Googleクチコミ</p>
+      <div class="try-chat__bubble">3ヶ月ほど通わせていただき、<strong>すっかり頭痛が良くなりました</strong>。</div>
+    </div>
+  </div>
+  <div class="try-chat__msg">
+    <span class="try-chat__av" style="background:#4285f4">矢</span>
+    <div class="try-chat__col">
+      <p class="try-chat__meta"><span class="nm">矢口昌幸さん</span><span class="st">★★★★★</span><svg class="g"><use href="#tryG"/></svg>Googleクチコミ</p>
+      <div class="try-chat__bubble">身体が悲鳴をあげていましたが、電気と針の施術で、<strong>心身ともにスッキリ</strong>しました！！また、よろしくお願いします。</div>
+    </div>
+  </div>
+  <div class="try-chat__msg is-right">
+    <span class="try-chat__av" style="background:#34a853">わ</span>
+    <div class="try-chat__col">
+      <p class="try-chat__meta"><span class="nm">わたなべなおさん</span><span class="st">★★★★★</span><svg class="g"><use href="#tryG"/></svg>Googleクチコミ</p>
+      <div class="try-chat__bubble">いつもハリ気味の体が、<strong>軽くなって楽に</strong>なっています。</div>
+    </div>
+  </div>
 </div>
 
 
 
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="50代 ファイナンシャルプランナーさん" width="422" height="750" src="https://www.youtube.com/embed/4FKa9LVBfY0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
+  <div class="try-voice2__cta-wrap">
+    <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談する<small>いま特別価格でご案内中！</small></a>
+  </div>
+</section>
+
+<style>
+/* 他の施術との比較 */
+/* COMPARISON：他の眼精疲労ケアとの違い（CONCEPT調に統一） */
+.try-compare-sec{ background:#fff; overflow:hidden;
+  padding-block:clamp(40px,5vw,72px);
+  padding-left:max(20px, env(safe-area-inset-left,0px));
+  padding-right:max(20px, env(safe-area-inset-right,0px)); }
+.try-compare-inner{ max-width:var(--try-max); margin:0 auto; }
+.try-compare-head{ text-align:center; margin:0 auto clamp(26px,3.2vw,42px); }
+.try-compare-eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-compare-eng::before, .try-compare-eng::after{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-compare-ttl{ font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0; }
+.try-compare-ttl .accent{ color:var(--try-mint); }
+.try-compare-sec .try-compare-ttl{ border:0 !important; padding:0 !important; margin:0; }
+.try-compare-sec .try-compare-ttl::before, .try-compare-sec .try-compare-ttl::after{ display:none !important; content:none; }
+.try-compare-lead{ text-align:center; color:var(--try-text); line-height:1.95; font-size:clamp(15px,1.3vw,18px); margin:16px auto 0; max-width:40em; }
+.try-compare-lead strong{ color:var(--try-mint); font-weight:800; }
+.try-compare-cols{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.4vw,22px); align-items:stretch; max-width:var(--try-max); margin:0 auto; }
+.try-compare-card{ border-radius:18px; padding:clamp(24px,3vw,34px) clamp(22px,2.6vw,30px); border:1px solid #e9eef2; background:#fff; }
+.try-compare-card.is-other{ background:var(--try-gray); }
+.try-compare-card.is-try{ background:linear-gradient(180deg,#eaf5fc,#f4fafe); border:2px solid var(--try-mint); box-shadow:0 16px 40px rgba(74,159,212,.18); }
+.try-compare-cap{ font-size:14px; font-weight:800; letter-spacing:.08em; margin:0 0 5px; }
+.try-compare-card.is-other .try-compare-cap{ color:#8a98a3; }
+.try-compare-card.is-try .try-compare-cap{ color:#2f7fb3; }
+.try-compare-name{ font-size:clamp(20px,2.4vw,27px); font-weight:800; color:var(--try-dark); margin:0 0 20px; line-height:1.4; }
+.try-compare-card.is-try .try-compare-name{ color:#2f7fb3; }
+.try-compare-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+.try-compare-list li{ display:flex; gap:12px; font-size:clamp(15.5px,1.45vw,18px); line-height:1.8; color:var(--try-text); }
+.try-compare-list strong{ color:var(--try-dark); font-weight:800; }
+.try-compare-ic{ flex:0 0 25px; width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; margin-top:2px; }
+.try-compare-ic.x{ background:#f0d9d9; color:#c0564e; }
+.try-compare-ic.o{ background:var(--try-mint); color:#fff; }
+.try-compare-note{ text-align:center; color:#8a98a3; font-size:12.5px; margin:clamp(22px,3vw,32px) 0 0; line-height:1.8; }
+@media (max-width:720px){ .try-compare-cols{ grid-template-columns:1fr; } }
+</style>
+
+<div class="try-jt -to-white" aria-hidden="true"><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
+
+<section class="try-compare-sec">
+  <div class="try-compare-inner">
+    <div class="try-compare-head">
+      <p class="try-compare-eng">Comparison</p>
+      <h2 class="try-compare-ttl">他の眼精疲労ケアとの<span class="accent">違い</span></h2>
+      <p class="try-compare-lead">目薬・ホットアイマスク・マッサージ・整体は「表面」や「一時的な緩和」が中心。<br>TRYの鍼灸は、<strong>神経と深部に直接アプローチ</strong>して根本から解消します。</p>
+    </div>
+    <div class="try-compare-cols">
+      <div class="try-compare-card is-other">
+        <p class="try-compare-cap">一般的なケア</p>
+        <p class="try-compare-name">目薬・マッサージ・整体 など</p>
+        <ul class="try-compare-list">
+          <li><span class="try-compare-ic x">✕</span>目の「表面」や皮膚までしか届かない</li>
+          <li><span class="try-compare-ic x">✕</span>効果は一時的で、またすぐ戻りやすい</li>
+          <li><span class="try-compare-ic x">✕</span>深部のコリ・神経にはアプローチしにくい</li>
+          <li><span class="try-compare-ic x">✕</span>変化が“なんとなく”で分かりにくい</li>
+        </ul>
+      </div>
+      <div class="try-compare-card is-try">
+        <p class="try-compare-cap">眼精疲労専門</p>
+        <p class="try-compare-name">鍼灸院TRY</p>
+        <ul class="try-compare-list">
+          <li><span class="try-compare-ic o">◎</span>三叉神経・深部筋・自律神経に<strong>直接アプローチ</strong></li>
+          <li><span class="try-compare-ic o">◎</span>その場しのぎでなく<strong>根本から改善</strong></li>
+          <li><span class="try-compare-ic o">◎</span>くるみ灸×電気鍼の独自施術</li>
+          <li><span class="try-compare-ic o">◎</span>VASで<strong>変化を数値で見える化</strong></li>
+        </ul>
+      </div>
+    </div>
+    <p class="try-compare-note">※鍼灸は、目の周囲に分布する三叉神経領域を刺激できるのが特長です。目薬・マッサージ・休息では届きにくい「深部のコリと自律神経」に直接アプローチします。</p>
+  </div>
+</section>
 
 
 
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="40代　事務職さん" width="422" height="750" src="https://www.youtube.com/embed/PrmfuLRIWF0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
 
 
-
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="30代 看護師さん" width="422" height="750" src="https://www.youtube.com/embed/ZZP_WPMdFSA?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-<div class="swell-block-column swl-has-mb--s">
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-<iframe title="施術紹介" width="422" height="750" src="https://www.youtube.com/embed/kUVb634oRP8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div></figure>
-</div>
-</div></div>
-
-
-
-<p class="has-text-align-left is-style-section_ttl tate has-background wp-block-paragraph" style="background-color:#ffffff63"><span class="swl-fz u-fz-l"><br></span></p>
-
-
-<div class="try-reviews">
-<div class="try-reviews__summary">
-<span class="try-reviews__score">5.0</span>
-<span class="try-reviews__stars">★★★★★</span>
-<span class="try-reviews__count">Googleクチコミ 17件の評価</span>
-<a class="try-reviews__google" href="https://maps.google.com/?cid=1597813890028183817" target="_blank" rel="nofollow noopener"><svg viewBox="0 0 512 512"><g fill="none" fill-rule="evenodd"><path d="M482.56 261.36c0-16.73-1.5-32.83-4.29-48.27H256v91.29h127.01c-5.47 29.5-22.1 54.49-47.09 71.23v59.21h76.27c44.63-41.09 70.37-101.59 70.37-173.46z" fill="#4285f4"/><path d="M256 492c63.72 0 117.14-21.13 156.19-57.18l-76.27-59.21c-21.13 14.16-48.17 22.53-79.92 22.53-61.47 0-113.49-41.51-132.05-97.3H45.1v61.15c38.83 77.13 118.64 130.01 210.9 130.01z" fill="#34a853"/><path d="M123.95 300.84c-4.72-14.16-7.4-29.29-7.4-44.84s2.68-30.68 7.4-44.84V150.01H45.1C29.12 181.87 20 217.92 20 256c0 38.08 9.12 74.13 25.1 105.99l78.85-61.15z" fill="#fbbc05"/><path d="M256 113.86c34.65 0 65.76 11.91 90.22 35.29l67.69-67.69C373.03 43.39 319.61 20 256 20c-92.25 0-172.07 52.89-210.9 130.01l78.85 61.15c18.56-55.78 70.59-97.3 132.05-97.3z" fill="#ea4335"/></g></svg>powered by Google</a>
-</div>
-
-<div class="try-review-card">
-<div class="try-review-card__head">
-<span class="try-review-card__avatar" style="background:#4285f4;">H</span>
-<span class="try-review-card__meta">
-<span class="try-review-card__name">Hiromasa Harada</span>
-<span class="try-review-card__date">2024年1月</span>
-<span class="try-review-card__stars">★★★★★</span>
-</span>
-</div>
-<p class="try-review-card__body">いつもその時の状況や体の痛み、疲れに応じて、鍼灸やマッサージを組み合わせて施術をしてくださるので本当に助かっています。特に、日々のデスクワークによる眼精疲労や首痛、頭痛の際には、ピンポイントでの鍼灸治療は効果絶大です。マッサージではなかなか治らない目の疲れも、このお店の鍼灸治療でいつもすぐに治ってスッキリします。定期的に通う事で元々かなり硬かった体もほぐれてきて、血流も良くなり、大きな体質改善にもつながっています。</p>
-</div>
-
-<div class="try-review-card">
-<div class="try-review-card__head">
-<span class="try-review-card__avatar" style="background:#34a853;">m</span>
-<span class="try-review-card__meta">
-<span class="try-review-card__name">minstrel324</span>
-<span class="try-review-card__date">2024年2月</span>
-<span class="try-review-card__stars">★★★★★</span>
-</span>
-</div>
-<p class="try-review-card__body">以前から鍼でお世話になっています。体のことを熟知していらっしゃるので、安心してお任せできます。丁寧な接客と、豊富な知識・経験に基づいた施術、親身に話を聞いてくださる傾聴力があり、術後はしっかりフィードバックもしてもらえるので信頼しています。自分の体が今どのような状態で、普段のセルフケアをどうしたら良いかまで知ることができるので、かかりつけのマイサロンとしてオススメです！</p>
-</div>
-
-<div class="try-review-card">
-<div class="try-review-card__head">
-<span class="try-review-card__avatar" style="background:#ea4335;">ち</span>
-<span class="try-review-card__meta">
-<span class="try-review-card__name">ちょろきゅー</span>
-<span class="try-review-card__date">2024年8月</span>
-<span class="try-review-card__stars">★★★★★</span>
-</span>
-</div>
-<p class="try-review-card__body">初めて首と肩の痛みで伺いました。先生はとっても気さくで穏やかでお話上手な方なので、人見知りな私でも抵抗なくお話しすることができました。まず症状をしっかり確認してくださり、持病も加味しながらの施術でした。今回は鍼灸治療とマッサージを受けましたが、帰りはお風呂上がりのように軽くなった感覚になりました。今後とも定期的に通いたいと思います。</p>
-</div>
-</div>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em;margin-top:2.5em" data-id="cdf26c32"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-
-
-
-<div style="height:100px" aria-hidden="true" class="wp-block-spacer pc_only"></div>
-
-
-
-<div id="director" class="swell-block-fullWide pc-py-60 sp-py-40 alignfull" style="background-color:#2d3151"><div class="swell-block-fullWide__SVG -top -bg" role="presentation" style="height:5vw;background-image:url('data:image/svg+xml;charset=UTF-8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 10&quot; preserveAspectRatio=&quot;none&quot;&gt;<path fill=&quot;%232d3151&quot; d=&quot;M100,5.58c-0.05-0.01-0.1-0.03-0.15-0.04C93.74,3.8,87.42,2,75,2S56.26,3.8,50.15,5.53 C43.97,7.29,37.58,9.11,25,9.11c-12.48,0-18.86-1.79-25-3.53V10h75h25V5.58z&quot; /&gt;</svg&gt;')"></div><div class="swell-block-fullWide__inner l-article">
-<h2 class="wp-block-heading is-style-section_ttl has-white-color has-text-color has-link-color wp-elements-560147a2956a322ab3d4cb504c3bf82f"><span class="swl-fz u-fz-l">T R Y か ら 皆 様 へ <br>３ つ の 約 束</span></h2>
-
-
-
-<div class="swell-block-columns try-promise-cols"><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s" data-valign="center"><div class="wp-block-image u-lb-off">
-<figure class="aligncenter size-full is-resized"><img decoding="async" width="600" height="800" src="/images/profile.jpg" alt="鍼灸院TRY 院長 古賀勇帆" class="wp-image-4686" style="object-fit:cover;width:100%;max-width:420px;height:auto;border-radius:12px;" /></figure>
-</div></div>
-
-
-
-<div class="swell-block-column swl-has-mb--s try-promises">
-<div class="try-promise">
-<p class="try-promise__title"><span class="try-promise__num">1</span>プロとして、お体の改善プランを提案します。</p>
-<p class="try-promise__body">お体の状態に最適なプランを提案します。通いやすくなるサブスクプランや回数券もありますが、無理な次回予約などは行いませんので、ご安心下さい。</p>
-</div>
-<div class="try-promise">
-<p class="try-promise__title"><span class="try-promise__num">2</span>医学に基づく、信頼性の高い施術を提供します。</p>
-<p class="try-promise__body">医学に基づく論理的な施術を行います。常にドクター方と働き、医療の現場にいることで、この職業の言葉の重みを感じています。</p>
-</div>
-<div class="try-promise">
-<p class="try-promise__title"><span class="try-promise__num">3</span>丁寧で、居心地の良い空間をお届けします。</p>
-<p class="try-promise__body">プライベートサロンであるため、初めは緊張されるかもしれません。リラックスして施術を受けていただきたいという想いから、温かく丁寧にお出迎えします。</p>
-</div>
-</div>
-</div></div>
-</div><div class="swell-block-fullWide__SVG -bottom -bg" role="presentation" style="height:5vw;background-image:url('data:image/svg+xml;charset=UTF-8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 10&quot; preserveAspectRatio=&quot;none&quot;&gt;<path fill=&quot;%232d3151&quot; d=&quot;M0,4.42c0.05,0.01,0.1,0.03,0.15,0.04C6.26,6.2,12.58,8,25,8s18.74-1.8,24.85-3.53 C56.03,2.71,62.42,0.89,75,0.89c12.48,0,18.86,1.79,25,3.53V0H25H0V4.42z&quot; /&gt;</svg&gt;')"></div></div>
-
-<div style="height:113px" aria-hidden="true" class="wp-block-spacer pc_only"></div>
-
-
+<div class="try-jt -to-mint" aria-hidden="true"><div class="try-jt__more"><span class="try-jt__chev"></span><span>料金プラン</span></div><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
 
 <div id="menu" class="swell-block-fullWide pc-py-0 sp-py-40 alignfull" style="color:#000;background-color:rgba(255, 255, 255, 0.03)"><div class="swell-block-fullWide__inner l-container">
 <p class="has-text-align-left is-style-section_ttl tate has-black-color has-text-color has-link-color has-large-font-size wp-elements-37a665725ca65da26b4693c71386bf45 wp-block-paragraph"><span class="swl-fz u-fz-xs"><strong>plan</strong></span><br><span class="swl-fz u-fz-xs">シンプルで分かりやすいプランをご紹介</span><br><br><span style="font-size:32px" class="swl-fz"><strong>眼 精 疲 労 改善プ ラ ン</strong></span></p>
@@ -1359,18 +1774,77 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 <div class="try-pricing">
+<p class="try-pricing__sublabel">初回メニュー</p>
 <div class="try-pricing__cards">
 <div class="try-price -primary">
+<img class="try-price__photo" src="/images/feature-kurumi.jpg" alt="くるみ灸による目特化施術の様子" loading="lazy" decoding="async">
 <p class="try-price__name">初回50分 <span>目特化コース</span></p>
 <p class="try-price__amount">8,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
 <p class="try-price__desc">目に特化したコースです。くるみ灸と電気鍼によるTRY独自の施術で、目の奥のモヤモヤ感や重だるさを集中的にケア。続けることで“眼精疲労”を解消していきます。</p>
+<div class="try-price__reco">
+<p class="try-price__reco-ttl">こんな方におすすめ</p>
+<ul>
+<li>目の奥の重だるさ・ピント合わせのつらさが気になる</li>
+<li>パソコン・スマホで一日中、目を酷使している</li>
+<li>まずは目に特化した施術を試してみたい</li>
+</ul>
+</div>
 </div>
 <div class="try-price">
+<img class="try-price__photo" src="/images/flow-treatment.jpg" alt="目と全身をケアする鍼灸施術の様子" loading="lazy" decoding="async">
 <p class="try-price__name">初回80分 <span>目＋体コース</span></p>
 <p class="try-price__amount">15,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
 <p class="try-price__desc">全身をケアするコースです。くるみ灸と電気鍼によるTRY独自の施術で、目の奥のモヤモヤ感や重だるさを集中的にケア。続けることで“眼精疲労”だけでなく、体の不調も解消していきます。</p>
+<div class="try-price__reco">
+<p class="try-price__reco-ttl">こんな方におすすめ</p>
+<ul>
+<li>目の疲れに加えて、肩こり・首のこりもつらい</li>
+<li>全身の不調もまとめてケアしたい</li>
+<li>じっくり時間をかけて施術を受けたい</li>
+</ul>
 </div>
 </div>
+</div>
+<p class="try-pricing__sublabel">眼精疲労以外のお悩みにも</p>
+<div class="try-pricing__cards -three">
+<div class="try-price">
+<img class="try-price__photo" src="/images/menu-shinkyu-1.png" alt="肩や腰への鍼灸施術の様子" loading="lazy" decoding="async">
+<p class="try-price__name">鍼灸治療 <span>30分</span></p>
+<p class="try-price__amount">7,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
+<div class="try-price__reco">
+<p class="try-price__reco-ttl">こんな方におすすめ</p>
+<ul>
+<li>肩こり・腰痛など気になる部分をピンポイントで</li>
+<li>短時間でサッとケアしたい</li>
+</ul>
+</div>
+</div>
+<div class="try-price">
+<img class="try-price__photo" src="/images/menu-shinkyu-2.png" alt="背中・全身への鍼灸施術の様子" loading="lazy" decoding="async">
+<p class="try-price__name">鍼灸治療 <span>60分</span></p>
+<p class="try-price__amount">11,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
+<div class="try-price__reco">
+<p class="try-price__reco-ttl">こんな方におすすめ</p>
+<ul>
+<li>肩こり・腰痛・全身の疲れを整えたい</li>
+<li>定期的にコンディションを保ちたい</li>
+</ul>
+</div>
+</div>
+<div class="try-price">
+<img class="try-price__photo" src="/images/menu-shinkyu-1.png" alt="全身をじっくりケアする鍼灸施術の様子" loading="lazy" decoding="async">
+<p class="try-price__name">鍼灸治療 <span>90分</span></p>
+<p class="try-price__amount">17,000<span class="try-price__yen">円</span><span class="try-price__tax">(税込)</span></p>
+<div class="try-price__reco">
+<p class="try-price__reco-ttl">こんな方におすすめ</p>
+<ul>
+<li>全身の不調をじっくりケアしたい</li>
+<li>慢性的な疲れをまとめてリセットしたい</li>
+</ul>
+</div>
+</div>
+</div>
+<p class="try-pricing__note">※肩こり・腰痛・全身の疲れなど、目以外のお悩みにも対応しています。初回から受けていただけます。表示はすべて税込です。</p>
 <div class="swell-block-button green_ is-style-btn_shiny try-pricing__cta" style="--the-fz:1.3em" data-id="b16edd14"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
 </div>
 
@@ -1382,197 +1856,266 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 
 
+
+<div class="try-jt -to-white" aria-hidden="true"><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
+
 <div class="swell-block-fullWide pc-py-60 sp-py-40 alignfull"><div class="swell-block-fullWide__inner l-article">
 <h2 class="wp-block-heading is-style-section_ttl">施術の流れ</h2>
 
 
 
 <div class="try-fstep">
-<div class="try-fstep__step">
-<h3 class="try-fstep__ttl">カウンセリング</h3>
-<div class="try-fstep__photo"><img src="/images/flow-counseling.jpg" alt="カウンセリングの様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>1</span></div>
-<p class="try-fstep__txt">目の疲れ方や生活習慣、体の不調について丁寧にお伺いします。問診票とチェックシートを使い、眼精疲労の原因や生活習慣との関係を整理していきます。</p>
+<div class="try-fstep__step"><div class="try-fstep__num">1</div><p class="try-fstep__ttl">カウンセリング</p><p class="try-fstep__txt">目の疲れ方・生活習慣を丁寧にお伺い。</p></div>
+<div class="try-fstep__step is-vas"><div class="try-fstep__num">2</div><p class="try-fstep__ttl">現状を見える化</p><p class="try-fstep__txt">VASスケールで疲労度を数値化。</p></div>
+<div class="try-fstep__step"><div class="try-fstep__num">3</div><p class="try-fstep__ttl">施術</p><p class="try-fstep__txt">くるみ灸×電気鍼でこわばりを緩める。</p></div>
+<div class="try-fstep__step is-vas"><div class="try-fstep__num">4</div><p class="try-fstep__ttl">再評価</p><p class="try-fstep__txt">施術前後の変化をVASで確認。</p></div>
+<div class="try-fstep__step"><div class="try-fstep__num">5</div><p class="try-fstep__ttl">今後のプラン</p><p class="try-fstep__txt">無理のない改善プランをご提案。</p></div>
 </div>
-<div class="try-fstep__step">
-<h3 class="try-fstep__ttl">現状を見える化<span class="try-fstep__tag">VASスケール</span></h3>
-<div class="try-fstep__photo"><img src="/images/vas-dashboard.png" alt="VASスケールによる見える化評価" loading="lazy"><span class="try-fstep__num"><small>STEP</small>2</span></div>
-<p class="try-fstep__txt">VASスケールを用いた見える化評価で、疲労度を数値でも把握します。どのように眼精疲労が根本改善していくかを丁寧に説明していきます。</p>
-</div>
-<div class="try-fstep__step">
-<h3 class="try-fstep__ttl">施術</h3>
-<div class="try-fstep__photo"><img src="/images/flow-kyukyu.jpg" alt="くるみ灸と電気鍼による施術の様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>3</span></div>
-<p class="try-fstep__txt">くるみ灸・電気鍼を組み合わせ、目の奥の緊張や首・肩まわりのこわばりを和らげます。視界がスッと明るくなり、頭や体がスッキリする感覚を実感できます。</p>
-</div>
-<div class="try-fstep__step">
-<h3 class="try-fstep__ttl">再評価<span class="try-fstep__tag">VASスケール</span></h3>
-<div class="try-fstep__photo"><img src="/images/flow-review.jpg" alt="施術後の再評価の様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>4</span></div>
-<p class="try-fstep__txt">施術後に、疲労度を再確認します。VASスケールでの変化を一緒に見ながら、施術前後の違いを客観的に振り返ります。</p>
-</div>
-<div class="try-fstep__step">
-<h3 class="try-fstep__ttl">今後のプラン説明</h3>
-<div class="try-fstep__photo"><img src="/images/flow-plan.jpg" alt="今後のプランをご説明する様子" loading="lazy"><span class="try-fstep__num"><small>STEP</small>5</span></div>
-<p class="try-fstep__txt">施術結果をもとに、眼精疲労を改善するために最適なプランを生活リズムや症状に合わせてご案内します。TRYでは無理な継続を勧めず、改善に必要な方針を丁寧に共有します。</p>
+<div class="try-fslide">
+<div class="try-fslide__track">
+<div class="try-fslide__item"><div class="try-fslide__ph"><img src="/images/flow-counseling.jpg" alt="カウンセリング" loading="lazy"><span class="try-fslide__badge">STEP 01</span></div><p class="try-fslide__cap">カウンセリング</p></div>
+<div class="try-fslide__item"><div class="try-fslide__ph"><img src="/images/vas-dashboard.png" alt="現状を見える化（VAS）" loading="lazy"><span class="try-fslide__badge">STEP 02</span></div><p class="try-fslide__cap">現状を見える化（VAS）</p></div>
+<div class="try-fslide__item"><div class="try-fslide__ph"><img src="/images/flow-kyukyu.jpg" alt="施術" loading="lazy"><span class="try-fslide__badge">STEP 03</span></div><p class="try-fslide__cap">施術</p></div>
+<div class="try-fslide__item"><div class="try-fslide__ph"><img src="/images/flow-review.jpg" alt="再評価（VAS）" loading="lazy"><span class="try-fslide__badge">STEP 04</span></div><p class="try-fslide__cap">再評価（VAS）</p></div>
+<div class="try-fslide__item"><div class="try-fslide__ph"><img src="/images/flow-plan.jpg" alt="今後のプラン説明" loading="lazy"><span class="try-fslide__badge">STEP 05</span></div><p class="try-fslide__cap">今後のプラン説明</p></div>
+<div class="try-fslide__item" aria-hidden="true"><div class="try-fslide__ph"><img src="/images/flow-counseling.jpg" alt="" loading="lazy"><span class="try-fslide__badge">STEP 01</span></div><p class="try-fslide__cap">カウンセリング</p></div>
+<div class="try-fslide__item" aria-hidden="true"><div class="try-fslide__ph"><img src="/images/vas-dashboard.png" alt="" loading="lazy"><span class="try-fslide__badge">STEP 02</span></div><p class="try-fslide__cap">現状を見える化（VAS）</p></div>
+<div class="try-fslide__item" aria-hidden="true"><div class="try-fslide__ph"><img src="/images/flow-kyukyu.jpg" alt="" loading="lazy"><span class="try-fslide__badge">STEP 03</span></div><p class="try-fslide__cap">施術</p></div>
+<div class="try-fslide__item" aria-hidden="true"><div class="try-fslide__ph"><img src="/images/flow-review.jpg" alt="" loading="lazy"><span class="try-fslide__badge">STEP 04</span></div><p class="try-fslide__cap">再評価（VAS）</p></div>
+<div class="try-fslide__item" aria-hidden="true"><div class="try-fslide__ph"><img src="/images/flow-plan.jpg" alt="" loading="lazy"><span class="try-fslide__badge">STEP 05</span></div><p class="try-fslide__cap">今後のプラン説明</p></div>
 </div>
 </div>
 </div></div>
 
 
 
-<div class="swell-block-fullWide pc-py-20 sp-py-20 alignfull" style="color:#fff;background-color:#2d3151"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="swell-block-fullWide__SVG -top" role="presentation" style="height:4vw"><path d="M50,0C22.39,0,0,44.77,0,100h100C100,44.77,77.61,0,50,0z" stroke-width="0" fill="#2d3151"></path></svg><div class="swell-block-fullWide__inner l-article">
-<h2 class="wp-block-heading is-style-section_ttl"><strong><span class="swl-fz u-fz-l">眼精疲労にお悩みのあなたへ</span></strong></h2>
+<style>
+/* MESSAGE：代表メッセージ＋これまでの歩み（案B・CONCEPT調） */
+.try-greet{ background:#fff; overflow:hidden;
+  padding-block:clamp(40px,5vw,76px);
+  padding-left:max(20px, env(safe-area-inset-left,0px));
+  padding-right:max(20px, env(safe-area-inset-right,0px)); }
+.try-greet__head{ text-align:center; max-width:var(--try-max); margin:0 auto clamp(24px,3vw,40px); }
+.try-greet__eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-greet__eng::before, .try-greet__eng::after{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-greet__title{ font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0; }
+.try-greet__title .accent{ color:var(--try-mint); }
+.try-greet .try-greet__title{ border:0; padding:0; margin:0; }
+.try-greet .try-greet__title::before, .try-greet .try-greet__title::after{ display:none; content:none; }
+.try-greet__grid{ max-width:var(--try-max); margin:0 auto; display:grid; grid-template-columns:320px 1fr; gap:clamp(28px,4vw,56px); align-items:center; }
+.try-greet__left{ text-align:center; }
+.try-greet__left img{ width:100%; max-width:300px; border-radius:16px; object-fit:cover; box-shadow:0 14px 34px rgba(30,42,50,.18); }
+.try-greet__nm{ font-weight:800; color:var(--try-dark); font-size:16px; margin:14px 0 2px; }
+.try-greet__ro{ font-size:12.5px; color:#8396a3; }
+.try-greet__msg{ color:#3a4a55; line-height:2.0; font-size:clamp(15px,1.3vw,17.5px); }
+.try-greet__msg p{ margin:0 0 16px; }
+.try-greet__msg strong{ color:var(--try-dark); font-weight:800; }
+.try-greet__msg .mark{ background:linear-gradient(transparent 62%, #c9e7fb 62%); padding:0 .06em; font-weight:700; color:var(--try-dark); }
+.try-greet__tl{ margin:24px 0 0; }
+.try-greet__tl h4{ font-size:14px; font-weight:800; letter-spacing:.1em; color:#2f7fb3; margin:0 0 14px; }
+.try-greet__tl ul{ list-style:none; margin:0; padding:0; }
+.try-greet__tl li{ position:relative; padding:0 0 15px 22px; line-height:1.75; font-size:14.5px; color:var(--try-text); border-left:2px solid #e3eff8; margin-left:5px; }
+.try-greet__tl li:last-child{ border-left-color:transparent; padding-bottom:0; }
+.try-greet__tl li span{ position:absolute; left:-7px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--try-mint); }
+.try-greet__tl li b{ color:var(--try-dark); }
+.try-greet__cta-wrap{ margin-top:26px; }
+@media (max-width:720px){
+  .try-greet__grid{ grid-template-columns:1fr; gap:22px; }
+  .try-greet__left img{ max-width:210px; }
+}
+</style>
 
+<div class="try-jt -to-mint" aria-hidden="true"><div class="try-jt__more"><span class="try-jt__chev"></span><span>代表の想い</span></div><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
 
-
-<p class="has-text-align-center wp-block-paragraph">どれだけ休んでも取れない<strong>“目の重さ”や“頭のモヤモヤ”。</strong><br>そのつらさを抱えながら、今日も無理をして過ごしていませんか。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">私はこれまで、多くの方の身体の不調と向き合ってきました。<br>筋肉を緩めても、一時的には楽になっても、またすぐ元に戻ってしまう——。<br>その原因を探り続けた先で、はっきりと分かったことがあります。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph"><strong><span class="swl-fz u-fz-l">目が不調の出発点。</span></strong></p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">私たちが受け取る情報の約8割は“目”を通して入ってきます。<br>そのため、焦点の合わせ方や視線の使い方が乱れると、<br><strong>首や肩の緊張、姿勢の崩れ、自律神経の乱れ</strong>へと波紋のように広がっていきます。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">現代では、スマホやパソコンが欠かせない生活が続き、<br><strong><span style="font-size:17px" class="swl-fz">多くの人が気づかないまま慢性的な眼精疲労に苦しんでいます。</span></strong><br>それでも一般的なケアは、「一時的にすっきりさせる」ことが中心で、<br>目と身体のつながりそのものに向き合う施術は、ほとんど存在しません。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">TRYは、その部分に真正面から取り組むために生まれました。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">目の筋肉や血流を整え、首・肩・姿勢を含めた身体全体のバランスを調整することで、<br><strong>“スッキリがずーっと続く状態”をつくることを目指しています。</strong><br>視界が明るくなると、思考もクリアになり、日常の質までも変わっていきます。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">眼精疲労は単なる「目の疲れ」ではありません。<br>仕事のパフォーマンス、心の余裕、睡眠、家族との時間——<br><span style="font-size:18px" class="swl-fz">あなたの大切な日常を左右する、大きなテーマです。</span></p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">もし今、<br><span class="swl-fz u-fz-l">「このままではつらい」<br>「本気で改善したい」</span><br>そんな思いが少しでもあるなら、TRYがお力になれます。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">まずは一度、あなたの体の状態を見せてください。<br>原因を一緒に整理し、あなたにとって最適な改善の道筋をご提案いたします。</p>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">スッキリがずーっと続いて快適な日常を取り戻す。<br>その一歩を、TRYで踏み出してみませんか。<br><br>【眼精疲労専門】鍼灸院TRY 代表 古賀健太</p>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="489c65c0"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-</div></div>
+<section class="try-greet">
+  <div class="try-greet__head">
+    <p class="try-greet__eng">Message</p>
+    <h2 class="try-greet__title">眼精疲労に<span class="accent">お悩みのあなたへ</span></h2>
+  </div>
+  <div class="try-greet__grid">
+    <div class="try-greet__left">
+      <img src="/images/profile.jpg" alt="鍼灸院TRY 代表 古賀健太" loading="lazy">
+      <div class="try-greet__nm">古賀 健太</div>
+      <div class="try-greet__ro">鍼灸院TRY 代表／鍼灸師</div>
+    </div>
+    <div>
+      <div class="try-greet__msg">
+        <p><strong>目が、不調の出発点。</strong>私たちが受け取る情報の約8割は“目”から入ってきます。目の使い方が乱れると、<strong>首・肩の緊張や自律神経の乱れ</strong>へと広がります。一般的なケアは一時的な対処が中心ですが、TRYは<span class="mark">目と身体のつながり</span>に正面から向き合います。</p>
+        <p>目の筋肉や血流を整え、姿勢まで含めて全身のバランスを調整し、<strong>“スッキリがずーっと続く状態”</strong>を目指します。</p>
+        <p>「本気で改善したい」——そんな思いが少しでもあれば、まずは一度、あなたの体の状態を見せてください。最適な改善の道筋を、一緒に見つけましょう。</p>
+      </div>
+      <div class="try-greet__tl">
+        <h4>これまでの歩み</h4>
+        <ul>
+          <li><span></span>呉竹医療専門学校を卒業し、院長を経て桜木町で開業</li>
+          <li><span></span>リウマチ膠原病内科にも勤務（線維筋痛症などの施術）</li>
+          <li><span></span>眼精疲労専門「鍼灸院TRY」へリニューアル</li>
+          <li><span></span>同業の治療家へ眼精疲労セミナーを開催／<b>線維筋痛症の学会で症例を発表</b></li>
+          <li><span></span><b>現在</b>は、医療と鍼灸を結ぶために活動中</li>
+        </ul>
+      </div>
+      <div class="try-greet__cta-wrap">
+        <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談する<small>いま特別価格でご案内中！</small></a>
+      </div>
+    </div>
+  </div>
+</section>
 <div id="access" aria-hidden="true" style="height:0"></div>
 
 
 
-<div class="swell-block-columns sp_only" style="--clmn-w--pc:100%;--clmn-w--tab:100%"><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s">
-<h4 class="wp-block-heading sp_only">アクセス</h4>
+<style>
+/* ACCESS：アクセス・ご予約（案A・CONCEPT調 2カラム） */
+.try-acc{ background:#fff; overflow:hidden;
+  padding-block:clamp(40px,5vw,76px);
+  padding-left:max(20px, env(safe-area-inset-left,0px));
+  padding-right:max(20px, env(safe-area-inset-right,0px)); }
+.try-acc__head{ text-align:center; max-width:var(--try-max); margin:0 auto clamp(26px,3vw,42px); }
+.try-acc__eng{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:800; letter-spacing:.24em; color:var(--try-mint); text-transform:uppercase; margin:0 0 8px; }
+.try-acc__eng::before, .try-acc__eng::after{ content:""; width:28px; height:2px; background:var(--try-mint); display:inline-block; }
+.try-acc__title{ font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:1.45; letter-spacing:.01em; color:var(--try-dark); margin:0; }
+.try-acc__title .accent{ color:var(--try-mint); }
+.try-acc .try-acc__title{ border:0; padding:0; margin:0; }
+.try-acc .try-acc__title::before, .try-acc .try-acc__title::after{ display:none; content:none; }
+.try-acc__grid{ max-width:var(--try-max); margin:0 auto; display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,3.4vw,46px); align-items:stretch; }
+.try-acc__maps{ display:flex; flex-direction:column; }
+.try-acc__maplabel{ font-size:13px; font-weight:800; letter-spacing:.06em; color:#2f7fb3; margin:0 0 8px; display:inline-flex; align-items:center; gap:8px; }
+.try-acc__maplabel::before{ content:""; width:6px; height:17px; background:var(--try-mint); border-radius:3px; }
+.try-acc__map{ flex:1; min-height:clamp(260px,30vw,360px); }
+.try-acc__map iframe{ width:100%; height:100%; min-height:inherit; border:0; border-radius:16px; display:block; }
+.try-acc__video-wrap{ max-width:760px; margin:clamp(22px,3vw,36px) auto 0; }
+.try-acc__video{ position:relative; width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden; background:#000; }
+.try-acc__video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.try-acc__info{ display:flex; flex-direction:column; }
+.try-acc__card{ background:var(--try-gray,#F8F9FA); border:1px solid #e9eef2; border-radius:18px; padding:clamp(22px,2.6vw,30px); flex:1; display:flex; flex-direction:column; }
+.try-acc__badge{ display:inline-flex; align-items:center; gap:7px; background:#eaf5fc; color:#2f7fb3; border:1px solid #cfe7f7; font-size:13px; font-weight:800; padding:6px 15px; border-radius:999px; margin:0 0 16px; }
+.try-acc__badge::before{ content:""; width:7px; height:17px; background:var(--try-mint); border-radius:3px; }
+.try-acc__hrs{ width:100%; border-collapse:separate; border-spacing:0; font-size:clamp(13px,1.4vw,15px); }
+.try-acc__hrs th, .try-acc__hrs td{ padding:10px 4px; text-align:center; border-bottom:1px solid #e9eef2; }
+.try-acc__hrs thead th{ background:var(--try-dark); color:#fff; font-weight:700; }
+.try-acc__hrs thead th:first-child{ border-radius:10px 0 0 0; }
+.try-acc__hrs thead th:last-child{ border-radius:0 10px 0 0; }
+.try-acc__hrs tbody td:first-child{ font-weight:700; color:var(--try-dark); white-space:nowrap; font-size:11.5px; }
+.try-acc__hrs .o{ color:#2f7fb3; font-weight:800; font-size:13px; }
+.try-acc__hrs .x{ color:#9aa3ab; font-weight:700; font-size:12.5px; }
+.try-acc__hrs .ast{ color:#c0564e; font-weight:800; margin-left:1px; }
+.try-acc__note{ font-size:12px; color:#8396a3; margin:7px 0 0; text-align:right; line-height:1.7; }
+.try-acc__row{ display:flex; gap:11px; align-items:flex-start; font-size:14.5px; line-height:1.8; color:var(--try-text); margin:16px 0 0; }
+.try-acc__row b{ color:var(--try-dark); }
+.try-acc__row .ic{ flex:0 0 20px; color:var(--try-mint); font-size:16px; margin-top:2px; }
+.try-acc__cta{ margin-top:auto; padding-top:clamp(20px,3vw,34px); display:flex; flex-direction:column; align-items:center; gap:12px; }
+.try-acc__sub{ display:inline-flex; align-items:center; gap:8px; background:#fff; color:var(--try-dark); border:1.5px solid #dce4ea; font-weight:800; text-decoration:none; padding:13px 28px; border-radius:999px; font-size:14px; transition:border-color .15s ease, color .15s ease; }
+.try-acc__sub:hover{ border-color:var(--try-mint); color:#2f7fb3; }
+@media (max-width:820px){
+  .try-acc__grid{ grid-template-columns:1fr; gap:26px; }
+}
+</style>
 
+<div class="try-jt -to-white" aria-hidden="true"><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
 
-
-<div class="try-access">
-<div class="try-access__item">
-<p class="try-access__label">Googleマップ</p>
-<div class="try-access__map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3292.5749878319407!2d139.6285030757774!3d35.448506372663196!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185dde1573b9fb%3A0x162c93447450a109!2z6Y2854G444Oe44OD44K144O844K46ZmiVFJZ!5e1!3m2!1sja!2sjp!4v1728115032630!5m2!1sja!2sjp" width="600" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-</div>
-<div class="try-access__item">
-<p class="try-access__label">桜木町駅からの行き方</p>
-<div class="try-access__video"><iframe title="JR桜木町駅〜鍼灸マッサージ院TRYまでのアクセス" src="https://www.youtube.com/embed/_0yBfRq5Aa8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-</div>
-</div>
-
-
-
-<div style="height:126px" aria-hidden="true" class="wp-block-spacer pc_only"></div>
-</div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<h4 class="wp-block-heading sp_only">お問い合わせ</h4>
-
-
-<div class="c-scrollHint sp_"><span>スクロールできます <i class="icon-more_arrow"></i></span></div>
-<figure data-table-scrollable="sp" class="wp-block-table is-style-regular is-all-centered min_width10_"><table style="--table-width:800px;font-size:14px;"><tbody style="--tbody-th-color--bg:var(--color_gray);--tbody-th-color--txt:var(--swl-text_color--black)"><tr><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-fz u-fz-xs"><span class="swl-cell-text-centered">営業時間</span></span></td><td data-has-cell-bg="1" data-text-color="black"><span data-icon-size="l" data-icon-type="bg" class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">月</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">火</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">水</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">木</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">金</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">土</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">日</span></td></tr><tr><td><span class="swl-cell-text-centered"><span style="font-size:9px" class="swl-fz">11:00~21:00</span></span></td><td><span class="swl-cell-text-centered">○</span></td><td><span class="swl-cell-text-centered">×</span></td><td><span class="swl-cell-text-centered">○</span></td><td><span class="swl-cell-text-centered">×</span></td><td><span class="swl-cell-text-centered">○</span></td><td><span class="swl-cell-text-centered">○*</span></td><td><span class="swl-cell-text-centered">○</span></td></tr></tbody></table><figcaption class="wp-element-caption">*土曜日不定休　</figcaption></figure>
-
-
-
-<p class="wp-block-paragraph">〒231-0063<br>神奈川県横浜市中区花咲町1-21中村ビル304<br>＊ご連絡方法は公式LINEのみとなっております。</p>
-
-
-
-<p class="has-text-align-center u-mb-0 u-mb-ctrl wp-block-paragraph" style="line-height:2"></p>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="b31cc7f4"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-
-
-
-<p class="wp-block-paragraph"></p>
-</div>
-</div></div>
-
-
-
-<div style="height:34px" aria-hidden="true" class="wp-block-spacer"></div>
-
-
-
-<div class="swell-block-columns pc_only"><div class="swell-block-columns__inner">
-<div class="swell-block-column swl-has-mb--s">
-<h4 class="wp-block-heading">お問い合わせ</h4>
-
-
-
-<figure class="wp-block-table is-style-regular"><table class="has-fixed-layout"><tbody><tr><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-fz u-fz-xs"><span class="swl-cell-text-centered">営業時間</span></span></td><td data-has-cell-bg="1" data-text-color="black"><span data-icon-size="l" data-icon-type="bg" class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">月</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">火</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">水</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">木</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">金</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">土</span></td><td data-has-cell-bg="1" data-text-color="black"><span class="swl-cell-bg has-swl-main-thin-background-color" data-text-color="black" aria-hidden="true">&nbsp;</span><span class="swl-cell-text-centered">日</span></td></tr><tr><td><span class="swl-cell-text-centered"><span style="font-size:9px" class="swl-fz">11:00~21:00</span></span></td><td><span class="swl-cell-text-centered">○</span></td><td><span class="swl-cell-text-centered">×</span></td><td><span class="swl-cell-text-centered">○</span></td><td><span class="swl-cell-text-centered">×</span></td><td><span class="swl-cell-text-centered">○</span></td><td><span class="swl-cell-text-centered">○*</span></td><td><span class="swl-cell-text-centered">○</span></td></tr></tbody></table><figcaption class="wp-element-caption">*土曜日不定休　</figcaption></figure>
-
-
-
-<p class="has-text-align-center wp-block-paragraph">〒231-0063<br>神奈川県横浜市中区花咲町1-21中村ビル304<br>＊ご連絡方法は公式LINEのみとなっております。</p>
-
-
-
-<p class="has-text-align-center u-mb-0 u-mb-ctrl wp-block-paragraph" style="line-height:2"></p>
-
-
-
-<div class="swell-block-button green_ is-style-btn_shiny" style="--the-fz:1.3em" data-id="1431776f"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span>公式LINEで<br>特別価格でご案内！</span></a></div>
-
-
-
-<p class="wp-block-paragraph"></p>
-</div>
-
-
-
-<div class="swell-block-column swl-has-mb--s">
-<div class="try-access">
-<div class="try-access__item">
-<p class="try-access__label">Googleマップ</p>
-<div class="try-access__map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3292.5749878319407!2d139.6285030757774!3d35.448506372663196!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185dde1573b9fb%3A0x162c93447450a109!2z6Y2854G444Oe44OD44K144O844K46ZmiVFJZ!5e1!3m2!1sja!2sjp!4v1728115032630!5m2!1sja!2sjp" width="600" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-</div>
-<div class="try-access__item">
-<p class="try-access__label">桜木町駅からの行き方</p>
-<div class="try-access__video"><iframe title="JR桜木町駅〜鍼灸マッサージ院TRYまでのアクセス" src="https://www.youtube.com/embed/_0yBfRq5Aa8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-</div>
-</div>
-</div>
-</div></div>
+<section class="try-acc">
+  <div class="try-acc__head">
+    <p class="try-acc__eng">Access</p>
+    <h2 class="try-acc__title">アクセス・<span class="accent">ご予約</span></h2>
+  </div>
+  <div class="try-acc__grid">
+    <div class="try-acc__maps">
+      <p class="try-acc__maplabel">Googleマップ</p>
+      <div class="try-acc__map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3292.5749878319407!2d139.6285030757774!3d35.448506372663196!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185dde1573b9fb%3A0x162c93447450a109!2z6Y2854G444Oe44OD44K144O844K46ZmiVFJZ!5e1!3m2!1sja!2sjp!4v1728115032630!5m2!1sja!2sjp" width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+    <div class="try-acc__info">
+      <div class="try-acc__card">
+        <span class="try-acc__badge">桜木町駅 徒歩3分</span>
+        <table class="try-acc__hrs">
+          <thead><tr><th>営業時間</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th></tr></thead>
+          <tbody><tr><td>11:00–21:00</td><td class="o">●</td><td class="x">休</td><td class="o">●</td><td class="x">休</td><td class="o">●</td><td class="o">●<span class="ast">*</span></td><td class="o">●</td></tr></tbody>
+        </table>
+        <p class="try-acc__note">*土曜日は不定休</p>
+        <div class="try-acc__row"><span class="ic">📍</span><span>〒231-0063<br>神奈川県横浜市中区花咲町1-21 中村ビル304</span></div>
+        <div class="try-acc__row"><span class="ic">💬</span><span>ご連絡方法は<b>公式LINEのみ</b>となっております。</span></div>
+        <div class="try-acc__cta">
+          <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談・予約<small>いま特別価格でご案内中！</small></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="try-acc__video-wrap">
+    <p class="try-acc__maplabel">桜木町駅からの行き方</p>
+    <div class="try-acc__video"><iframe title="JR桜木町駅〜鍼灸マッサージ院TRYまでのアクセス" src="https://www.youtube.com/embed/_0yBfRq5Aa8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+  </div>
+</section>
 		</div>
 			</div>
 </main>
 </div>
 <footer id="footer" class="l-footer">
+<style>
+/* ===== サイトフッター（案A：濃紺・王道の締め） ===== */
+#footer.l-footer{ margin:0; padding:0; background:transparent; }
+.try-ft{ background:var(--try-dark,#1E2A32); color:#cdd7de;
+  padding-block:clamp(40px,5vw,60px) 0;
+  padding-left:max(20px,env(safe-area-inset-left,0px));
+  padding-right:max(20px,env(safe-area-inset-right,0px)); }
+.try-ft *{ box-sizing:border-box; }
+.try-ft__cols{ max-width:var(--try-max,1100px); margin:0 auto; display:grid;
+  grid-template-columns:1.5fr 1fr 1.4fr; gap:clamp(24px,3.4vw,52px); align-items:start; }
+.try-ft__logo{ display:inline-flex; align-items:center; gap:14px; }
+.try-ft__logo img{ height:clamp(50px,6vw,62px); width:auto; filter:brightness(0) invert(1); }
+.try-ft__name{ color:#fff; font-weight:800; font-size:clamp(15px,1.7vw,18px); line-height:1.4; }
+.try-ft__name small{ display:block; font-size:10px; font-weight:700; letter-spacing:.14em; color:var(--try-mint,#4a9fd4); margin:0 0 2px; }
+.try-ft__brandtxt{ margin:16px 0 0; font-size:13px; line-height:2; color:#9fb0bc; max-width:30em; }
+.try-ft__map{ margin:18px 0 0; }
+.try-ft__map iframe{ width:100%; height:168px; border:0; border-radius:12px; display:block; }
+.try-ft h4{ font-size:11px; font-weight:800; letter-spacing:.18em; color:var(--try-mint,#4a9fd4); margin:4px 0 16px; text-transform:uppercase; }
+.try-ft__lnk{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+.try-ft__lnk a{ color:#cdd7de; text-decoration:none; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:9px; transition:color .15s ease; }
+.try-ft__lnk a:hover{ color:#fff; }
+.try-ft__lnk .chev{ color:var(--try-mint,#4a9fd4); font-weight:800; }
+.try-ft__info{ font-size:13px; line-height:2; color:#9fb0bc; margin:0; }
+.try-ft__info b{ color:#e7edf1; font-weight:700; }
+.try-ft__bar{ max-width:var(--try-max,1100px); margin:clamp(28px,3.4vw,40px) auto 0;
+  border-top:1px solid #2b353c; padding:18px 0 clamp(44px,6vw,60px); display:flex; justify-content:space-between;
+  align-items:center; flex-wrap:wrap; gap:8px; font-size:11.5px; color:#8496a2; }
+@media (max-width:700px){
+  .try-ft__cols{ grid-template-columns:1fr 1fr; gap:28px 24px; }
+  .try-ft__brand{ grid-column:1 / -1; }
+  .try-ft__info-col{ grid-column:1 / -1; }
+  .try-ft__bar{ justify-content:center; text-align:center; }
+}
+</style>
+<div class="try-ft">
+  <div class="try-ft__cols">
+    <div class="try-ft__brand">
+      <span class="try-ft__logo"><img src="/images/logo-mark.png" alt="眼精疲労専門 鍼灸院TRY" width="200" height="200"><span class="try-ft__name"><small>眼精疲労専門</small>鍼灸院TRY</span></span>
+      <p class="try-ft__brandtxt">横浜・桜木町で、眼精疲労“だけ”を極めた鍼灸院。目と神経に医学的にアプローチし、その場しのぎではなく根本改善へ導きます。</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <ul class="try-ft__lnk">
+        <li><a href="/"><span class="chev">›</span>ホーム</a></li>
+        <li><a href="#menu"><span class="chev">›</span>料金メニュー</a></li>
+        <li><a href="#access"><span class="chev">›</span>アクセス</a></li>
+        <li><a href="/blog/"><span class="chev">›</span>ブログ</a></li>
+      </ul>
+    </div>
+    <div class="try-ft__info-col">
+      <h4>Access</h4>
+      <p class="try-ft__info">
+        <b>眼精疲労専門 鍼灸院TRY</b><br>
+        〒231-0063 神奈川県横浜市中区花咲町1-21 中村ビル304<br>
+        桜木町駅 徒歩3分<br>
+        営業時間 11:00–21:00<br>
+        定休 火・木（土は不定休）<br>
+        ご連絡は公式LINEのみ
+      </p>
+      <div class="try-ft__map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3292.5749878319407!2d139.6285030757774!3d35.448506372663196!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185dde1573b9fb%3A0x162c93447450a109!2z6Y2854G444Oe44OD44K144O844K46ZmiVFJZ!5e1!3m2!1sja!2sjp!4v1728115032630!5m2!1sja!2sjp" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="鍼灸院TRYの地図（桜木町駅 徒歩3分）"></iframe></div>
+    </div>
+  </div>
+  <div class="try-ft__bar">
+    <span>© 2026 鍼灸院TRY. All rights reserved.</span>
+    <span>横浜・桜木町の眼精疲労専門鍼灸院</span>
+  </div>
+</div>
 	</footer>
 <div class="p-fixBtnWrap">
 	
@@ -1672,4 +2215,51 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- JSON-LD @SWELL -->
 <script type="application/ld+json">{"@context": "https://schema.org","@graph": [{"@type":"Organization","@id":"https:\/\/salontry.com\/#organization","name":"鍼灸マッサージ院TRY","url":"https:\/\/salontry.com\/","logo":{"@type":"ImageObject","url":"https:\/\/salontry.com\/wp-content\/uploads\/2024\/01\/cropped-ロゴ_背景あり-removebg-preview.png","width":512,"height":512},"founder":{"@type":"Person","name":"古賀健太"}},{"@type":"WebSite","@id":"https:\/\/salontry.com\/#website","url":"https:\/\/salontry.com\/","name":"【眼精疲労専門】鍼灸院TRY | 目に特化した鍼灸で、眼精疲労を根本改善","description":"桜木町駅徒歩３分ある鍼灸マッサージ院 TRY。２つのプランであなたの身体の悩みを解消していきます。","potentialAction":{"@type":"SearchAction","target":"https:\/\/salontry.com\/?s={s}","query-input":"name=s required"}}]}</script>
 <!-- / JSON-LD @SWELL -->
+<!-- フッター固定バー：公式LINE / WEB予約 / Instagram / アクセス -->
+<div class="try-fixbar">
+<div class="try-fixbar__lead">
+<span class="try-fixbar__bubble">お気軽にご相談ください</span>
+<a class="try-fixbar__contact" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>公式LINE</a>
+</div>
+<div class="try-fixbar__segs">
+<a class="try-fixbar__seg -line-m" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg><span>公式LINE</span></a>
+<a class="try-fixbar__seg -book" href="https://reserve.salontry.com/c/try"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg><span>WEB予約</span></a>
+<a class="try-fixbar__seg -insta" href="https://www.instagram.com/try_shinkyu_yokohama/" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+<a class="try-fixbar__seg -access" href="#access"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><span>アクセス</span></a>
+</div>
+</div>
+<script>
+/* ハンバーガー・ドロワー開閉 */
+(function(){
+  var burger=document.getElementById('tryBurger');
+  var drawer=document.getElementById('tryDrawer');
+  var closeBtn=document.getElementById('tryDrawerClose');
+  if(!burger||!drawer) return;
+  function open(){ drawer.classList.add('is-open'); burger.classList.add('is-open'); burger.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false'); }
+  function close(){ drawer.classList.remove('is-open'); burger.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true'); }
+  burger.addEventListener('click', function(){ drawer.classList.contains('is-open') ? close() : open(); });
+  if(closeBtn) closeBtn.addEventListener('click', close);
+  drawer.addEventListener('click', function(e){ if(e.target===drawer) close(); });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+})();
+</script>
+<script>
+/* お客様の声：サムネ切替（インスタンスごとにスコープ） */
+(function(){
+  document.querySelectorAll('.try-vf').forEach(function(root){
+    var iframe=root.querySelector('.try-vf__iframe');
+    var quote=root.querySelector('.try-vf__quote');
+    var name=root.querySelector('.try-vf__name');
+    root.querySelectorAll('.try-vf__thumb').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        root.querySelectorAll('.try-vf__thumb').forEach(function(b){b.classList.remove('is-active');});
+        btn.classList.add('is-active');
+        if(iframe) iframe.src='https://www.youtube.com/embed/'+btn.dataset.id;
+        if(quote) quote.textContent=btn.dataset.quote;
+        if(name) name.textContent=btn.dataset.name;
+      });
+    });
+  });
+})();
+</script>
 </body></html>
