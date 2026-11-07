@@ -56,35 +56,35 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--main:#4f5452;--bg:#fff;--bg-gray:#f8f8f8;--border:#e5e5e5;--text:#333;--text-soft:#666;--sans:'Noto Sans JP',sans-serif;}
+:root{--main:#2f7fb3;--bg:#fff;--bg-gray:#f8f8f8;--border:#e5e5e5;--text:#333;--text-soft:#666;--sans:'Noto Sans JP',sans-serif;}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.8}
 a{color:var(--main)}
-nav{position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.x-oldnav{position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .nav-logo{font-size:16px;font-weight:700;color:var(--main);text-decoration:none}
 .nav-links{display:flex;gap:24px;list-style:none}
 .nav-links a{font-size:13px;color:#666;text-decoration:none}
 .nav-cta{background:#06c755;color:white;font-size:12px;font-weight:700;padding:8px 18px;border-radius:4px;text-decoration:none}
 .content-wrap{max-width:1000px;margin:0 auto;padding:48px 40px 80px;display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start}
-@media(max-width:800px){.content-wrap{grid-template-columns:1fr;padding:32px 20px 60px}.sidebar{display:none}.toc{padding:16px;margin-bottom:24px}.toc-list a{font-size:13px;line-height:1.6}.toc-list a::before{margin-top:6px}.article-body h2{font-size:17px;padding:10px 14px}.article-body h3{font-size:15px}.article-body p{font-size:14px}.article-body li{font-size:14px}}
+@media(max-width:800px){.content-wrap{grid-template-columns:1fr;padding:32px 20px 60px}.sidebar{display:none}.toc{padding:16px;margin-bottom:24px}.toc-list a{font-size:13px;line-height:1.6}.toc-list a::before{margin-top:6px}.article-body h2{font-size:18px}.article-body h3{font-size:15px}.article-body p{font-size:14px}.article-body li{font-size:14px}}
 .breadcrumb{font-size:12px;color:#999;margin-bottom:20px}
 .breadcrumb a{color:#999;text-decoration:none}
-.article-cat{font-size:10px;letter-spacing:.15em;color:var(--main);font-weight:700;background:rgba(79,84,82,.08);display:inline-block;padding:3px 8px;border-radius:2px;margin-bottom:16px}
+.article-cat{font-size:10px;letter-spacing:.15em;color:var(--main);font-weight:700;background:rgba(47,127,179,.08);display:inline-block;padding:3px 8px;border-radius:2px;margin-bottom:16px}
 .article-title{font-size:clamp(22px,3.5vw,32px);font-weight:700;line-height:1.5;margin-bottom:16px}
 .article-meta{font-size:12px;color:#999;margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid var(--border)}
-.article-body h2{font-size:19px;font-weight:700;margin:44px 0 14px;padding:12px 16px;background:#2d3151;color:white;border-radius:2px}
-.article-body h3{font-size:17px;font-weight:700;margin:28px 0 10px;padding-left:12px;border-left:3px solid var(--main)}
-.article-body p{font-size:15px;color:var(--text-soft);line-height:2;margin-bottom:18px}
+.article-body h2{font-size:clamp(19px,2.6vw,23px);font-weight:800;color:#1E2A32;line-height:1.55;margin:48px 0 16px;padding:0 0 12px;position:relative}.article-body h2::after{content:"";position:absolute;left:0;bottom:0;width:56px;height:3px;background:#4a9fd4;border-radius:2px}
+.article-body h3{font-size:17px;font-weight:800;color:#1E2A32;margin:30px 0 10px;padding-left:12px;border-left:4px solid #4a9fd4}
+.article-body p{font-size:15px;color:var(--text-soft);line-height:2;margin-bottom:22px}
 .article-body ul{padding-left:24px;margin-bottom:18px}
 .article-body li{font-size:15px;color:var(--text-soft);line-height:2;margin-bottom:6px}
-.article-box{background:var(--bg-gray);border-radius:4px;padding:20px;margin:28px 0;border-left:4px solid var(--main)}
+.article-box{background:#f1f8fd;border-radius:0 12px 12px 0;padding:18px 20px;margin:26px 0;border-left:4px solid #4a9fd4}
 .article-box p{margin:0;font-size:14px}
-.cta-box{background:#2d3151;color:white;border-radius:4px;padding:32px;text-align:center;margin:44px 0}
-.cta-box h3{font-size:20px;font-weight:700;margin-bottom:10px}
-.cta-box p{font-size:14px;opacity:.8;margin-bottom:20px;color:white}
-.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#06c755;color:white;font-size:15px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none}
+.cta-box{background:#1E2A32;color:white;border-radius:18px;padding:clamp(26px,3vw,38px);text-align:center;margin:40px 0}.cta-eyebrow{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2em;color:#4a9fd4;margin-bottom:10px}
+.cta-box h3{font-size:clamp(18px,2.4vw,22px);font-weight:800;margin:0 0 12px;line-height:1.5;color:#fff;border-left:0;padding-left:0}
+.cta-box p{font-size:14px;color:#cdd7de;margin-bottom:22px;line-height:1.9}
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#06c755;color:white;font-size:15px;font-weight:800;padding:15px 38px;border-radius:999px;text-decoration:none;box-shadow:0 10px 24px rgba(6,199,85,.32)}.cta-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .toc{background:var(--bg-gray);border-radius:4px;padding:24px;margin-bottom:36px;border:1px solid var(--border);display:block}
 .toc-title{font-size:13px;font-weight:700;color:var(--main);letter-spacing:.1em;margin-bottom:16px;display:block;width:100%}
 .toc-list{list-style:none;display:flex;flex-direction:column;gap:8px;width:100%}
@@ -94,23 +94,105 @@ nav{position:sticky;top:0;z-index:100;background:#fdfdfd;border-bottom:1px solid
 .related-title{font-size:13px;font-weight:700;color:var(--main);letter-spacing:.1em;margin-bottom:20px}
 .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .related-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:box-shadow .2s;display:block}
-.related-thumb{height:100px;background:linear-gradient(135deg,#2d3151,#4f5452);display:flex;align-items:center;justify-content:center;font-size:28px}
+.related-thumb{height:100px;background:linear-gradient(135deg,#1E2A32,#2f7fb3);display:flex;align-items:center;justify-content:center;font-size:28px}
 .related-body{padding:12px}
 .related-cat{font-size:10px;color:var(--main);font-weight:700;margin-bottom:4px}
 .related-ttl{font-size:13px;font-weight:700;line-height:1.5;color:var(--text)}
-.sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:16px}.sidebar-box{background:#f8f8f8;border-radius:4px;padding:20px;border:1px solid #e5e5e5}.sidebar-box-title{font-size:12px;font-weight:700;color:#4f5452;letter-spacing:.1em;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #4f5452}.sidebar-profile{display:flex;align-items:center;gap:12px;margin-bottom:12px}.sidebar-avatar{width:48px;height:48px;background:#2d3151;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}.sidebar-name{font-size:14px;font-weight:700;color:#333}.sidebar-role{font-size:11px;color:#999;margin-top:2px}.sidebar-profile-text{font-size:12px;color:#666;line-height:1.8}.sidebar-ranking{display:flex;flex-direction:column;gap:10px}.sidebar-rank-item{display:flex;gap:10px;align-items:flex-start;text-decoration:none;transition:opacity .2s}.sidebar-rank-item:hover{opacity:.7}.rank-num{width:22px;height:22px;background:#2d3151;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}.rank-title{font-size:12px;color:#333;line-height:1.6;font-weight:500}.sidebar-related{display:flex;flex-direction:column;gap:10px}.sidebar-cta{background:#2d3151;border-radius:4px;padding:20px;text-align:center}.sidebar-cta p{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:12px;line-height:1.7}.sidebar-cta a{display:block;background:#06c755;color:white;font-size:13px;font-weight:700;padding:10px;border-radius:4px;text-decoration:none}
-footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-align:center;font-size:12px}
+.sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:16px}.sidebar-box{background:#fff;border-radius:16px;padding:22px;border:1px solid #e9eef2;box-shadow:0 10px 30px rgba(0,0,0,.05)}.sidebar-box-title{font-size:12px;font-weight:700;color:#2f7fb3;letter-spacing:.1em;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #2f7fb3}.sidebar-profile{display:flex;align-items:center;gap:12px;margin-bottom:12px}.sidebar-avatar{width:48px;height:48px;background:#1E2A32;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}.sidebar-name{font-size:15px;font-weight:800;color:#1E2A32}.sidebar-role{font-size:11px;color:#999;margin-top:2px}.sidebar-profile-text{font-size:12px;color:#666;line-height:1.8}.sidebar-ranking{display:flex;flex-direction:column;gap:10px}.sidebar-rank-item{display:flex;gap:10px;align-items:flex-start;text-decoration:none;transition:opacity .2s}.sidebar-rank-item:hover .rank-title{color:#2f7fb3}.rank-num{width:24px;height:24px;background:#4a9fd4;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px}.rank-title{font-size:12.5px;color:#333;line-height:1.6;font-weight:700}.sidebar-related{display:flex;flex-direction:column;gap:10px}.sidebar-cta{background:#1E2A32;border-radius:16px;padding:24px 22px;text-align:center}.sidebar-cta p{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:12px;line-height:1.7}.sidebar-cta a{display:block;background:#06c755;color:white;font-size:14px;font-weight:800;padding:14px;border-radius:999px;text-decoration:none;box-shadow:0 8px 20px rgba(6,199,85,.3)}
+.x-oldfooter{background:#1E2A32;color:rgba(255,255,255,.5);padding:28px 40px;text-align:center;font-size:12px}
+
+/* ===== CONCEPT統一：共通ヘッダー/フッター/配色 ===== */
+:root{ --try-mint:#4a9fd4; --try-mint-d:#2f7fb3; --try-dark:#1E2A32; --try-gray:#F8F9FA; --try-palemint:#f1f8fd; --try-line:#e9eef2; --try-shadow:0 10px 30px rgba(0,0,0,.08); --try-max:1100px; }
+body{ padding-bottom:72px; }
+img{ max-width:100%; }
+.try-ico{ width:1.2em; height:1.2em; flex:0 0 auto; display:inline-block; vertical-align:middle; stroke:currentColor; }
+.try-nav{ position:sticky; top:0; z-index:1000; background:#fff; height:72px; display:flex; align-items:stretch; justify-content:space-between; padding:0; box-shadow:0 1px 12px rgba(0,0,0,.05); border:0; }
+.try-nav__logo{ display:flex; align-items:center; gap:12px; text-decoration:none; flex:0 0 auto; background:#fff; padding:0 30px 0 20px; border-radius:0 0 16px 0; position:relative; z-index:2; }
+.try-nav__logo img{ height:40px; width:auto; display:block; }
+.try-nav__name{ font-weight:800; color:var(--try-dark); font-size:17px; white-space:nowrap; }
+.try-nav__actions{ display:flex; align-items:stretch; gap:0; flex:0 0 auto; margin-left:auto; }
+.try-nav__contact{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0 clamp(18px,2vw,30px); text-decoration:none; color:#06c755 !important; font-weight:800; font-size:clamp(16px,1.6vw,20px); white-space:nowrap; transition:filter .12s ease; }
+.try-nav__contact:hover{ filter:brightness(1.05); }
+.try-nav__btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0 clamp(18px,2vw,32px); border-radius:0; white-space:nowrap; color:#fff !important; text-decoration:none; font-weight:700; font-size:15px; transition:filter .12s ease; }
+.try-nav__btn:hover{ filter:brightness(1.14); }
+.try-nav__btn.-book{ background:var(--try-dark); }
+.try-nav__btn.-access{ background:#4a9fd4; }
+.try-nav__burger{ width:72px; border:none; background:#ef8d8d; border-radius:0; cursor:pointer; display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; padding:0; transition:filter .12s ease; }
+.try-nav__burger:hover{ filter:brightness(1.04); }
+.try-nav__burger span{ width:24px; height:2px; background:#fff; border-radius:2px; transition:.25s; }
+.try-nav__burger.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.try-nav__burger.is-open span:nth-child(2){ opacity:0; }
+.try-nav__burger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+@media (max-width:768px){ .try-nav{ height:60px; } .try-nav__name{ display:none; } .try-nav__logo{ padding:0 14px; border-radius:0 0 12px 0; } .try-nav__logo img{ height:30px; } .try-nav__contact{ display:none; } .try-nav__btn.-access{ display:none; } .try-nav__btn{ padding:0 14px; font-size:13px; } .try-nav__burger{ width:56px; } }
+.try-drawer{ position:fixed; inset:0; z-index:1001; background:rgba(30,42,50,.5); opacity:0; visibility:hidden; transition:.25s; }
+.try-drawer.is-open{ opacity:1; visibility:visible; }
+.try-drawer__inner{ position:absolute; top:0; right:0; height:100%; width:min(80vw,320px); background:#fff; box-shadow:-8px 0 30px rgba(0,0,0,.15); transform:translateX(100%); transition:transform .3s cubic-bezier(.22,1,.36,1); display:flex; flex-direction:column; gap:2px; padding:78px 22px 28px; }
+.try-drawer.is-open .try-drawer__inner{ transform:translateX(0); }
+.try-drawer__close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border:none; background:#f1f3f4; border-radius:10px; font-size:20px; color:var(--try-dark); cursor:pointer; }
+.try-drawer__inner a.try-drawer__link{ color:var(--try-dark); text-decoration:none; font-weight:700; font-size:16px; padding:14px 6px; border-bottom:1px solid #eee; }
+.try-drawer__inner a.try-drawer__link:hover{ color:var(--try-mint); }
+.try-drawer__cta{ color:#fff !important; text-decoration:none; text-align:center; border-radius:8px; padding:14px; font-weight:800; }
+.try-drawer__cta.-line{ background:#06c755; margin-top:14px; }
+.try-drawer__cta.-book{ background:var(--try-dark); margin-top:8px; }
+.try-fixbar{ position:fixed; left:0; right:0; bottom:0; z-index:998; display:flex; align-items:stretch; background:transparent; box-shadow:none; min-height:72px; }
+.try-fixbar__lead{ flex:1 1 auto; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:5px; padding:8px 26px; min-width:0; }
+.try-fixbar__bubble{ position:relative; background:#4a9fd4; color:#fff; font-weight:700; font-size:13px; padding:5px 16px; border-radius:9999px; white-space:nowrap; }
+.try-fixbar__bubble::after{ content:""; position:absolute; left:26px; bottom:-6px; border:6px solid transparent; border-top-color:#4a9fd4; }
+.try-fixbar__contact{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:#06c755 !important; font-weight:800; font-size:clamp(18px,2vw,24px); white-space:nowrap; }
+.try-fixbar__segs{ display:flex; align-items:stretch; flex:0 0 auto; }
+.try-fixbar__seg{ display:inline-flex; align-items:center; justify-content:center; gap:10px; color:#fff !important; text-decoration:none; font-weight:700; font-size:15px; padding:0 clamp(28px,3.5vw,56px); white-space:nowrap; transition:filter .12s ease; }
+.try-fixbar__seg:hover{ filter:brightness(1.1); }
+.try-fixbar__seg.-book{ background:var(--try-dark); }
+.try-fixbar__seg.-insta{ background:#ef8d8d; }
+.try-fixbar__seg.-access{ background:#4a9fd4; }
+.try-fixbar__seg.-line-m{ display:none; background:#06c755; }
+@media (max-width:767px){ .try-fixbar{ min-height:60px; } .try-fixbar__lead{ display:none; } .try-fixbar__segs{ flex:1 1 auto; width:100%; } .try-fixbar__seg{ flex:1 1 0; flex-direction:column; gap:3px; justify-content:center; font-size:11px; padding:6px 4px; } .try-fixbar__seg .try-ico{ width:20px; height:20px; } .try-fixbar__seg.-line-m{ display:flex; } }
+.try-ft{ background:var(--try-dark); color:#cdd7de; padding-block:clamp(40px,5vw,60px) 0; padding-left:max(20px,env(safe-area-inset-left,0px)); padding-right:max(20px,env(safe-area-inset-right,0px)); text-align:left; }
+.try-ft *{ box-sizing:border-box; }
+.try-ft__cols{ max-width:var(--try-max); margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1.4fr; gap:clamp(24px,3.4vw,52px); align-items:start; }
+.try-ft__logo{ display:inline-flex; align-items:center; gap:14px; }
+.try-ft__logo img{ height:clamp(50px,6vw,62px); width:auto; filter:brightness(0) invert(1); }
+.try-ft__name{ color:#fff; font-weight:800; font-size:clamp(15px,1.7vw,18px); line-height:1.4; }
+.try-ft__name small{ display:block; font-size:10px; font-weight:700; letter-spacing:.14em; color:var(--try-mint); margin:0 0 2px; }
+.try-ft__brandtxt{ margin:16px 0 0; font-size:13px; line-height:2; color:#9fb0bc; max-width:30em; }
+.try-ft__map{ margin:18px 0 0; }
+.try-ft__map iframe{ width:100%; height:168px; border:0; border-radius:12px; display:block; }
+.try-ft h4{ font-size:11px; font-weight:800; letter-spacing:.18em; color:var(--try-mint); margin:4px 0 16px; text-transform:uppercase; }
+.try-ft__lnk{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+.try-ft__lnk a{ color:#cdd7de; text-decoration:none; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:9px; transition:color .15s ease; }
+.try-ft__lnk a:hover{ color:#fff; }
+.try-ft__lnk .chev{ color:var(--try-mint); font-weight:800; }
+.try-ft__info{ font-size:13px; line-height:2; color:#9fb0bc; margin:0; }
+.try-ft__info b{ color:#e7edf1; font-weight:700; }
+.try-ft__bar{ max-width:var(--try-max); margin:clamp(28px,3.4vw,40px) auto 0; border-top:1px solid #2b353c; padding:18px 0 clamp(44px,6vw,60px); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:11.5px; color:#8496a2; }
+@media (max-width:700px){ .try-ft__cols{ grid-template-columns:1fr 1fr; gap:28px 24px; } .try-ft__brand{ grid-column:1 / -1; } .try-ft__info-col{ grid-column:1 / -1; } .try-ft__bar{ justify-content:center; text-align:center; } }
+
+.article-hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;display:block;margin:4px 0 30px}
+.article-body strong{color:#1E2A32;font-weight:800}
+.article-body .mark{background:linear-gradient(transparent 58%,#c9e7fb 58%);padding:0 .06em;font-weight:700;color:#1E2A32}
 </style>
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-logo">鍼灸院 TRY</a>
-  <ul class="nav-links">
-    <li><a href="/">トップ</a></li>
-    <li><a href="/blog/">ブログ</a></li>
-  </ul>
-  <a href="https://lin.ee/vXnyrEi" class="nav-cta" target="_blank" rel="noopener">LINEで予約</a>
+<nav class="try-nav">
+<a href="/" class="try-nav__logo"><img src="/images/logo.png" alt="鍼灸院TRY"><span class="try-nav__name">眼精疲労専門 鍼灸院TRY</span></a>
+<div class="try-nav__actions">
+<a class="try-nav__contact" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>公式LINE</a>
+<a class="try-nav__btn -book" href="https://reserve.salontry.com/c/try"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg><span class="try-nav__lbl">ご予約</span></a>
+<a class="try-nav__btn -access" href="/#access"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="try-nav__lbl">アクセス</span></a>
+<button class="try-nav__burger" id="tryBurger" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+</div>
 </nav>
+<div class="try-drawer" id="tryDrawer" aria-hidden="true">
+<div class="try-drawer__inner">
+<button class="try-drawer__close" id="tryDrawerClose" aria-label="閉じる">✕</button>
+<a class="try-drawer__link" href="/">ホーム</a>
+<a class="try-drawer__link" href="/blog/">ブログ</a>
+<a class="try-drawer__link" href="/#menu">料金メニュー</a>
+<a class="try-drawer__link" href="/#access">アクセス</a>
+<a class="try-drawer__cta -line" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで初回体験</a>
+<a class="try-drawer__cta -book" href="https://reserve.salontry.com/c/try">WEB予約はこちら</a>
+</div>
+</div>
 <div class="content-wrap">
   <main>
     <p class="breadcrumb"><a href="/">トップ</a> › <a href="/blog/">ブログ</a> › 施術について</p>
@@ -118,12 +200,15 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
     <h1 class="article-title">眼精疲労に鍼灸がおすすめな理由とは？横浜の専門院が解説</h1>
     <p class="article-meta">2026年7月15日｜鍼灸院TRY 院長 古賀健太</p>
 
+    <img class="article-hero" src="/images/feature-denki.jpg" alt="電気鍼による眼精疲労への施術の様子" loading="lazy">
     <div class="article-body">
-<p>パソコンやスマートフォンを長時間使用する現代において、目の疲れに悩む方は少なくありません。「寝ても目の奥が重い」「ピントが合いにくい」といった眼精疲労は、肩こりや頭痛などを引き起こし、日常生活のパフォーマンス低下につながることもあります。</p><p>この記事では、横浜・桜木町の眼精疲労専門「鍼灸院TRY」が、眼精疲労に鍼灸がアプローチする仕組みや、自宅でできる簡単なセルフケアについて解説します。</p><h2>なぜ眼精疲労に鍼灸がおすすめなのか</h2><p>眼精疲労は、単なる目の疲れではなく、目の周りの筋肉の緊張、自律神経の乱れ、首や肩のコリなどが複雑に絡み合って起こります。鍼灸によるアプローチは、これらの要因に対して以下のように働きかけ、症状を和らげるサポートをします。</p><h3>筋肉の緊張を緩め血行を促す</h3><p>目のピント調節を司る毛様体筋や、目の周囲、首、肩の筋肉に鍼や灸で刺激を与えることで、硬くなった筋肉をほぐし、滞っていた血行を促します。これにより、目に必要な酸素や栄養が行き渡りやすくなります。</p><h3>自律神経のバランスを整える</h3><p>鍼灸の心地よい刺激は、リラックスを促す副交感神経を優位にし、ストレスや疲労で乱れがちな自律神経のバランスを整える手助けをします。自律神経が整うことで、目の疲れに伴うイライラや不眠などの不調もケアできます。</p><h2>鍼灸院TRYにおける眼精疲労へのアプローチ</h2><p>当院は、横浜・桜木町エリアで眼精疲労に特化した施術を行う鍼灸院です。一人ひとりの状態に合わせた丁寧な施術を心がけています。</p><h3>全身のバランスを考慮した施術</h3><p>目だけのケアにとどまらず、首や肩、背中、さらには手足のツボを活用してアプローチします。体全体の巡りを整えることで、眼精疲労が起こりにくい健やかな体づくりをサポートします。</p><h3>丁寧なカウンセリング</h3><p>普段のお仕事環境や生活習慣をお伺いし、どこに負担がかかっているかを確認した上で施術を行います。施術後の過ごし方についてもアドバイスいたします。</p><h2>自宅でできる眼精疲労を和らげるセルフケア</h2><p>日々の生活の中で、目の負担を軽減するための簡単なセルフケアを取り入れることも大切です。</p><h3>目元を温める</h3><p>ホットアイマスクや、濡らして電子レンジで温めたタオルを目元に当てることで、目の周りの血行が良くなり、筋肉の緊張が和らぎます。リラックス効果も期待できるため、就寝前などに行うのがおすすめです。</p><h3>ツボ押しセルフケア</h3><p>目の周りや頭部には、眼精疲労に良いとされるツボがあります。心地よい強さで優しく押してみましょう。</p><ul><li>太陽（たいよう）：眉尻と目尻の外側にある、こめかみのやや凹んでいる部分です。人差し指の腹で優しく円を描くようにマッサージします。</li><li>風池（ふうち）：首の後ろにある、髪の生え際あたりの凹みです。親指で頭の中心に向かって心地よい強さで押します。</li></ul><p>※強く押しすぎず、気持ちいいと感じる強さで行うことがポイントです。</p><h2>まとめ</h2><p>眼精疲労は、こまめなセルフケアと適切なアプローチを組み合わせることで、徐々に和らげることが期待できます。横浜・桜木町周辺で、目の疲れやそれに伴う頭痛、肩こりにお悩みの方は、ぜひ一度専門の鍼灸を検討してみてはいかがでしょうか。日々の生活にケアを取り入れながら、スッキリと快適な毎日を目指しましょう。</p>
+<p>パソコンやスマートフォンを長時間使用する現代において、目の疲れに悩む方は少なくありません。「寝ても目の奥が重い」「ピントが合いにくい」といった眼精疲労は、肩こりや頭痛などを引き起こし、日常生活のパフォーマンス低下につながることもあります。</p><p>この記事では、横浜・桜木町の眼精疲労専門「鍼灸院TRY」が、眼精疲労に鍼灸がアプローチする仕組みや、自宅でできる簡単なセルフケアについて解説します。</p><h2>なぜ眼精疲労に鍼灸がおすすめなのか</h2><p>眼精疲労は、単なる目の疲れではなく、<strong>目の周りの筋肉の緊張、自律神経の乱れ、首や肩のコリなどが複雑に絡み合って起こります</strong>。鍼灸によるアプローチは、これらの要因に対して以下のように働きかけ、症状を和らげるサポートをします。</p><h3>筋肉の緊張を緩め血行を促す</h3><p>目のピント調節を司る毛様体筋や、目の周囲、首、肩の筋肉に鍼や灸で刺激を与えることで、<strong>硬くなった筋肉をほぐし、滞っていた血行を促します</strong>。これにより、目に必要な酸素や栄養が行き渡りやすくなります。</p><h3>自律神経のバランスを整える</h3><p>鍼灸の心地よい刺激は、リラックスを促す副交感神経を優位にし、ストレスや疲労で乱れがちな<strong>自律神経のバランスを整える手助けをします</strong>。自律神経が整うことで、目の疲れに伴うイライラや不眠などの不調もケアできます。</p><h2>鍼灸院TRYにおける眼精疲労へのアプローチ</h2><p>当院は、横浜・桜木町エリアで眼精疲労に特化した施術を行う鍼灸院です。一人ひとりの状態に合わせた丁寧な施術を心がけています。</p><h3>全身のバランスを考慮した施術</h3><p>目だけのケアにとどまらず、首や肩、背中、さらには手足のツボを活用してアプローチします。体全体の巡りを整えることで、<span class="mark">眼精疲労が起こりにくい健やかな体づくり</span>をサポートします。</p><h3>丁寧なカウンセリング</h3><p>普段のお仕事環境や生活習慣をお伺いし、どこに負担がかかっているかを確認した上で施術を行います。施術後の過ごし方についてもアドバイスいたします。</p><h2>自宅でできる眼精疲労を和らげるセルフケア</h2><p>日々の生活の中で、目の負担を軽減するための簡単なセルフケアを取り入れることも大切です。</p><h3>目元を温める</h3><p>ホットアイマスクや、濡らして電子レンジで温めたタオルを目元に当てることで、<strong>目の周りの血行が良くなり、筋肉の緊張が和らぎます</strong>。リラックス効果も期待できるため、就寝前などに行うのがおすすめです。</p><h3>ツボ押しセルフケア</h3><p>目の周りや頭部には、眼精疲労に良いとされるツボがあります。心地よい強さで優しく押してみましょう。</p><ul><li>太陽（たいよう）：眉尻と目尻の外側にある、こめかみのやや凹んでいる部分です。人差し指の腹で優しく円を描くようにマッサージします。</li><li>風池（ふうち）：首の後ろにある、髪の生え際あたりの凹みです。親指で頭の中心に向かって心地よい強さで押します。</li></ul><p>※強く押しすぎず、気持ちいいと感じる強さで行うことがポイントです。</p><h2>まとめ</h2><p>眼精疲労は、<span class="mark">こまめなセルフケアと適切なアプローチを組み合わせる</span>ことで、徐々に和らげることが期待できます。横浜・桜木町周辺で、目の疲れやそれに伴う頭痛、肩こりにお悩みの方は、ぜひ一度専門の鍼灸を検討してみてはいかがでしょうか。</p>
+<p>日々の生活にケアを取り入れながら、スッキリと快適な毎日を目指しましょう。</p>
       <div class="cta-box">
-        <h3>眼精疲労を根本から改善したい方へ</h3>
-        <p>横浜・桜木町の眼精疲労専門鍼灸院TRYでは、くるみ灸と電気鍼による独自施術で、施術前平均34pt→施術後平均71pt（+36pt・改善率88%／32名・平均3.3回）の実測結果が出ています。LINEからお気軽にご相談ください。</p>
-        <a href="https://lin.ee/vXnyrEi" class="cta-btn" target="_blank" rel="noopener">LINEで無料相談する</a>
+        <span class="cta-eyebrow">CONTACT</span>
+        <h3>その目の疲れ、根本から変えていきませんか？</h3>
+        <p>横浜・桜木町の眼精疲労専門 鍼灸院TRY。くるみ灸×電気鍼の独自施術で、目の疲労度を数値で“見える化”しながら、根本からの改善をめざします。まずは公式LINEでお気軽にご相談ください。</p>
+        <a href="https://lin.ee/vXnyrEi" class="cta-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>公式LINEで相談する</a>
       </div>
     </div>
     <div class="related">
@@ -133,11 +218,67 @@ footer{background:#2d3151;color:rgba(255,255,255,.5);padding:28px 40px;text-alig
       </div>
     </div>
   </main>
-<aside class="sidebar"><div class="sidebar-box"><p class="sidebar-box-title">院長プロフィール</p><div class="sidebar-profile"><img src="/images/profile.jpg" style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0"><div><p class="sidebar-name">古賀 健太</p><p class="sidebar-role">鍼灸院TRY 院長</p></div></div><p class="sidebar-profile-text">横浜・桜木町で眼精疲労専門の鍼灸院を運営。くるみ灸と電気鍼による独自施術で眼精疲労を改善しています。</p></div><div class="sidebar-box"><p class="sidebar-box-title">よく読まれている記事</p><div class="sidebar-ranking">
+<aside class="sidebar"><div class="sidebar-box"><p class="sidebar-box-title">院長プロフィール</p><div class="sidebar-profile"><img src="/images/profile.jpg" alt="鍼灸院TRY 院長 古賀健太" style="width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:center 18%;flex-shrink:0"><div><p class="sidebar-name">古賀 健太</p><p class="sidebar-role">鍼灸院TRY 院長</p></div></div><p class="sidebar-profile-text">横浜・桜木町で眼精疲労専門の鍼灸院を運営。くるみ灸と電気鍼による独自施術で眼精疲労を改善しています。</p></div><div class="sidebar-box"><p class="sidebar-box-title">よく読まれている記事</p><div class="sidebar-ranking">
 <a href="/blog/posts/eye-fatigue-cause/" class="sidebar-rank-item"><span class="rank-num">1</span><span class="rank-title">眼精疲労の原因とは？</span></a><a href="/blog/posts/acupuncture-eye/" class="sidebar-rank-item"><span class="rank-num">2</span><span class="rank-title">鍼灸で眼精疲労が改善する理由</span></a>
 </div></div><div class="sidebar-cta"><p>眼精疲労を根本から改善。横浜・桜木町駅徒歩3分。</p><a href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">LINEで無料相談</a></div></aside>
 
 </div>
-<footer>© 2026 鍼灸院TRY All Rights Reserved.</footer>
+<div class="try-fixbar">
+<div class="try-fixbar__lead">
+<span class="try-fixbar__bubble">お気軽にご相談ください</span>
+<a class="try-fixbar__contact" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>公式LINE</a>
+</div>
+<div class="try-fixbar__segs">
+<a class="try-fixbar__seg -line-m" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg><span>公式LINE</span></a>
+<a class="try-fixbar__seg -book" href="https://reserve.salontry.com/c/try"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg><span>WEB予約</span></a>
+<a class="try-fixbar__seg -insta" href="https://www.instagram.com/try_shinkyu_yokohama/" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+<a class="try-fixbar__seg -access" href="/#access"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><span>アクセス</span></a>
+</div>
+</div>
+<footer class="try-ft">
+  <div class="try-ft__cols">
+    <div class="try-ft__brand">
+      <span class="try-ft__logo"><img src="/images/logo-mark.png" alt="眼精疲労専門 鍼灸院TRY" width="200" height="200"><span class="try-ft__name"><small>眼精疲労専門</small>鍼灸院TRY</span></span>
+      <p class="try-ft__brandtxt">横浜・桜木町で、眼精疲労“だけ”を極めた鍼灸院。目と神経に医学的にアプローチし、その場しのぎではなく根本改善へ導きます。</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <ul class="try-ft__lnk">
+        <li><a href="/"><span class="chev">›</span>ホーム</a></li>
+        <li><a href="/blog/"><span class="chev">›</span>ブログ</a></li>
+        <li><a href="/#menu"><span class="chev">›</span>料金メニュー</a></li>
+        <li><a href="/#access"><span class="chev">›</span>アクセス</a></li>
+      </ul>
+    </div>
+    <div class="try-ft__info-col">
+      <h4>Access</h4>
+      <p class="try-ft__info">
+        <b>眼精疲労専門 鍼灸院TRY</b><br>
+        〒231-0063 神奈川県横浜市中区花咲町1-21 中村ビル304<br>
+        桜木町駅 徒歩3分<br>
+        営業時間 11:00–21:00<br>
+        定休 火・木（土は不定休）<br>
+        ご連絡は公式LINEのみ
+      </p>
+      <div class="try-ft__map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3292.5749878319407!2d139.6285030757774!3d35.448506372663196!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185dde1573b9fb%3A0x162c93447450a109!2z6Y2854G444Oe44OD44K144O844K46ZmiVFJZ!5e1!3m2!1sja!2sjp!4v1728115032630!5m2!1sja!2sjp" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="鍼灸院TRYの地図（桜木町駅 徒歩3分）"></iframe></div>
+    </div>
+  </div>
+  <div class="try-ft__bar">
+    <span>© 2026 鍼灸院TRY. All rights reserved.</span>
+    <span>横浜・桜木町の眼精疲労専門鍼灸院</span>
+  </div>
+</footer>
+<script>
+(function(){
+  var burger=document.getElementById('tryBurger'); var drawer=document.getElementById('tryDrawer'); var closeBtn=document.getElementById('tryDrawerClose');
+  if(!burger||!drawer) return;
+  function open(){ drawer.classList.add('is-open'); burger.classList.add('is-open'); burger.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false'); }
+  function close(){ drawer.classList.remove('is-open'); burger.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true'); }
+  burger.addEventListener('click', function(){ drawer.classList.contains('is-open') ? close() : open(); });
+  if(closeBtn) closeBtn.addEventListener('click', close);
+  drawer.addEventListener('click', function(e){ if(e.target===drawer) close(); });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+})();
+</script>
 </body>
 </html>
