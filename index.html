@@ -2099,6 +2099,9 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 .try-acc__row b{ color:var(--try-dark); }
 .try-acc__row .ic{ flex:0 0 20px; color:var(--try-mint); font-size:16px; margin-top:2px; }
 .try-acc__cta{ margin-top:auto; padding-top:clamp(20px,3vw,34px); display:flex; flex-direction:column; align-items:center; gap:12px; }
+/* アクセス欄のLINEボタンだけ：長文「相談・予約」を1行に収めて通常のピル型に（風船化を防ぐ） */
+.try-acc__cta .try-concept__cta{ padding-left:clamp(24px,5vw,44px); padding-right:clamp(24px,5vw,44px); max-width:100%; }
+.try-acc__cta .try-concept__cta .try-cta-main{ white-space:nowrap; }
 .try-acc__sub{ display:inline-flex; align-items:center; gap:8px; background:#fff; color:var(--try-dark); border:1.5px solid #dce4ea; font-weight:800; text-decoration:none; padding:13px 28px; border-radius:999px; font-size:14px; transition:border-color .15s ease, color .15s ease; }
 .try-acc__sub:hover{ border-color:var(--try-mint); color:#2f7fb3; }
 @media (max-width:820px){
@@ -2129,7 +2132,7 @@ section.try-compare-sec, section.try-greet, section.try-acc,
         <div class="try-acc__row"><span class="ic">📍</span><span>〒231-0063<br>神奈川県横浜市中区花咲町1-21 中村ビル304</span></div>
         <div class="try-acc__row"><span class="ic">💬</span><span>ご連絡方法は<b>公式LINEのみ</b>となっております。</span></div>
         <div class="try-acc__cta">
-          <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談・予約<small>いま特別価格でご案内中！</small></a>
+          <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><span class="try-cta-main">公式LINEで相談・予約</span><small>いま特別価格でご案内中！</small></a>
         </div>
       </div>
     </div>
