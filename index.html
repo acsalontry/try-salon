@@ -51,6 +51,7 @@ html { scroll-behavior: smooth; }
 }
 .try-nav__logo img{ height:66px; width:auto; display:block; }
 .try-nav__name{ font-weight:800; color:var(--try-dark); font-size:17px; white-space:nowrap; }
+.try-nav__name-spec{ letter-spacing:.01em; }
 .try-nav__actions{ display:flex; align-items:stretch; gap:0; flex:0 0 auto; margin-left:auto; }
 /* 公式LINE（電話の位置：白地＋コーラル文字） */
 .try-nav__contact{
@@ -85,9 +86,11 @@ html { scroll-behavior: smooth; }
 .try-nav__burger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 @media (max-width:768px){
   .try-nav{ height:60px; }
-  .try-nav__name{ display:none; }
-  .try-nav__logo{ padding:0 14px; border-radius:0 0 12px 0; }
-  .try-nav__logo img{ height:50px; }
+  .try-nav__name{ display:flex; flex-direction:column; justify-content:center; line-height:1.12; white-space:normal; }
+  .try-nav__name-spec{ font-size:10px; font-weight:700; color:#2f7fb3; }
+  .try-nav__name-main{ font-size:16px; font-weight:800; }
+  .try-nav__logo{ padding:0 12px; gap:8px; border-radius:0 0 12px 0; }
+  .try-nav__logo img{ height:46px; }
   .try-nav__contact{ display:none; }
   .try-nav__btn.-access{ display:none; }
   .try-nav__btn{ padding:0 14px; font-size:13px; }
@@ -455,13 +458,26 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 .try-fstep__step.is-vas .try-fstep__num{ background:var(--try-mint); border-color:var(--try-mint); color:#fff; box-shadow:0 6px 16px rgba(74,159,212,.35); }
 .try-fstep__ttl{ font-size:14px; font-weight:800; color:var(--try-dark); margin:0 0 6px; line-height:1.4; border:0; padding:0; }
 .try-fstep__txt{ font-size:11.5px; line-height:1.7; color:#4a5a66; margin:0; }
+.try-fstep__img{ display:none; }
+.try-fstep{ counter-reset:fstep; }
+.try-fstep__step{ counter-increment:fstep; }
 @media (max-width:720px){
-  .try-fstep{ grid-template-columns:1fr; max-width:420px; }
-  .try-fstep__step{ display:grid; grid-template-columns:44px 1fr; gap:14px; text-align:left; padding:0 0 22px; }
-  .try-fstep__step::before{ top:0; left:21px; width:2px; height:100%; }
-  .try-fstep__step:first-child::before{ display:block; top:22px; }
-  .try-fstep__num{ margin:0; }
-  .try-fstep__ttl{ grid-column:2; padding-top:10px; } .try-fstep__txt{ grid-column:2; }
+  /* 案A：1ステップ=大きな写真カード（縦積み）。番号・見出し・説明・写真が必ず一致 */
+  .try-fstep{ grid-template-columns:1fr; max-width:420px; gap:18px; }
+  .try-fstep__step{ display:flex; flex-direction:column; position:relative; text-align:left; padding:0;
+    background:#fff; border:1px solid #e9eef2; border-radius:18px; overflow:hidden;
+    box-shadow:0 10px 26px rgba(30,42,50,.07); }
+  .try-fstep__step::before{ display:none; }
+  .try-fstep__img{ order:-1; display:block; width:100%; aspect-ratio:16/10; object-fit:cover; margin:0; border-radius:0; }
+  .try-fstep__num{ position:absolute; top:12px; left:12px; margin:0; width:38px; height:38px; font-size:15px;
+    box-shadow:0 4px 12px rgba(30,42,50,.22); }
+  .try-fstep__step::after{ content:"STEP 0" counter(fstep); position:absolute; top:18px; left:58px;
+    background:rgba(255,255,255,.94); color:#2f7fb3; font-size:11px; font-weight:800; letter-spacing:.06em;
+    padding:5px 12px; border-radius:999px; box-shadow:0 4px 12px rgba(30,42,50,.16); }
+  .try-fstep__ttl{ padding:14px 18px 0; font-size:17px; }
+  .try-fstep__txt{ padding:6px 18px 18px; font-size:13.5px; }
+  /* 独立して流れる自動スライドはスマホでは非表示（不一致の原因を除去） */
+  .try-fslide{ display:none; }
 }
 /* 写真スライダー */
 .try-fslide{ position:relative; max-width:900px; margin:0 auto; overflow:hidden; }
@@ -561,6 +577,16 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 
 /* 料金プラン：動画を外したスッキリ版レイアウト */
 .try-pricing{ max-width: 920px; margin: 0 auto; }
+/* スワイプ誘導ヒント（スマホのみ表示。各メディアクエリでdisplay:flexに） */
+.try-swipe-hint{ display:none; align-items:center; justify-content:center; gap:8px;
+  width:fit-content; margin:0 auto 14px; padding:6px 16px; border-radius:999px;
+  background:#eaf5fc; color:#2f7fb3; font-size:12.5px; font-weight:800; letter-spacing:.06em; }
+.try-swipe-hint__arrows{ display:inline-flex; gap:1px; }
+.try-swipe-hint__arrows i{ font-style:normal; animation:trySwipeNudge 1.4s ease-in-out infinite; }
+.try-swipe-hint__arrows i:nth-child(2){ animation-delay:.12s; }
+.try-swipe-hint__arrows i:nth-child(3){ animation-delay:.24s; }
+@keyframes trySwipeNudge{ 0%,100%{ transform:translateX(0); opacity:.35; } 50%{ transform:translateX(4px); opacity:1; } }
+@media (prefers-reduced-motion: reduce){ .try-swipe-hint__arrows i{ animation:none; opacity:.8; } }
 .try-pricing__cards{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -568,7 +594,15 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   align-items: stretch;
 }
 @media (max-width: 767px){
-  .try-pricing__cards{ grid-template-columns: 1fr; }
+  /* スマホは横スクロール（スワイプ）にまとめてスクロール量を削減。次カードをチラ見せ＋スナップ */
+  .try-pricing__cards{
+    display:flex; grid-template-columns:none; gap:14px; align-items:stretch;
+    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    padding-bottom:14px;
+  }
+  .try-pricing__cards::-webkit-scrollbar{ height:0; width:0; }
+  .try-pricing .try-price{ flex:0 0 80%; scroll-snap-align:center; }
+  .try-pricing .try-swipe-hint{ display:flex; }
 }
 .try-pricing .try-price{
   display: flex; flex-direction: column;
@@ -1252,7 +1286,7 @@ details[open] > summary .swell-block-accordion__icon::before,
 
 <div id="body_wrap" class="home wp-singular page-template-default page page-id-1253 wp-theme-swell wp-child-theme-swell_child -body-solid -index-off -sidebar-off -frame-off top id_1253" >
 <nav class="try-nav">
-<a href="/" class="try-nav__logo"><img src="/images/logo-mark.png" alt="鍼灸院TRY"><span class="try-nav__name">眼精疲労専門 鍼灸院TRY</span></a>
+<a href="/" class="try-nav__logo"><img src="/images/logo-mark.png" alt="鍼灸院TRY"><span class="try-nav__name"><span class="try-nav__name-spec">【眼精疲労専門】</span><span class="try-nav__name-main">鍼灸院TRY</span></span></a>
 <div class="try-nav__actions">
 <a class="try-nav__contact" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 20.5l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>公式LINE</a>
 <a class="try-nav__btn -book" href="https://reserve.salontry.com/c/try"><svg class="try-ico" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg><span class="try-nav__lbl">ご予約</span></a>
@@ -1272,13 +1306,9 @@ details[open] > summary .swell-block-accordion__icon::before,
 </div>
 </div>
 <style>
-/* ヒーロー：PCは動画／スマホは画像 */
-.try-hero-video{ display:none; width:100%; height:100%; object-fit:cover; }
-.try-hero-img{ display:block; width:100%; height:100%; object-fit:cover; }
-@media (min-width:768px){
-  .try-hero-video{ display:block; }
-  .try-hero-img{ display:none; }
-}
+/* ヒーロー：PC・スマホとも動画（スマホは軽量版を配信） */
+.try-hero-video{ display:block; width:100%; height:100%; object-fit:cover; }
+.try-hero-img{ display:none; width:100%; height:100%; object-fit:cover; }
 /* ヒーローのコピー */
 .try-hero-copy{ text-shadow: 0 2px 14px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.45); }
 .try-hero-main{ display:block; font-weight:800; font-size: clamp(32px,5.6vw,70px); line-height:1.25; letter-spacing:.02em; }
@@ -1303,7 +1333,7 @@ details[open] > summary .swell-block-accordion__icon::before,
   .try-hero-sub{ font-size: clamp(13px,3.6vw,18px); }
 }
 </style>
-<div id="main_visual" class="p-mainVisual -type-movie -height-set"><div class="p-mainVisual__inner c-filterLayer -filter-blur"><div class="p-mainVisual__imgLayer c-filterLayer__img"><video class="try-hero-video" autoplay muted loop playsinline poster="/images/hero-pc.jpg"><source src="/videos/hero-pc.mp4" type="video/mp4"></video><img class="try-hero-img" src="/images/hero-pc.jpg" alt="鍼灸院TRY" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="p-mainVisual__textLayer l-container l-parent u-ta-r" style="color:#ffffff;text-shadow:1px 1px 0px rgba(0, 0, 0, 0.2 )"><div class="p-blogParts post_content" data-partsID="2253"><p class="has-text-align-center o-anim-hover wp-block-paragraph try-hero-copy"><span class="try-hero-main"><strong>辛い眼精疲労を、<br>根本から。</strong></span><span class="try-hero-sub">横浜唯一の&ldquo;眼精疲労専門&rdquo;鍼灸院<br>他より医学的で、効果の高い鍼灸で解消。</span></p><div class="swell-block-button green_ -size-s is-style-btn_shiny" style="--the-fz:1.3em"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span><span class="swl-fz u-fz-l">公式LINEで<br>特別価格でご案内！</span></span></a></div><p class="has-text-align-center o-anim-hover wp-block-paragraph"></p></div></div><button class="p-mainVisual__scroll c-plainBtn" data-onclick="scrollToContent" style="color:#ffffff"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" class="p-mainVisual__scrollArrow"><path d="M5.9,14.4l-2.9,5C3,19.5,3,19.6,3,19.8c0,0.1,0.1,0.2,0.2,0.3l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.3-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1,0-0.3,0-0.4,0.1L40,33.5L6.7,14.2 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,14.2,6,14.3,5.9,14.4z"/><path d="M5.9,39.1l-2.9,5c-0.1,0.3-0.1,0.6,0.2,0.7l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.2-0.1,0.2-0.2,0.2-0.3s0-0.2-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2l0,0c-0.1,0-0.3,0-0.4,0.1L40,58.1L6.7,38.9 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,38.8,6,38.9,5.9,39.1z"/></svg><span class="p-mainVisual__scrollLabel">Scroll</span></button></div></div><div id="content" class="l-content l-container" data-postid="1253">
+<div id="main_visual" class="p-mainVisual -type-movie -height-set"><div class="p-mainVisual__inner c-filterLayer -filter-blur"><div class="p-mainVisual__imgLayer c-filterLayer__img"><video class="try-hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-pc.jpg"><source src="/videos/hero-mobile.mp4" media="(max-width:767px)" type="video/mp4"><source src="/videos/hero-pc.mp4" type="video/mp4"></video><img class="try-hero-img" src="/images/hero-pc.jpg" alt="鍼灸院TRY" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="p-mainVisual__textLayer l-container l-parent u-ta-r" style="color:#ffffff;text-shadow:1px 1px 0px rgba(0, 0, 0, 0.2 )"><div class="p-blogParts post_content" data-partsID="2253"><p class="has-text-align-center o-anim-hover wp-block-paragraph try-hero-copy"><span class="try-hero-main"><strong>辛い眼精疲労を、<br>根本から。</strong></span><span class="try-hero-sub">横浜唯一の&ldquo;眼精疲労専門&rdquo;鍼灸院<br>他より医学的で、効果の高い鍼灸で解消。</span></p><div class="swell-block-button green_ -size-s is-style-btn_shiny" style="--the-fz:1.3em"><a href="https://lin.ee/vXnyrEi" class="swell-block-button__link"><span><span class="swl-fz u-fz-l">公式LINEで<br>特別価格でご案内！</span></span></a></div><p class="has-text-align-center o-anim-hover wp-block-paragraph"></p></div></div><button class="p-mainVisual__scroll c-plainBtn" data-onclick="scrollToContent" style="color:#ffffff"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" class="p-mainVisual__scrollArrow"><path d="M5.9,14.4l-2.9,5C3,19.5,3,19.6,3,19.8c0,0.1,0.1,0.2,0.2,0.3l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.3-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1,0-0.3,0-0.4,0.1L40,33.5L6.7,14.2 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,14.2,6,14.3,5.9,14.4z"/><path d="M5.9,39.1l-2.9,5c-0.1,0.3-0.1,0.6,0.2,0.7l36.4,21c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0,0.3-0.1l36.4-21 c0.2-0.1,0.2-0.2,0.2-0.3s0-0.2-0.1-0.4l-2.9-5c-0.1-0.1-0.2-0.2-0.3-0.2l0,0c-0.1,0-0.3,0-0.4,0.1L40,58.1L6.7,38.9 c-0.1,0-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0C6.1,38.8,6,38.9,5.9,39.1z"/></svg><span class="p-mainVisual__scrollLabel">Scroll</span></button></div></div><div id="content" class="l-content l-container" data-postid="1253">
 <main id="main_content" class="l-mainContent l-article">
 	<div class="l-mainContent__inner">
 				<div class="post_content">
@@ -1336,9 +1366,18 @@ details[open] > summary .swell-block-accordion__icon::before,
 .try-concept__cta:hover{ transform:translateY(-2px); box-shadow:0 18px 38px rgba(6,199,85,.46); color:#fff; }
 .try-concept__cta small{ font-size:.7em; font-weight:700; opacity:.95; margin-top:3px; }
 @media (max-width:860px){
-  .try-concept__inner{ grid-template-columns:1fr; }
-  .try-concept__text{ padding-left:max(20px, env(safe-area-inset-left,0px)); padding-right:max(20px, env(safe-area-inset-right,0px)); padding-block:clamp(36px,8vw,56px); }
-  .try-concept__video{ height:auto; aspect-ratio:16/10; max-height:none; -webkit-mask-image:none; mask-image:none; }
+  /* ヒーロー直後の余白スペーサーを詰めて、CONCEPTを上に寄せる＝下部バー直上にチラ見せ（ヒーロー高さは変えない） */
+  .post_content > .wp-block-spacer:first-child{ height:6px !important; margin-bottom:0 !important; }
+  .try-concept__inner{ display:flex; flex-direction:column; grid-template-columns:1fr; }
+  /* スマホは「タイトル → 画像 → 本文」の順に並べ替え */
+  .try-concept__text{ display:contents; }
+  .try-concept__head{ order:1; padding:clamp(10px,3vw,16px) max(20px,env(safe-area-inset-left,0px)) 0 max(20px,env(safe-area-inset-right,0px)); }
+  .try-concept__video{ order:2; height:auto; aspect-ratio:16/10; max-height:none;
+    -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 12%, #000 78%, transparent 100%);
+    mask-image:linear-gradient(to bottom, transparent 0%, #000 12%, #000 78%, transparent 100%);
+    margin-top:clamp(6px,2vw,12px); margin-bottom:clamp(6px,2vw,12px); }
+  .try-concept__body{ order:3; padding:clamp(18px,5vw,24px) max(20px,env(safe-area-inset-left,0px)) clamp(32px,8vw,48px) max(20px,env(safe-area-inset-right,0px)); }
+  .try-concept .try-concept__title{ margin-bottom:0; }
 }
 </style>
 <style id="try-joint">
@@ -1378,11 +1417,15 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 <section class="try-concept">
   <div class="try-concept__inner">
     <div class="try-concept__text">
-      <p class="try-concept__eng">Concept</p>
-      <h2 class="try-concept__title">横浜で、眼精疲労<span class="accent">“だけ”</span>を<br>極めた鍼灸院。</h2>
-      <p class="try-concept__lead">目薬でもマッサージでも消えなかった、目の奥の重さ。TRYは医学的根拠にもとづき、目と神経にアプローチ。目の疲労度を数値で<span class="mark">“見える化”</span>しながら、くるみ灸×電気鍼の独自施術で、その場しのぎではなく<strong>根本改善</strong>へ導きます。「どこに行っても良くならなかった」という方こそ、一度おまかせください。</p>
-      <div class="try-concept__cta-wrap">
-        <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談する<small>いま特別価格でご案内中！</small></a>
+      <div class="try-concept__head">
+        <p class="try-concept__eng">Concept</p>
+        <h2 class="try-concept__title">横浜で、眼精疲労<span class="accent">“だけ”</span>を<br>極めた鍼灸院。</h2>
+      </div>
+      <div class="try-concept__body">
+        <p class="try-concept__lead">目薬でもマッサージでも消えなかった、目の奥の重さ。TRYは医学的根拠にもとづき、目と神経にアプローチ。目の疲労度を数値で<span class="mark">“見える化”</span>しながら、くるみ灸×電気鍼の独自施術で、その場しのぎではなく<strong>根本改善</strong>へ導きます。「どこに行っても良くならなかった」という方こそ、一度おまかせください。</p>
+        <div class="try-concept__cta-wrap">
+          <a class="try-concept__cta" href="https://lin.ee/vXnyrEi" target="_blank" rel="noopener">公式LINEで相談する<small>いま特別価格でご案内中！</small></a>
+        </div>
       </div>
     </div>
     <div class="try-concept__video">
@@ -1395,7 +1438,7 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 
 <style>
 /* MECHANISM：なぜ改善するのか（CONCEPT調に統一） */
-.try-mech{ background:#fff; overflow:hidden;
+.try-mech{ background:#f1f8fd; overflow:hidden;
   padding-block:clamp(40px,5vw,72px);
   padding-left:max(20px, env(safe-area-inset-left,0px));
   padding-right:max(20px, env(safe-area-inset-right,0px)); }
@@ -1409,12 +1452,15 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 .try-mech__sub{ margin:0 auto; max-width:34em; font-size:clamp(16px,1.5vw,20px); color:var(--try-text); line-height:2.0; }
 
 .try-mech__rows{ max-width:var(--try-max); margin:0 auto; display:flex; flex-direction:column; gap:clamp(28px,3.5vw,48px); }
-.try-mech__row{ display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:clamp(24px,4vw,56px); }
+.try-mech__row{ display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:clamp(24px,4vw,56px);
+  background:#fff; border:1px solid #e9eef2; border-radius:20px; box-shadow:0 12px 30px rgba(30,42,50,.07);
+  padding:clamp(22px,3vw,40px); }
 .try-mech__row.is-rev .try-mech__body{ order:2; }
 .try-mech__row.is-rev .try-mech__fig{ order:1; }
 .try-mech__no{ display:inline-flex; align-items:baseline; gap:10px; font-size:13px; font-weight:800; letter-spacing:.2em; color:var(--try-mint); margin:0 0 2px; }
 .try-mech__no span{ font-size:34px; line-height:1; letter-spacing:.02em; font-weight:800; }
 .try-mech__cause{ font-size:clamp(22px,2.7vw,32px); font-weight:800; color:var(--try-dark); line-height:1.5; margin:0 0 14px; letter-spacing:.01em; }
+.try-mech .try-mech__cause{ border:0; padding:0; margin:0 0 14px; }
 .try-mech__text{ font-size:clamp(16px,1.4vw,19px); line-height:1.95; color:var(--try-text); margin:0 0 18px; }
 .try-mech__text strong{ color:var(--try-dark); font-weight:800; }
 .try-mech__text .mark{ background:linear-gradient(transparent 62%, #c9e7fb 62%); padding:0 .06em; font-weight:700; color:var(--try-dark); }
@@ -1423,9 +1469,13 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 .try-mech__fig{ margin:0; }
 .try-mech__fig img{ width:100%; max-width:520px; height:auto; display:block; margin:0 auto; }
 @media (max-width:860px){
-  .try-mech__row{ grid-template-columns:1fr; gap:26px; }
-  .try-mech__row.is-rev .try-mech__body{ order:2; }
-  .try-mech__row.is-rev .try-mech__fig{ order:1; }
+  /* スマホは全行とも「見出し → 画像 → 本文」で統一（CONCEPTと同じ導線） */
+  .try-mech__row{ grid-template-columns:1fr; gap:0; align-items:stretch; }
+  .try-mech__body{ display:contents; }
+  .try-mech__rhead{ order:1; }
+  .try-mech__fig{ order:2; margin:clamp(10px,3vw,16px) auto; }
+  .try-mech__rtext{ order:3; }
+  .try-mech__row.is-rev .try-mech__fig{ order:2; }
   .try-mech__fig img{ max-width:400px; }
 }
 </style>
@@ -1441,19 +1491,27 @@ section.try-compare-sec, section.try-greet, section.try-acc,
   <div class="try-mech__rows">
     <div class="try-mech__row">
       <div class="try-mech__body">
-        <p class="try-mech__no">原因 <span>01</span></p>
-        <h3 class="try-mech__cause">目のまわりの筋肉のコリ</h3>
-        <p class="try-mech__text">ピント調整を担う<strong>「毛様体筋」</strong>が、長時間のスマホ・PCで<strong>緊張しっぱなし</strong>に。血流が落ち、酸素や栄養が届かなくなることで、<span class="mark">重だるさやかすみ</span>が起こります。</p>
-        <p class="try-mech__arrow"><b>TRYの対応</b>くるみ灸で目元を温め、血流を回復させます。</p>
+        <div class="try-mech__rhead">
+          <p class="try-mech__no">原因 <span>01</span></p>
+          <h3 class="try-mech__cause">目のまわりの筋肉のコリ</h3>
+        </div>
+        <div class="try-mech__rtext">
+          <p class="try-mech__text">ピント調整を担う<strong>「毛様体筋」</strong>が、長時間のスマホ・PCで<strong>緊張しっぱなし</strong>に。血流が落ち、酸素や栄養が届かなくなることで、<span class="mark">重だるさやかすみ</span>が起こります。</p>
+          <p class="try-mech__arrow"><b>TRYの対応</b>くるみ灸で目元を温め、血流を回復させます。</p>
+        </div>
       </div>
       <figure class="try-mech__fig"><img decoding="async" src="/images/eye-anatomy.png" alt="眼球の構造と毛様体筋" /></figure>
     </div>
     <div class="try-mech__row is-rev">
       <div class="try-mech__body">
-        <p class="try-mech__no">原因 <span>02</span></p>
-        <h3 class="try-mech__cause">痛みを伝える神経の乱れ</h3>
-        <p class="try-mech__text">顔や目まわりの感覚・痛みを脳に伝える<strong>「三叉神経」</strong>。長時間の緊張や目の酷使でこの神経が<strong>過敏</strong>になると、<span class="mark">目の奥の痛み・重だるさ・頭痛</span>として感じやすくなります。</p>
-        <p class="try-mech__arrow"><b>TRYの対応</b>電気鍼で三叉神経に直接アプローチし、高ぶった神経を落ち着かせます。</p>
+        <div class="try-mech__rhead">
+          <p class="try-mech__no">原因 <span>02</span></p>
+          <h3 class="try-mech__cause">痛みを伝える神経の乱れ</h3>
+        </div>
+        <div class="try-mech__rtext">
+          <p class="try-mech__text">顔や目まわりの感覚・痛みを脳に伝える<strong>「三叉神経」</strong>。長時間の緊張や目の酷使でこの神経が<strong>過敏</strong>になると、<span class="mark">目の奥の痛み・重だるさ・頭痛</span>として感じやすくなります。</p>
+          <p class="try-mech__arrow"><b>TRYの対応</b>電気鍼で三叉神経に直接アプローチし、高ぶった神経を落ち着かせます。</p>
+        </div>
       </div>
       <figure class="try-mech__fig"><img decoding="async" src="/images/trigeminal-nerve.png" alt="三叉神経の走行" /></figure>
     </div>
@@ -1477,13 +1535,17 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 .try-reason .try-reason__title::before, .try-reason .try-reason__title::after{ display:none; content:none; }
 
 .try-reason__rows{ max-width:var(--try-max); margin:0 auto; display:flex; flex-direction:column; gap:clamp(24px,3vw,40px); }
-.try-reason__row{ display:grid; grid-template-columns:1fr 1fr; align-items:stretch; gap:clamp(26px,4vw,56px); }
+.try-reason__row{ display:grid; grid-template-columns:1fr 1fr; align-items:stretch; gap:clamp(26px,4vw,56px);
+  background:#fff; border:1px solid #e3ecf3; border-radius:20px; box-shadow:0 10px 30px rgba(30,42,50,.08);
+  padding:clamp(22px,3vw,40px); }
 .try-reason__body{ display:flex; flex-direction:column; justify-content:center; }
 .try-reason__row.is-rev .try-reason__body{ order:2; }
 .try-reason__row.is-rev .try-reason__fig{ order:1; }
 .try-reason__no{ display:inline-flex; align-items:baseline; gap:9px; font-size:13px; font-weight:800; letter-spacing:.2em; color:var(--try-mint); margin:0 0 4px; line-height:1; }
 .try-reason__no span{ font-size:32px; line-height:1; letter-spacing:.02em; }
 .try-reason__ttl{ font-size:clamp(20px,2.3vw,28px); font-weight:800; color:var(--try-dark); line-height:1.5; margin:0 0 10px; letter-spacing:.01em; }
+.try-reason .try-reason__ttl{ border:0; padding:0; margin:0 0 10px; }
+.try-reason__ttl .seg{ display:inline-block; }
 .try-reason__text{ font-size:clamp(15px,1.2vw,17px); line-height:2.0; color:var(--try-text); margin:0 0 14px; }
 .try-reason__text:last-child{ margin-bottom:0; }
 .try-reason__text strong{ color:var(--try-dark); font-weight:800; }
@@ -1495,11 +1557,13 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 .try-reason__fig.is-contain img{ object-fit:contain; padding:14px; }
 .try-reason__cta-wrap{ text-align:center; margin-top:clamp(30px,3.6vw,48px); }
 @media (max-width:860px){
-  .try-reason__row{ grid-template-columns:1fr; gap:16px; }
-  .try-reason__body{ justify-content:flex-start; }
-  .try-reason__row.is-rev .try-reason__body{ order:2; }
-  .try-reason__row.is-rev .try-reason__fig{ order:1; }
-  .try-reason__fig{ max-width:460px; margin:0 auto; width:100%; height:auto; aspect-ratio:16/10; min-height:0; }
+  /* スマホは全行とも「見出し → 画像 → 本文」で統一（CONCEPTと同じ導線） */
+  .try-reason__row{ grid-template-columns:1fr; gap:0; }
+  .try-reason__body{ display:contents; }
+  .try-reason__rhead{ order:1; }
+  .try-reason__fig{ order:2; max-width:460px; margin:clamp(10px,3vw,16px) auto; width:100%; height:auto; aspect-ratio:16/10; min-height:0; }
+  .try-reason__rtext{ order:3; }
+  .try-reason__row.is-rev .try-reason__fig{ order:2; }
 }
 </style>
 
@@ -1514,27 +1578,39 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 
     <div class="try-reason__row">
       <div class="try-reason__body">
-        <p class="try-reason__no">理由 <span>01</span></p>
-        <h3 class="try-reason__ttl">鍼灸でしか届かない、神経・深部へのアプローチ</h3>
-        <p class="try-reason__text">目薬は目の表面、マッサージは表層の筋肉まで。目の奥の神経や深部のコリには届きません。TRYの鍼灸（電気鍼・くるみ灸）は、三叉神経・深部筋・自律神経に<strong>直接アプローチ</strong>。<span class="mark">もやもやの原因そのもの</span>にはたらきかけます。</p>
+        <div class="try-reason__rhead">
+          <p class="try-reason__no">理由 <span>01</span></p>
+          <h3 class="try-reason__ttl"><span class="seg">鍼灸でしか届かない、</span><span class="seg">神経・深部へのアプローチ</span></h3>
+        </div>
+        <div class="try-reason__rtext">
+          <p class="try-reason__text">目薬は目の表面、マッサージは表層の筋肉まで。目の奥の神経や深部のコリには届きません。TRYの鍼灸（電気鍼・くるみ灸）は、三叉神経・深部筋・自律神経に<strong>直接アプローチ</strong>。<span class="mark">もやもやの原因そのもの</span>にはたらきかけます。</p>
+        </div>
       </div>
       <div class="try-reason__fig"><img src="/images/feature-denki.jpg" alt="電気鍼で神経に直接アプローチする施術" loading="lazy" /></div>
     </div>
 
     <div class="try-reason__row is-rev">
       <div class="try-reason__body">
-        <p class="try-reason__no">理由 <span>02</span></p>
-        <h3 class="try-reason__ttl">効果を“見える化”。納得して通えます</h3>
-        <p class="try-reason__text">VASスケール（自覚症状の数値化）で施術前後を計測し、自社開発アプリ「ハリミエ」にグラフで記録。<span class="mark">改善の度合いが一目でわかる</span>から、<strong>納得しながら通院を続けられます</strong>。</p>
+        <div class="try-reason__rhead">
+          <p class="try-reason__no">理由 <span>02</span></p>
+          <h3 class="try-reason__ttl"><span class="seg">効果を“見える化”。</span><span class="seg">納得して通えます</span></h3>
+        </div>
+        <div class="try-reason__rtext">
+          <p class="try-reason__text">VASスケール（自覚症状の数値化）で施術前後を計測し、自社開発アプリ「ハリミエ」にグラフで記録。<span class="mark">改善の度合いが一目でわかる</span>から、<strong>納得しながら通院を続けられます</strong>。</p>
+        </div>
       </div>
       <div class="try-reason__fig is-contain"><img src="/images/vas-dashboard.png" alt="VASスコアによる施術効果の可視化" loading="lazy" /></div>
     </div>
 
     <div class="try-reason__row">
       <div class="try-reason__body">
-        <p class="try-reason__no">理由 <span>03</span></p>
-        <h3 class="try-reason__ttl">医療現場の知見が支える、安心の専門施術</h3>
-        <p class="try-reason__text">院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながらTRYを運営。眼精疲労の裏に潜む疾患も医学的視点で見極め、<strong>必要に応じてクリニックと連携します</strong>。</p>
+        <div class="try-reason__rhead">
+          <p class="try-reason__no">理由 <span>03</span></p>
+          <h3 class="try-reason__ttl"><span class="seg">医療現場の知見が支える、</span><span class="seg">安心の専門施術</span></h3>
+        </div>
+        <div class="try-reason__rtext">
+          <p class="try-reason__text">院長は、リウマチ・膠原病専門クリニック「<a href="https://jrlaser-hikarichuo.com/" target="_blank" rel="noopener">光中央診療所</a>」に勤務しながらTRYを運営。眼精疲労の裏に潜む疾患も医学的視点で見極め、<strong>必要に応じてクリニックと連携します</strong>。</p>
+        </div>
       </div>
       <div class="try-reason__fig"><img src="/images/clinic-reception.jpg" alt="リウマチ膠原病と痛みの専門クリニック" loading="lazy" /></div>
     </div>
@@ -1710,13 +1786,27 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 .try-compare-name{ font-size:clamp(20px,2.4vw,27px); font-weight:800; color:var(--try-dark); margin:0 0 20px; line-height:1.4; }
 .try-compare-card.is-try .try-compare-name{ color:#2f7fb3; }
 .try-compare-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
-.try-compare-list li{ display:flex; gap:12px; font-size:clamp(15.5px,1.45vw,18px); line-height:1.8; color:var(--try-text); }
+.try-compare-list li{ position:relative; padding-left:37px; font-size:clamp(15.5px,1.45vw,18px); line-height:1.8; color:var(--try-text); }
 .try-compare-list strong{ color:var(--try-dark); font-weight:800; }
-.try-compare-ic{ flex:0 0 25px; width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; margin-top:2px; }
+.try-compare-ic{ position:absolute; left:0; top:3px; width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; }
 .try-compare-ic.x{ background:#f0d9d9; color:#c0564e; }
 .try-compare-ic.o{ background:var(--try-mint); color:#fff; }
 .try-compare-note{ text-align:center; color:#8a98a3; font-size:12.5px; margin:clamp(22px,3vw,32px) 0 0; line-height:1.8; }
-@media (max-width:720px){ .try-compare-cols{ grid-template-columns:1fr; } }
+@media (max-width:720px){
+  /* スマホは2カードを横スクロール（スワイプ）にまとめる。次カードをチラ見せ＋スナップ */
+  .try-compare-cols{
+    display:flex; grid-template-columns:none; align-items:stretch; gap:14px;
+    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    margin-left:calc(-1 * max(20px, env(safe-area-inset-left,0px)));
+    margin-right:calc(-1 * max(20px, env(safe-area-inset-right,0px)));
+    padding:16px max(20px, env(safe-area-inset-right,0px)) 34px max(20px, env(safe-area-inset-left,0px));
+    scroll-padding-left:max(20px, env(safe-area-inset-left,0px));
+  }
+  .try-compare-cols::-webkit-scrollbar{ height:0; width:0; }
+  .try-compare-card{ flex:0 0 86%; scroll-snap-align:center; }
+  .try-compare-card.is-try{ box-shadow:0 10px 26px rgba(74,159,212,.18); }
+  .try-compare-sec .try-swipe-hint{ display:flex; }
+}
 </style>
 
 <div class="try-jt -to-white" aria-hidden="true"><svg class="try-jt__wave" viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0,44 C360,6 1080,6 1440,44 L1440,48 L0,48 Z"></path></svg></div>
@@ -1728,6 +1818,7 @@ section.try-compare-sec, section.try-greet, section.try-acc,
       <h2 class="try-compare-ttl">他の眼精疲労ケアとの<span class="accent">違い</span></h2>
       <p class="try-compare-lead">目薬・ホットアイマスク・マッサージ・整体は「表面」や「一時的な緩和」が中心。<br>TRYの鍼灸は、<strong>神経と深部に直接アプローチ</strong>して根本から解消します。</p>
     </div>
+    <p class="try-swipe-hint">スワイプで見る<span class="try-swipe-hint__arrows"><i>›</i><i>›</i><i>›</i></span></p>
     <div class="try-compare-cols">
       <div class="try-compare-card is-other">
         <p class="try-compare-cap">一般的なケア</p>
@@ -1775,6 +1866,7 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 
 <div class="try-pricing">
 <p class="try-pricing__sublabel">初回メニュー</p>
+<p class="try-swipe-hint">スワイプで見る<span class="try-swipe-hint__arrows"><i>›</i><i>›</i><i>›</i></span></p>
 <div class="try-pricing__cards">
 <div class="try-price -primary">
 <img class="try-price__photo" src="/images/feature-kurumi.jpg" alt="くるみ灸による目特化施術の様子" loading="lazy" decoding="async">
@@ -1806,6 +1898,7 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 </div>
 </div>
 <p class="try-pricing__sublabel">眼精疲労以外のお悩みにも</p>
+<p class="try-swipe-hint">スワイプで見る<span class="try-swipe-hint__arrows"><i>›</i><i>›</i><i>›</i></span></p>
 <div class="try-pricing__cards -three">
 <div class="try-price">
 <img class="try-price__photo" src="/images/menu-shinkyu-1.png" alt="肩や腰への鍼灸施術の様子" loading="lazy" decoding="async">
@@ -1865,11 +1958,11 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 
 
 <div class="try-fstep">
-<div class="try-fstep__step"><div class="try-fstep__num">1</div><p class="try-fstep__ttl">カウンセリング</p><p class="try-fstep__txt">目の疲れ方・生活習慣を丁寧にお伺い。</p></div>
-<div class="try-fstep__step is-vas"><div class="try-fstep__num">2</div><p class="try-fstep__ttl">現状を見える化</p><p class="try-fstep__txt">VASスケールで疲労度を数値化。</p></div>
-<div class="try-fstep__step"><div class="try-fstep__num">3</div><p class="try-fstep__ttl">施術</p><p class="try-fstep__txt">くるみ灸×電気鍼でこわばりを緩める。</p></div>
-<div class="try-fstep__step is-vas"><div class="try-fstep__num">4</div><p class="try-fstep__ttl">再評価</p><p class="try-fstep__txt">施術前後の変化をVASで確認。</p></div>
-<div class="try-fstep__step"><div class="try-fstep__num">5</div><p class="try-fstep__ttl">今後のプラン</p><p class="try-fstep__txt">無理のない改善プランをご提案。</p></div>
+<div class="try-fstep__step"><div class="try-fstep__num">1</div><p class="try-fstep__ttl">カウンセリング</p><p class="try-fstep__txt">目の疲れ方・生活習慣を丁寧にお伺い。</p><img class="try-fstep__img" src="/images/flow-counseling.jpg" alt="カウンセリング" loading="lazy"></div>
+<div class="try-fstep__step is-vas"><div class="try-fstep__num">2</div><p class="try-fstep__ttl">現状を見える化</p><p class="try-fstep__txt">VASスケールで疲労度を数値化。</p><img class="try-fstep__img" src="/images/vas-dashboard.png" alt="現状を見える化（VAS）" loading="lazy"></div>
+<div class="try-fstep__step"><div class="try-fstep__num">3</div><p class="try-fstep__ttl">施術</p><p class="try-fstep__txt">くるみ灸×電気鍼でこわばりを緩める。</p><img class="try-fstep__img" src="/images/flow-kyukyu.jpg" alt="施術" loading="lazy"></div>
+<div class="try-fstep__step is-vas"><div class="try-fstep__num">4</div><p class="try-fstep__ttl">再評価</p><p class="try-fstep__txt">施術前後の変化をVASで確認。</p><img class="try-fstep__img" src="/images/flow-review.jpg" alt="再評価（VAS）" loading="lazy"></div>
+<div class="try-fstep__step"><div class="try-fstep__num">5</div><p class="try-fstep__ttl">今後のプラン</p><p class="try-fstep__txt">無理のない改善プランをご提案。</p><img class="try-fstep__img" src="/images/flow-plan.jpg" alt="今後のプラン説明" loading="lazy"></div>
 </div>
 <div class="try-fslide">
 <div class="try-fslide__track">
@@ -1922,6 +2015,8 @@ section.try-compare-sec, section.try-greet, section.try-acc,
 @media (max-width:720px){
   .try-greet__grid{ grid-template-columns:1fr; gap:22px; }
   .try-greet__left img{ max-width:210px; }
+  /* スマホでは公式LINEボタンを中央寄せ */
+  .try-greet__cta-wrap{ text-align:center; }
 }
 </style>
 
@@ -2258,6 +2353,157 @@ document.addEventListener('DOMContentLoaded', function() {
         if(quote) quote.textContent=btn.dataset.quote;
         if(name) name.textContent=btn.dataset.name;
       });
+    });
+  });
+})();
+</script>
+
+<style>
+/* ===== スクロール連動アニメーション（JS有効時のみ初期非表示。無効なら通常表示） =====
+   研究値：ease-outで0.4〜0.8s、要素が10〜20%見えてから発火。画像/メディアは上限寄りでゆっくり。 */
+.try-anim .try-reveal{ opacity:0; transform:translateY(26px);
+  transition:opacity .6s ease-out, transform .6s cubic-bezier(.22,.61,.36,1);
+  will-change:opacity, transform; }
+.try-anim .try-reveal.rv-left{ transform:translateX(-40px); }
+.try-anim .try-reveal.rv-right{ transform:translateX(40px); }
+.try-anim .try-reveal.rv-fade{ transform:none; }
+.try-anim .try-reveal.rv-pop{ transform:scale(.9); }
+.try-anim .try-reveal.rv-slow{ transition-duration:.95s; }   /* 画像・メディアはゆっくり */
+.try-anim .try-reveal.is-in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .try-anim .try-reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+}
+</style>
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('try-anim');
+  /* [セレクタ, タイプ(up/left/right/fade/pop), スタッガー, 'slow'(任意)] */
+  var groups=[
+    ['.try-concept__head','up',false],
+    ['.try-concept__video','up',false,'slow'],
+    ['.try-concept__body','up',false],
+    ['.try-mech__head','up',false],
+    ['.try-mech__row:not(.is-rev)','left',false,'slow'],   /* overflow:hidden のセクション内のみ横スライド */
+    ['.try-mech__row.is-rev','right',false,'slow'],
+    ['.try-reason__head','up',false],
+    ['.try-reason__row:not(.is-rev)','left',false,'slow'],
+    ['.try-reason__row.is-rev','right',false,'slow'],
+    ['.try-voice2__head','up',false],
+    ['.try-vg__item','pop',false],          /* 口コミ動画：全部一気にポップアップ（ずらさない） */
+    ['.try-gsum','up',false],
+    ['.try-chat__msg','fade',true],         /* Googleクチコミ：1個ずつフェード */
+    ['.try-compare-head','up',false],
+    ['.try-compare-card','fade',true],      /* カルーセル内は透明度のみ */
+    ['.try-pricing__sublabel','up',false],
+    ['.try-price','fade',true],             /* カルーセル内は透明度のみ */
+    ['.try-fstep__step','up',true,'slow'],  /* FLOW写真カード：ゆっくり */
+    ['.try-greet__left','up',false,'slow'], /* 代表写真：ゆっくり */
+    ['.try-greet__msg','up',false],
+    ['.try-greet__tl','up',false],
+    ['.try-greet__cta-wrap','up',false]
+  ];
+  var cls={up:'',left:'rv-left',right:'rv-right',fade:'rv-fade',pop:'rv-pop'};
+  var seen=new Map();
+  groups.forEach(function(g){
+    document.querySelectorAll(g[0]).forEach(function(el){
+      el.classList.add('try-reveal');
+      if(cls[g[1]]) el.classList.add(cls[g[1]]);
+      if(g[3]==='slow') el.classList.add('rv-slow');
+      if(g[2]){
+        var p=el.parentNode, i=seen.get(p)||0;
+        el.style.transitionDelay=Math.min(i,6)*110+'ms';   /* 1個ずつ感を少し強めに */
+        seen.set(p,i+1);
+      }
+    });
+  });
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  },{ threshold:0.18, rootMargin:'0px 0px -18% 0px' });   /* 約18%見えてから発火（今より遅め） */
+  document.querySelectorAll('.try-reveal').forEach(function(el){
+    if(!el.classList.contains('try-vg__item')) io.observe(el);   /* 動画は下でまとめて発火 */
+  });
+  /* 口コミ動画：ギャラリーが見えたら3つ同時にポップアップ */
+  var vg=document.querySelector('.try-vg');
+  if(vg){
+    var vio=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        vg.querySelectorAll('.try-vg__item').forEach(function(it){ it.classList.add('is-in'); });
+        vio.disconnect();
+      }});
+    },{ threshold:0.15 });
+    vio.observe(vg);
+  }
+})();
+</script>
+
+<style>
+/* ===== PC：施術の流れ ステップにホバーで対応画像を止めて表示 ===== */
+.try-fslide.is-ctrl{ overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -ms-overflow-style:none; }
+.try-fslide.is-ctrl::-webkit-scrollbar{ height:0; width:0; }
+@media (min-width:721px){
+  .try-fstep__step{ cursor:pointer; }
+  .try-fstep__num{ transition:background .2s, border-color .2s, color .2s, transform .2s, box-shadow .2s; }
+  .try-fstep__step:hover .try-fstep__num{ background:var(--try-mint); border-color:var(--try-mint); color:#fff; box-shadow:0 6px 16px rgba(74,159,212,.35); transform:scale(1.08); }
+  .try-fstep__ttl{ transition:color .2s; }
+  .try-fstep__step:hover .try-fstep__ttl{ color:#2f7fb3; }
+  .try-fslide.is-ctrl .try-fslide__item{ transition:opacity .25s, transform .25s; }
+  .try-fslide.is-ctrl.is-hovering .try-fslide__item{ opacity:.45; }
+  .try-fslide.is-ctrl.is-hovering .try-fslide__item.is-focus{ opacity:1; transform:translateY(-4px); }
+}
+</style>
+<script>
+(function(){
+  var fslide=document.querySelector('.try-fslide');
+  var track=fslide&&fslide.querySelector('.try-fslide__track');
+  var steps=document.querySelectorAll('.try-fstep__step');
+  if(!fslide||!track||!steps.length) return;
+  if(!window.matchMedia('(min-width:721px)').matches) return;          /* PCのみ */
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; /* 視差軽減ならマーキーのまま */
+
+  track.style.animation='none';           /* CSSマーキーを止めてJS制御へ */
+  fslide.classList.add('is-ctrl');        /* overflow-x:auto＋スクロールバー非表示 */
+
+  var items=track.querySelectorAll('.try-fslide__item');
+  var half=fslide.scrollWidth/2;          /* 1セット分の幅（残り半分は複製で継ぎ目なし） */
+  window.addEventListener('resize',function(){ half=fslide.scrollWidth/2; });
+
+  var paused=false, SPEED=0.03, raf, pos=fslide.scrollLeft, last=null; /* SPEED=px/ms（約30px/秒） */
+  function loop(t){
+    if(last==null) last=t;
+    var dt=Math.min(t-last, 50); last=t;   /* リフレッシュレート非依存の一定速度 */
+    if(!paused){
+      pos+=SPEED*dt;              /* scrollLeftは整数丸めされるので位置はfloatで保持 */
+      if(pos>=half) pos-=half;
+      fslide.scrollLeft=pos;
+    }
+    raf=requestAnimationFrame(loop);
+  }
+  raf=requestAnimationFrame(loop);
+
+  function centerTarget(i){
+    var node=items[i];
+    var base=node.offsetLeft + node.offsetWidth/2 - fslide.clientWidth/2;
+    var cur=fslide.scrollLeft, max=fslide.scrollWidth-fslide.clientWidth;
+    var best=base, bestD=Infinity;
+    [base-half, base, base+half].forEach(function(c){
+      if(c>=0 && c<=max){ var d=Math.abs(c-cur); if(d<bestD){ bestD=d; best=c; } }
+    });
+    return best;
+  }
+
+  steps.forEach(function(step,i){
+    step.addEventListener('mouseenter',function(){
+      paused=true;
+      fslide.classList.add('is-hovering');
+      items.forEach(function(it,k){ it.classList.toggle('is-focus', (k%items.length)%5===i || (k===i || k===i+5)); });
+      fslide.scrollTo({ left:centerTarget(i), behavior:'smooth' });
+    });
+    step.addEventListener('mouseleave',function(){
+      pos=fslide.scrollLeft;      /* ホバー中に動いた分へ再同期してから再開 */
+      paused=false;
+      fslide.classList.remove('is-hovering');
+      items.forEach(function(it){ it.classList.remove('is-focus'); });
     });
   });
 })();
