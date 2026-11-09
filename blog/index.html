@@ -118,8 +118,11 @@ img{ max-width:100%; }
 .post-card{ background:#fff; border:1px solid var(--try-line); border-radius:16px; overflow:hidden; transition:box-shadow .2s ease, transform .2s ease; display:block; }
 .post-card:hover{ box-shadow:var(--try-shadow); transform:translateY(-3px); }
 .post-card.hidden{ display:none; }
-.post-thumb{ height:156px; background:var(--try-palemint); display:flex; align-items:center; justify-content:center; font-size:0; }
-.post-thumb::after{ content:""; width:62px; height:62px; background:url(/images/logo-mark.png) center/contain no-repeat; opacity:.9; }
+.post-thumb{ position:relative; height:180px; overflow:hidden; background:var(--try-palemint); }
+.post-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.post-thumb__ov{ position:absolute; inset:0; background:linear-gradient(to top, rgba(10,24,33,.84) 0%, rgba(10,24,33,.3) 46%, rgba(10,24,33,0) 72%); }
+.post-thumb__cat{ position:absolute; top:12px; left:12px; z-index:2; font-size:11px; font-weight:800; color:#2f7fb3; background:rgba(255,255,255,.95); border-radius:999px; padding:5px 12px; letter-spacing:.04em; }
+.post-thumb__title{ position:absolute; left:14px; right:14px; bottom:12px; z-index:2; margin:0; color:#fff; font-size:15.5px; font-weight:800; line-height:1.45; text-shadow:0 2px 8px rgba(0,0,0,.45); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 .post-body{ padding:20px; }
 .post-cat{ font-size:11px; letter-spacing:.08em; color:var(--try-mint-d); font-weight:800; background:#eaf5fc; display:inline-block; padding:4px 11px; border-radius:100px; margin-bottom:11px; }
 .post-title{ font-size:16px; font-weight:800; line-height:1.55; margin-bottom:10px; color:var(--try-dark); }
@@ -169,190 +172,152 @@ img{ max-width:100%; }
   </div>
   <div class="posts-grid" id="postsGrid">
     <a href="/blog/posts/eye-strain-autonomic-nervous-system/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/feature-denki.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">眼精疲労と自律神経の深い関係とは？原因と整えるケア方法を解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">眼精疲労と自律神経の深い関係とは？原因と整えるケア方法を解説</h2>
         <p class="post-excerpt">目が重い・頭痛がする…その症状、眼精疲労と自律神経の乱れが原因かもしれません。横浜・桜木町の眼精疲労専門鍼灸院が、目と自律神経の関係性や日常でできるケア、鍼灸によるアプローチ方法をわかりやすく解説します。</p>
         <p class="post-meta">2026.10.12</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/blue-light-eye-strain/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/hero-pc.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">ブルーライトによる眼精疲労を防ぐには？横浜の鍼灸院が原因と対策を解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">ブルーライトによる眼精疲労を防ぐには？横浜の鍼灸院が原因と対策を解説</h2>
         <p class="post-excerpt">スマホやPCのブルーライトによる眼精疲労にお悩みではありませんか？横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYが、ブルーライトが目に与える影響や日常でできる対策、セルフケア方法を解説します。目の疲れを和らげ、健やかな毎日をサポートします。</p>
         <p class="post-meta">2026.10.08</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-strain-tsubo-selfcare/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><img src="/images/feature-kurumi.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">眼精疲労に効くツボとは？自宅でできる簡単セルフケアを解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">眼精疲労に効くツボとは？自宅でできる簡単セルフケアを解説</h2>
         <p class="post-excerpt">横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYが、目の疲れを和らげるツボと自宅でできるセルフケア方法を解説します。PCやスマホによる眼精疲労、それに伴う肩こりや頭痛にお悩みの方は、ぜひ日々のケアに取り入れてみてください。</p>
         <p class="post-meta">2026.10.01</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-fatigue-warm-or-cold/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><img src="/images/flow-treatment.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">目の疲れは温める？冷やす？眼精疲労専門の鍼灸師が正しいケアを解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">目の疲れは温める？冷やす？眼精疲労専門の鍼灸師が正しいケアを解説</h2>
         <p class="post-excerpt">目の疲れを感じたとき、温めるべきか冷やすべきか迷いませんか？この記事では、眼精疲労の相談に対応する鍼灸院TRYが、症状に合わせた正しいケア方法を解説します。目の疲れを和らげ、健やかな毎日を送るためのセルフケア方法もご紹介しています。</p>
         <p class="post-meta">2026.09.28</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/dry-eye-eye-strain-difference/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/hero-sp.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">ドライアイと眼精疲労の違いとは？原因とセルフケアを専門鍼灸院が解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">ドライアイと眼精疲労の違いとは？原因とセルフケアを専門鍼灸院が解説</h2>
         <p class="post-excerpt">ドライアイと眼精疲労の違いをご存知ですか？横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYが、それぞれの原因や見分け方、自宅でできるセルフケア、鍼灸によるアプローチをわかりやすく解説します。</p>
         <p class="post-meta">2026.09.24</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-fatigue-sleep-relationship/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/access-room.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">眼精疲労と睡眠の深い関係とは？プロが教える目を休める睡眠ケア</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">眼精疲労と睡眠の深い関係とは？プロが教える目を休める睡眠ケア</h2>
         <p class="post-excerpt">眼精疲労と睡眠には深い関係があります。目が疲れて眠れない、寝ても目の疲れが取れないとお悩みの方へ、横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYがその原因と、睡眠の質を整えて目の疲労を和らげるセルフケア、鍼灸によるアプローチを解説します。</p>
         <p class="post-meta">2026.09.21</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-strain-neck-stiffness-relationship/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/flow-counseling.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">眼精疲労と首こりの深い関係とは？原因と鍼灸院が教えるケア方法</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">眼精疲労と首こりの深い関係とは？原因と鍼灸院が教えるケア方法</h2>
         <p class="post-excerpt">眼精疲労と首こりの辛い関係にお悩みではありませんか？実は、目の疲れと首の筋肉の緊張は深く関係しています。横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYが、その原因と自宅でできるセルフケア、鍼灸によるアプローチについて分かりやすく解説します。</p>
         <p class="post-meta">2026.09.17</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-strain-deep-cause/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/flow-kyukyu.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">目の奥の疲れの原因とは？眼精疲労専門の鍼灸師が対策を解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">目の奥の疲れの原因とは？眼精疲労専門の鍼灸師が対策を解説</h2>
         <p class="post-excerpt">目の奥の疲れにお悩みではありませんか？その原因は、長時間のスマホ使用や首肩のコリ、自律神経の乱れなど様々です。横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYが、目の奥が疲れる原因と、自宅でできるセルフケアや鍼灸による対策について分かりやすく解説します。</p>
         <p class="post-meta">2026.09.10</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/smartphone-eye-strain-selfcare/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><img src="/images/flow-review.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">スマホによる目の疲れに！自宅でできる簡単セルフケア方法</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">スマホによる目の疲れに！自宅でできる簡単セルフケア方法</h2>
         <p class="post-excerpt">スマホの使いすぎによる目の疲れにお悩みではありませんか？横浜・桜木町の眼精疲労の相談に対応する鍼灸院TRYが、スマホによる目の疲れの原因と、自宅で手軽に実践できるおすすめのセルフケア方法を優しく解説します。日々のケアで目元をスッキリ整えましょう。</p>
         <p class="post-meta">2026.09.07</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/pc-work-eye-strain-measures/" class="post-card" data-cat="treatment">
-      <div class="post-thumb">🌿</div>
+      <div class="post-thumb"><img src="/images/profile.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">パソコン作業による目の疲れ対策とは？眼精疲労専門の鍼灸師が解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">パソコン作業による目の疲れ対策とは？眼精疲労専門の鍼灸師が解説</h2>
         <p class="post-excerpt">パソコン作業による目の疲れにお悩みではありませんか？本記事では、目の疲れの原因と、オフィスや自宅でできる選択肢となる対策・セルフケアを眼精疲労専門の鍼灸師が分かりやすく解説します。辛い肩こりや頭痛に繋がる前に、日頃のケアで目を労りましょう。</p>
         <p class="post-meta">2026.09.03</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/test-article-001/" class="post-card" data-cat="cause">
-      <div class="post-thumb">👁️</div>
+      <div class="post-thumb"><img src="/images/flow-plan.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">テスト記事｜自動publの動作確認</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">テスト記事｜自動publの動作確認</h2>
         <p class="post-excerpt">鍼灸院TRYのブログ自動publパイプラインの動作確認用テスト記事です。横浜・桜木町の眼精疲労専門鍼灸院TRY。</p>
         <p class="post-meta">2026.08.08</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-strain-stiff-neck-headache-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/feature-denki.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">眼精疲労からくる肩こり・頭痛に鍼灸がおすすめな理由｜横浜・桜木町の鍼灸院TRY</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">眼精疲労からくる肩こり・頭痛に鍼灸がおすすめな理由｜横浜・桜木町の鍼灸院TRY</h2>
         <p class="post-excerpt">眼精疲労に伴う肩こりや頭痛にお悩みではありませんか？横浜・桜木町の眼精疲労専門「鍼灸院TRY」が、目の疲れと肩こり・頭痛の深い関係や、鍼灸施術が効果的な理由、自宅でできるセルフケアについて分かりやすく解説します。</p>
         <p class="post-meta">2026.07.26</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/yokohama-sakuragicho-eye-strain-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/hero-pc.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">横浜・桜木町で眼精疲労にお悩みの方へ｜鍼灸で目の疲れを和らげる方法</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">横浜・桜木町で眼精疲労にお悩みの方へ｜鍼灸で目の疲れを和らげる方法</h2>
         <p class="post-excerpt">横浜・桜木町でデスクワークによる眼精疲労や目の疲れにお悩みの方へ。眼精疲労が起こる原因や自宅でできる簡単なセルフケア、鍼灸がおすすめな理由を分かりやすく解説します。つらい目の疲れを整え、快適な毎日へと導くお手伝いをいたします。</p>
         <p class="post-meta">2026.07.20</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-strain-shoulder-stiffness-headache-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/feature-kurumi.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">眼精疲労からくる肩こり・頭痛に！鍼灸で心身を整えるアプローチ</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">眼精疲労からくる肩こり・頭痛に！鍼灸で心身を整えるアプローチ</h2>
         <p class="post-excerpt">眼精疲労に伴うつらい肩こりや頭痛にお悩みではありませんか？横浜・桜木町の眼精疲労専門「鍼灸院TRY」が、目の疲れと肩こり・頭痛の関係性を解説し、鍼灸によるアプローチや自宅でできるケア方法をご紹介します。心身を整えて快適な毎日へ導きます。</p>
         <p class="post-meta">2026.07.16</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-strain-acupuncture-care/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/flow-treatment.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">眼精疲労に鍼灸がおすすめな理由とは？横浜の専門院が解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">眼精疲労に鍼灸がおすすめな理由とは？横浜の専門院が解説</h2>
         <p class="post-excerpt">横浜・桜木町の眼精疲労専門「鍼灸院TRY」が、眼精疲労に鍼灸がおすすめな理由と自宅でできるセルフケアを解説します。目の疲れやそこからくる肩こり、頭痛にお悩みの方はぜひ参考にしてください。鍼灸で心身のバランスを整え、スッキリとした毎日へ導きます。</p>
         <p class="post-meta">2026.07.15</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/sakuragicho-eye-strain-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/hero-sp.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">桜木町で眼精疲労に悩む方へ｜鍼灸で目の疲れをスッキリ整える方法</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">桜木町で眼精疲労に悩む方へ｜鍼灸で目の疲れをスッキリ整える方法</h2>
         <p class="post-excerpt">横浜・桜木町で眼精疲労にお悩みの方へ。デスクワークによる目の疲れや、それに伴う肩こり・頭痛を和らげるための鍼灸アプローチを解説します。桜木町の眼精疲労専門「鍼灸院TRY」が、原因から自宅でできるセルフケアまで丁寧に紹介します。</p>
         <p class="post-meta">2026.07.15</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/yokohama-eye-strain-acupuncture/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/access-room.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">横浜で眼精疲労にお悩みの方へ｜鍼灸で心身を整えるおすすめケア</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">横浜で眼精疲労にお悩みの方へ｜鍼灸で心身を整えるおすすめケア</h2>
         <p class="post-excerpt">横浜・桜木町で眼精疲労にお悩みではありませんか？パソコンやスマホの長時間使用による目の疲れや、それに伴う肩こりなどの不調に対し、東洋医学に基づく鍼灸を用いたケア方法や、自宅でできる簡単なセルフケアについて詳しく解説します。</p>
         <p class="post-meta">2026.07.15</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/eye-fatigue-cause/" class="post-card" data-cat="cause">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">眼精疲労の原因・対策</span></div>
+      <div class="post-thumb"><img src="/images/flow-counseling.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">眼精疲労の原因・対策</span><h2 class="post-thumb__title">眼精疲労の原因とは？スマホ・PCで目が疲れるメカニズムを解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">眼精疲労の原因・対策</span>
-        <h2 class="post-title">眼精疲労の原因とは？スマホ・PCで目が疲れるメカニズムを解説</h2>
         <p class="post-excerpt">現代人の多くが悩む眼精疲労。その根本的な原因と、なぜスマホやPCが目に悪影響を与えるのかを解説します。</p>
         <p class="post-meta">2026.06.05</p>
         <span class="post-more">続きを読む</span>
       </div>
     </a>
     <a href="/blog/posts/acupuncture-eye/" class="post-card" data-cat="treatment">
-      <div class="post-thumb"><span class="thumb-logo">鍼灸院 TRY</span><span class="thumb-cat">施術について</span></div>
+      <div class="post-thumb"><img src="/images/flow-kyukyu.jpg" alt="" loading="lazy"><div class="post-thumb__ov"></div><span class="post-thumb__cat">施術について</span><h2 class="post-thumb__title">鍼灸で眼精疲労が改善する理由｜くるみ灸・電気鍼の効果を解説</h2></div>
       <div class="post-body">
-        <span class="post-cat">施術について</span>
-        <h2 class="post-title">鍼灸で眼精疲労が改善する理由｜くるみ灸・電気鍼の効果を解説</h2>
         <p class="post-excerpt">TRYが採用しているくるみ灸と電気鍼。なぜこの組み合わせが眼精疲労に効果的なのか医学的に解説します。</p>
         <p class="post-meta">2026.06.05</p>
         <span class="post-more">続きを読む</span>
